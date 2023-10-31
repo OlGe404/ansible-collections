@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Include distro_packages
+      ansible.builtin.include_role:
+        name: distro_packages

@@ -1,0 +1,28 @@
+---
+- name: Install dnf-plugins-core for dnf config-manager
+  become: true
+  ansible.builtin.dnf:
+    name: dnf-plugins-core
+
+- name: Add dnf repositories
+  become: true
+  ansible.builtin.command: dnf config-manager --add-repo {{ item.repo }}
+  with_items: "{{ distro_repositories }}"
+  # There is no real way to add idempotency to this command,
+  # because the output is identical when adding a new repo even if it already exists.
+  changed_when: false
+
+- name: Update dnf cache
+  become: true
+  ansible.builtin.dnf:
+    update_cache: true
+
+- name: "Install package(s): {{ distro_packages | join(', ') }}"
+  become: true
+  ansible.builtin.dnf:
+    name: "{{ distro_packages }}"
+
+- name: Dnf cleanup
+  become: true
+  ansible.builtin.dnf:
+    autoremove: true
