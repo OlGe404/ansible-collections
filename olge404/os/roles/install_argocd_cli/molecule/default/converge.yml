@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: Include install_argocd_cli
+      ansible.builtin.include_role:
+        name: install_argocd_cli

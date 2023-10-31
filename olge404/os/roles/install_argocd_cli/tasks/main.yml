@@ -1,0 +1,12 @@
+---
+- name: Download argocd_cli {{ install_argocd_cli_version }}
+  become: true
+  ansible.builtin.get_url:
+    url: "https://github.com/argoproj/argo-cd/releases/download/{{ install_argocd_cli_version }}/argocd-linux-amd64"
+    dest: /usr/local/bin/argocd
+    mode: "0755"
+    owner: root
+  register: download_argocd_cli
+  until: download_argocd_cli is succeeded
+  retries: 5
+  delay: 3

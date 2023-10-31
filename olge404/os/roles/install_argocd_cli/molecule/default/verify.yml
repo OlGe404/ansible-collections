@@ -1,0 +1,17 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  pre_tasks:
+    - name: Include default vars
+      ansible.builtin.include_vars:
+        file: ../../defaults/main.yml
+
+  tasks:
+    - name: Get argocd cli version
+      ansible.builtin.command: argocd version --client
+      register: argocd_cli
+
+    - name: Assert that installed version = configured version
+      ansible.builtin.assert:
+        that: install_argocd_cli_version in argocd_cli.stdout

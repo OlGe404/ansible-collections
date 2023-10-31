@@ -1,0 +1,25 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: docker
+
+platforms:
+  - name: debian-bullseye
+    image: debian-bullseye:latest
+    pre_build_image: true
+
+  - name: debian-bookworm
+    image: debian-bookworm:latest
+    pre_build_image: true
+
+  - name: rhel-8
+    image: rhel-8:latest
+    pre_build_image: true
+
+provisioner:
+  name: ansible
+
+verifier:
+  name: ansible
