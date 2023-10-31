@@ -32,8 +32,9 @@ When not using the requirements.yaml file, the version is specified after the `,
 ## How to use roles from the collection
 How to use each role is explained in the ``Example Playbook usage`` section of the README.md file for each role.
 
-# Local development and testing
+## Local development and testing
 Local development and testing is done with molecule. The test instances are based on pre-build, publicly available container images.
+See [install_argocd_cli](roles/install_argocd_cli/README.md) as example.
 
 ## Install local prerequisites
 We need other collections and pip packages for our test setup. They can be found in the [requirements.yaml](requirements.yaml) and the [requirements.txt](requirements.txt) file.
