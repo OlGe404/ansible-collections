@@ -59,7 +59,7 @@ The roles are tested on these platforms:
 * debian-bullseye
 * ubuntu-jammy
 
-To see which container images are used in the molecule test scenarios, checkout this [molecule config file](roles/distro_packages/molecule/default/molecule.yml).
+To see which container images are used in the molecule test scenarios, checkout the shared [molecule config file](shared/molecule.yml).
 
 ## Run molecule tests
 To test a specific role, navigate to the root dir of the role, e.g. [install_argocd_cli](roles/install_argocd_cli/).

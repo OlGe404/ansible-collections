@@ -3,13 +3,12 @@
   hosts: all
   gather_facts: false
   tasks:
-    - name: Run test commands for git, curl, packer
+    - name: Run test commands for curl and packer
       ansible.builtin.command: "{{ item }}"
       register: cmd
       failed_when:
         - cmd.rc != 0
         - cmd.stdout|length == 0
       loop:
-        - git --version
         - curl --version
         - /usr/bin/packer version
