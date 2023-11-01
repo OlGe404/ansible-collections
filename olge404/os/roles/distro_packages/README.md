@@ -17,7 +17,7 @@ ansible-galaxy collection install -r requirements.yaml --force
 
 Role Variables
 --------------
-Overview of the vars used in this role. See [Example Playbook usage](#Example-Playbook-usage) for more
+Overview of the vars used in this role. See [Example playbook usage](#Example-Playbook-usage) for more
 details.
 
 **_NOTE:_** See the [default vars](defaults/main.yml) before overwriting them in a playbook or otherwise.
@@ -31,7 +31,7 @@ Dependencies
 ------------
 None.
 
-Example Playbook usage
+Example playbook usage
 ----------------
 ```yaml
 - name: Example 
