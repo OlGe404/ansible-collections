@@ -5,8 +5,7 @@ It shall be used to help improve the quality of automation pipelines and to keep
 The collection can be used to setup containers, VMs, etc. - basically anything that is based on a linux OS.
 
 # Install the collection
-Install the collection by providing a version and url to install it from.
-Since the collection isn't published to ansible-galaxy, the easiest way is to install it from this repository.
+Since the collection isn't published to the ansible-galaxy hub, the easiest way is to install it from this repository.
 
 Use the following command to do so:
 ```bash
@@ -30,10 +29,10 @@ ansible-galaxy collection install -r requirements.yaml
 When not using the requirements.yaml file, the version (branch) to install is specified after the `,` in the url.
 
 ## How to use roles from the collection
-How to use the roles from this collection is explained under ``Example Playbook usage`` in the README file for each role.
+Each role has its own README file where the usage is explained in the `Example playbook usage` section, e.g. [distro_packages](roles/distro_packages/README.md).
 
 ## Local development and testing
-Local development and testing is done with molecule. The test instances are based on pre-build, publicly available container images, that are prepared to run molecule test using this [playbook](shared/prepare-container.yaml).
+Local development and testing is done with molecule. The test instances are based on pre-build, publicly available container images, that are prepared to run molecule tests using this [playbook](shared/prepare-container.yaml).
 
 ## Install local prerequisites
 We need other collections and pip packages for our test setup to work. They can be found in the [requirements.yaml](requirements.yaml) and the [requirements.txt](requirements.txt) file.
