@@ -78,7 +78,7 @@ molecule test --all --platform-name=debian-bullseye
 ## Develop and debug roles with molecule
 Sometimes you need to check what is going on during role development. Running your roles on localhost to see if they work is a bad idea, because this can break your development environment and doesn't provide a clean, deterministic starting point.
 
-Therefore the first step should be to ensure that
+The first steps should be to ensure that
 ```bash
 molecule create
 ```
@@ -89,7 +89,7 @@ AND
 molecule destroy
 ```
 
-works. If those commands fail, you are not able to provision/destroy your test infrastructure on demand to debug your roles.
+work properly. If those commands fail, you are not able to provision/destroy your test infrastructure on demand to debug your roles.
 
 **NOTE:** If you copy/pasted another role, the molecule setup is copied too and the commands should work right away.
 
