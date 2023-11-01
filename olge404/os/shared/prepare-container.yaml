@@ -21,6 +21,5 @@
     - name: Symlink python3 -> python for correct interpreter discovery
       ansible.builtin.command: ln -s /usr/bin/python3 /usr/bin/python
 
-    - ansible.builtin.setup:
-
-    - debug: msg="{{ ansible_env.PATH }}"
+    - name: Check that gather_facts works now
+      ansible.builtin.setup:
