@@ -1,19 +1,19 @@
-# Ansible Collection - olge404.os
+# Intro
 This collection is used to simplify the installation, configuration and testing for various software packages on multiple linux distros.
-It shall be used to help improve the quality in automation pipelines and to keep git repositories DRY and concise.
+It shall be used to help improve the quality of automation pipelines and to keep the setup DRY, tested and concise.
 
 The collection can be used to setup containers, VMs, etc. - basically anything that is based on a linux OS.
 
 # Install the collection
-To use the collection, you have to install it first. This can be done by providing a version and url to install the collection from.
-Since the collection isn't published to the ansible-galaxy hub, the easiest way to install it is from this git repository.
+Install the collection by providing a version and url to install it from.
+Since the collection isn't published to ansible-galaxy, the easiest way is to install it from this repository.
 
-You can install it  with the following command:
+Use the following command to do so:
 ```bash
 ansible-galaxy collection install git+https://github.com/OlGe404/ansible-collections.git#/olge404/os/,master
 ```
 
-You can also provide a requirements.yaml file with the collection spec in it
+You can also specify it in the requirements.yaml file
 ```yaml
 # requirements.yaml
 ---
@@ -22,22 +22,21 @@ collections:
     version: master
 ```
 
-and then use the file for the installation as usual:
+and then install it as usual:
 ```bash
 ansible-galaxy collection install -r requirements.yaml
 ```
 
-When not using the requirements.yaml file, the version is specified after the `,` in the url. Be sure to use ``git+https`` as protocol in the url, otherwise the installation might fail.
+When not using the requirements.yaml file, the version (branch) to install is specified after the `,` in the url.
 
 ## How to use roles from the collection
-How to use each role is explained in the ``Example Playbook usage`` section of the README.md file for each role.
+How to use the roles from this collection is explained under ``Example Playbook usage`` in the README file for each role.
 
 ## Local development and testing
-Local development and testing is done with molecule. The test instances are based on pre-build, publicly available container images.
-See [install_argocd_cli](roles/install_argocd_cli/README.md) as example.
+Local development and testing is done with molecule. The test instances are based on pre-build, publicly available container images, that are prepared to run molecule test using this [playbook](shared/prepare-container.yaml).
 
 ## Install local prerequisites
-We need other collections and pip packages for our test setup. They can be found in the [requirements.yaml](requirements.yaml) and the [requirements.txt](requirements.txt) file.
+We need other collections and pip packages for our test setup to work. They can be found in the [requirements.yaml](requirements.yaml) and the [requirements.txt](requirements.txt) file.
 
 To install the necessary collections, run
 ```bash
@@ -51,21 +50,19 @@ cd $(git rev-parse --show-toplevel)/olge404/os && \
 python3 -m pip install --upgrade --user -r requirements.txt
 ```
 
-## Add a new role to the collection
-To add a new role to the collection, copy/paste another role to have a valid starting point including the molecule test setup.
-You should use the [install_argocd_cli](roles/install_argocd_cli/README.md) role because it is a simple example and a good starting point.
+You also need `podman` to spawn the containers that are used as test instances. Checkout the [podman docs](https://podman.io/docs/installation) on how to install it.
 
-## Build the container images to use in molecule tests
-To build the container images used for the molecule tests, export your AWS ENVs as follows
+## Add a new role to the collection
+You should copy/paste another role to have a valid starting point including the molecule test setup and edit it accordingly to do what you want.
+Use [install_argocd_cli](roles/install_argocd_cli/README.md) as a simple example to get going.
 
 ### Supported platforms
-The roles are tested on:
+The roles are tested on
 * rhel-8
 * debian-bullseye
-* debian-bookworm
+* ubuntu-jammy
 
-To see how the container images are used in a molecule test scenario, see this
-[molecule config file](roles/install_argocd_cli/molecule/default/molecule.yml) as an example.
+To see how the container images are used in a molecule test scenario, see this [molecule config file](roles/distro_packages/molecule/default/molecule.yml) as example.
 
 ## Run molecule tests
 To run the molecule tests for a specific role, navigate to the roles root dir, e. g. [install_argocd_cli](roles/install_argocd_cli/).
@@ -82,17 +79,18 @@ molecule test --all --platform-name=debian-bullseye
 ```
 
 ## Develop and debug roles with molecule
-Sometimes you need to check what is going on during role development. The first step should be to ensure that
+Sometimes you need to check what is going on during role development. Running your roles on localhost to test them is a bad idea, because this can break your development environment. Therefore the first step should be to ensure that
 ```bash
 molecule create
 ```
+
 AND
+
 ```bash
 molecule destroy
 ```
-work for your role. If those commands fail, you are not able to provision and destroy your test infrastructure
-on demand and cannot debug your roles. Running your roles on localhost to test them is a bad idea, because this can break your development environment.
 
+works. If those commands fail, you are not able to provision and destroy your test infrastructure on demand to debug your roles.
 If you copy/pasted another role, the molecule setup is copied too and the commands should work right away.
 
 After ``molecule create`` and ``molecule destroy`` work, you can login to your instances using molecule.
