@@ -1,0 +1,5 @@
+---
+distro_packages:
+  - git
+  - curl
+  - packer

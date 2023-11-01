@@ -1,13 +1,13 @@
 ---
-- name: Include tasks
+- name: Install distro_packages
   when: distro_packages|length > 0
   block:
     - name: Apt
-      when: ansible_distribution == 'Debian'
+      when: ansible_distribution in ["Debian", "Ubuntu"]
       ansible.builtin.include_tasks:
         file: apt.yaml
 
     - name: Dnf
-      when: ansible_distribution == 'RedHat'
+      when: ansible_distribution in ["RedHat"]
       ansible.builtin.include_tasks:
         file: dnf.yaml

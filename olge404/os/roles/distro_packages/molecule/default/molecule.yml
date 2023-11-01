@@ -3,47 +3,27 @@ dependency:
   name: galaxy
 
 driver:
-  name: docker
+  name: podman
 
 platforms:
   - name: debian-bullseye
-    image: debian-bullseye:latest
+    image: debian:bullseye
     pre_build_image: true
 
-  - name: debian-bookworm
-    image: debian-bookworm:latest
+  - name: ubuntu-jammy
+    image: ubuntu:jammy
     pre_build_image: true
 
   - name: rhel-8
-    image: rhel-8:latest
+    image: registry.access.redhat.com/ubi8/ubi:latest
     pre_build_image: true
 
 provisioner:
   name: ansible
   inventory:
-    group_vars:
-      all:
-        distro_packages:
-          - git
-          - curl
-          - packer
-
-    host_vars:
-      debian-bullseye:
-        distro_repositories:
-          - name: hashicorp
-            key_url: https://apt.releases.hashicorp.com/gpg
-            repo: "deb https://apt.releases.hashicorp.com bullseye main"
-
-      debian-bookworm:
-        distro_repositories:
-          - name: hashicorp
-            key_url: https://apt.releases.hashicorp.com/gpg
-            repo: "deb https://apt.releases.hashicorp.com bookworm main"
-
-      rhel-8:
-        distro_repositories:
-          - repo: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+    links:
+      group_vars: ../../../../group_vars/
+      host_vars: ../../../../host_vars/
 
 verifier:
   name: ansible

@@ -8,17 +8,17 @@
 
 - name: Download apt key(s)
   become: true
+  with_items: "{{ distro_repositories }}"
   ansible.builtin.apt_key:
     url: "{{ item.key_url }}"
-  with_items: "{{ distro_repositories }}"
 
 - name: Add apt repositories
   become: true
   when: distro_repositories | length > 0
+  with_items: "{{ distro_repositories }}"
   ansible.builtin.apt_repository:
     repo: "{{ item.repo }}"
     filename: "{{ item.name }}"
-  with_items: "{{ distro_repositories }}"
 
 - name: Update apt cache
   become: true
