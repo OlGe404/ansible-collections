@@ -20,6 +20,10 @@ platforms:
 
 provisioner:
   name: ansible
+  playbooks:
+    prepare: ../../../../shared/playbooks/prepare.yaml
+    converge: ../../../../shared/playbooks/converge.yaml
+
   inventory:
     links:
       group_vars: ../../../../group_vars/
