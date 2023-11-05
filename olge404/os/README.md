@@ -70,7 +70,7 @@ Use `ROLES=<role_name> make` to run "molecule test" for a specific role
 
 Use `SEQUENCE=create make` to run "molecule create" for all roles 
 
-.. and so on. You can combine the parameters as you like. You could use `ROLES=distro_packages SEQUENCE=converge make` to run "molecule converge" for the distro_packages role.
+.. and so on. You can combine the parameters as you like. You could use `ROLES=distro_packages SEQUENCE=converge make` to run "molecule converge" for the "distro_packages" role.
 
 You can set the parameters in your environment with e.g. `export ROLES=<role_name>` to not have to provide them each time you invoke the command.
 
