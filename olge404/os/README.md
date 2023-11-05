@@ -24,13 +24,13 @@ and install it with:
 ansible-galaxy collection install -r requirements.yaml
 ```
 
-**NOTE:** When not using the requirements.yaml file, the version (branch) to install is specified after the `,` in the url.
+When not using the requirements.yaml file, the version (branch) to install is specified after the `,` in the url.
 
 ## How to use roles from the collection
-Each role has its own README file where the usage is explained in the `Example playbook usage` section, e.g. [distro_packages](roles/distro_packages/README.md).
+Each role has its own `README.md` file where the usage is explained in the `Example playbook usage` section, e.g. [distro_packages](roles/distro_packages/README.md).
 
 ## Local development and testing
-Local development and testing is done with molecule. The test instances are based on pre-build, publicly available container images, that are prepared to run molecule tests using this [playbook](shared/prepare-container.yaml).
+Local development and testing is done with molecule. The test instances are based on pre-build, publicly available container images, that are prepared to run the molecule tests using this [Dockerfile](shared/Dockerfile.j2).
 
 ## Install local prerequisites
 We need other collections and pip packages for our test setup to work. They can be found in the [requirements.yaml](requirements.yaml) and the [requirements.txt](requirements.txt) file.
@@ -54,12 +54,7 @@ You should copy/paste another role to have a valid starting point including the 
 Use [distro_packages](roles/distro_packages/README.md) as a simple example to get going.
 
 ### Supported platforms
-The roles are tested on these platforms:
-* rhel-8
-* debian-bullseye
-* ubuntu-jammy
-
-To see which container images are used in the molecule test scenarios, checkout the shared [molecule config file](shared/molecule.yml).
+To see which container images are used as base images for the molecule tests, checkout the shared [molecule config file](shared/molecule.yml).
 
 ## Run molecule tests
 molecule should be run using the included Makefile. The Makefile ensures that molecule commands are executed with the proper config files to keep the test setup DRY.
@@ -74,7 +69,7 @@ Use `SEQUENCE=create make` to run "molecule create" for all roles
 
 You can set the parameters in your environment with e.g. `export ROLES=<role_name>` to not have to provide them each time you invoke the command.
 
-## Develop and debug roles with molecule
+## Develop and debug roles
 Sometimes you need to check what is going on when developing a new role. Running your roles on localhost to see if they work is a bad idea, because this can break your development environment and doesn't provide a clean, deterministic starting point.
 
 The first steps should be to ensure that
