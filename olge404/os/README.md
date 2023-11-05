@@ -47,7 +47,7 @@ cd $(git rev-parse --show-toplevel)/olge404/os && \
 python3 -m pip install --upgrade --user -r requirements.txt
 ```
 
-You also need `podman` to spawn the containers that are used as test instances. Checkout the [podman docs](https://podman.io/docs/installation) on how to install it.
+You also need `podman` and `make` to spawn the containers that are used as test instances. Checkout the [podman docs](https://podman.io/docs/installation) and [make docs](https://www.gnu.org/software/make/) on how to install them.
 
 ## Add a new role to the collection
 You should copy/paste another role to have a valid starting point including the molecule test setup and edit it accordingly once the test setup works.
