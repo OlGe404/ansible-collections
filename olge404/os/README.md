@@ -72,7 +72,7 @@ Use `SEQUENCE=create make` to run "molecule create" for all roles
 
 .. and so on. You can combine the parameters as you like. You could use `ROLES=distro_packages SEQUENCE=converge make` to run "molecule converge" for the distro_packages role.
 
-You don't have to provide the parameters each time you invoke the make target - you can set them in your environment with e.g. `export ROLES=<role_name>` to not have to provide them each time.
+You can set the parameters in your environment with e.g. `export ROLES=<role_name>` to not have to provide them each time you invoke the command.
 
 ## Develop and debug roles with molecule
 Sometimes you need to check what is going on when developing a new role. Running your roles on localhost to see if they work is a bad idea, because this can break your development environment and doesn't provide a clean, deterministic starting point.
