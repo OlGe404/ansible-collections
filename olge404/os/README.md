@@ -64,13 +64,15 @@ To see which container images are used in the molecule test scenarios, checkout 
 ## Run molecule tests
 molecule should be run using the included Makefile. The Makefile ensures that molecule commands are executed with the proper config files to keep the test setup DRY.
 
-Run `make` to execute "molecule test" for all roles.
+Run `make` to execute "molecule test" for all roles
 
-Use `ROLES=<role_name> make` to run "molecule test" for a specific role.
+Use `ROLES=<role_name> make` to run "molecule test" for a specific role
 
 Use `SEQUENCE=create make` to run "molecule create" for all roles 
 
-.. and so on. You can combine the parameters as you like. You could use `ROLES=distro_packages SEQUENCE=converge make` to run "molecule converge" for the distro_packages role. You don't have to provide the parameters each time you invoke the make target - you can set them with e.g. "export ROLES=<role_name>" in your shell to not have to provide them each time.
+.. and so on. You can combine the parameters as you like. You could use `ROLES=distro_packages SEQUENCE=converge make` to run "molecule converge" for the distro_packages role.
+
+You don't have to provide the parameters each time you invoke the make target - you can set them in your environment with e.g. `export ROLES=<role_name>` to not have to provide them each time.
 
 ## Develop and debug roles with molecule
 Sometimes you need to check what is going on when developing a new role. Running your roles on localhost to see if they work is a bad idea, because this can break your development environment and doesn't provide a clean, deterministic starting point.
