@@ -51,7 +51,7 @@ You also need `podman` and `make` to spawn the containers that are used as test 
 
 ## Add a new role to the collection
 You should copy/paste another role to have a valid starting point including the molecule test setup and edit it accordingly once the test setup works.
-Use [install_argocd_cli](roles/install_argocd_cli/README.md) as a simple example to get going.
+Use [distro_packages](roles/distro_packages/README.md) as a simple example to get going.
 
 ### Supported platforms
 The roles are tested on these platforms:
@@ -88,9 +88,7 @@ AND
 ROLES="<role_name>" SEQUENCE="destroy" make
 ```
 
-work properly. If those commands fail, you are not able to provision/destroy your test infrastructure on demand to debug your roles.
-
-**NOTE:** If you copy/pasted another role, the molecule setup is copied too and the commands should work right away.
+work properly. If those commands fail, you are not able to provision/destroy your test infrastructure on demand to debug your roles. If you copy/pasted another role, the molecule setup is copied too and the commands should work right away.
 
 After the create and destroy commands work, you can login to your instances using molecule to debug it.
 
