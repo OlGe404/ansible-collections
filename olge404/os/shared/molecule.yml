@@ -1,0 +1,32 @@
+---
+dependency:
+  name: galaxy
+
+driver:
+  name: podman
+
+platforms:
+  - name: debian-bullseye
+    image: debian:bullseye
+    dockerfile: &sharedDockerfile ../../../../shared/Dockerfile.j2
+
+  - name: ubuntu-jammy
+    image: ubuntu:jammy
+    dockerfile: *sharedDockerfile
+
+  - name: rhel-8
+    image: registry.access.redhat.com/ubi8/ubi:latest
+    dockerfile: *sharedDockerfile
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../../../../shared/converge.yaml
+
+  inventory:
+    links:
+      group_vars: ../../../../group_vars/
+      host_vars: ../../../../host_vars/
+
+verifier:
+  name: ansible
