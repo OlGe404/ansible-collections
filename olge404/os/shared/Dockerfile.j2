@@ -1,7 +1,0 @@
-FROM {{ item.image }}
-
-RUN if   [ $(command -v apt-get) ]; then apt-get update && apt install -y python3 sudo ca-certificates; \
-    elif [ $(command -v dnf) ];     then dnf update && dnf install -y sudo; \
-    fi
-
-RUN ln -s /usr/bin/python3 /usr/bin/python

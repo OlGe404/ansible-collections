@@ -1,5 +1,0 @@
----
-distro_repositories:
-  - name: hashicorp
-    key_url: https://apt.releases.hashicorp.com/gpg
-    repo: "deb https://apt.releases.hashicorp.com jammy main"

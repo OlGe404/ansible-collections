@@ -1,3 +1,0 @@
----
-distro_repositories:
-  - repo: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
