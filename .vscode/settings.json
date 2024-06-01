@@ -1,9 +1,12 @@
 {
+    "ansible.python.interpreterPath": "/usr/bin/env python3",
     "files.associations": {
-        "**/roles/**/tasks/*.yml": "ansible"
+        "**/roles/**/tasks/*.yml": "ansible",
+        "**/roles/**/molecule/converge.yml": "ansible",
+        "**/roles/**/molecule/verify.yml": "ansible",
     },
     "yaml.schemas": {
-        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks": "roles/**/tasks/*.yml"
-    },
-    "ansible.python.interpreterPath": "/bin/python3"
+        "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks": "roles/**/tasks/*.yml",
+        "https://raw.githubusercontent.com/ansible-community/molecule/main/src/molecule/data/molecule.json": "**/molecule.yml"
+    }
 }
