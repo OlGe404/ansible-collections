@@ -3,7 +3,7 @@ FROM docker.io/ubuntu:22.04
 USER 0
 
 RUN apt update && \
-    apt install -y sudo python3 && \
+    apt install -y sudo python3 ca-certificates && \
     ln -s /usr/bin/python3 python && \
     useradd molecule -m && \
     usermod -aG sudo molecule && \

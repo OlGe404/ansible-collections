@@ -1,0 +1,12 @@
+FROM docker.io/alpine:3.20
+
+USER 0
+
+RUN apk add --no-cache bash sudo python3 ca-certificates && \
+    ln -s /usr/bin/python3 python && \
+    adduser molecule -D && \
+    addgroup sudo && \
+    adduser molecule sudo && \
+    echo 'molecule ALL=(ALL) NOPASSWD:ALL' | sudo tee /etc/sudoers.d/molecule
+
+USER molecule
