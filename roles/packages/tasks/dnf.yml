@@ -16,7 +16,7 @@
   ansible.builtin.dnf:
     update_cache: true
 
-- name: Replace "=" with "-" in "packages" to accommodate DNF's version spec peculiarities
+- name: Replace "=" with "-" in "packages" to accommodate for DNF's versioning spec peculiarities
   ansible.builtin.set_fact:
     dnf_packages: "{{ packages | map('regex_replace', '=', '-') | list }}"
 
