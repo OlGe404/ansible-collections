@@ -1,7 +1,7 @@
 olge404.unix.packages
 =========
 
-Add remote package repositories and install packages for various distros in a generic,
+Add package repositories and install packages for various distros in a generic,
 declarative and tested way.
 
 Requirements

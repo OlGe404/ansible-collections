@@ -1,22 +1,31 @@
+---
 namespace: olge404
-name: linux
+name: unix
 version: 0.1.0
 readme: README.md
+description: Streamline tested package installations for unix based distros.
 authors:
   - OlGe404
 
-description: Simplify and streamline software installation and configuration for linux based distros.
-license_file: LICENSE
 tags:
   - linux
+  - unix
+  - packages
+  - ubuntu
+  - debian
+  - rhel
+  - almalinux
+  - alpine
 
-# See "requirements.yaml" for the current, specific versions
-dependencies:
-  community.general: ">=9.0.1"
-  
 repository: https://github.com/OlGe404/olge404.unix
 documentation: https://github.com/OlGe404/olge404.unix/blob/main/README.md
 homepage: https://github.com/OlGe404/olge404.unix
 issues: https://github.com/OlGe404/olge404.unix/issues
 build_ignore:
   - to-dos.md
+
+license:
+  - Apache-2.0
+
+dependencies:
+  community.general: 9.0.1
