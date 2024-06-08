@@ -30,3 +30,8 @@
       when: ansible_facts['os_family'] == "Alpine"
       ansible.builtin.include_tasks:
         file: apk.yml
+
+    - name: Include dnf.yaml
+      when: ansible_facts['os_family'] == "RedHat"
+      ansible.builtin.include_tasks:
+        file: dnf.yml

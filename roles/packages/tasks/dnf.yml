@@ -1,0 +1,26 @@
+---
+- name: Ensure dnf-plugins-core package
+  become: true
+  ansible.builtin.dnf:
+    name: dnf-plugins-core
+
+- name: Add dnf repos
+  become: true
+  with_dict: "{{ packages_repos }}"
+  ansible.builtin.command: "dnf config-manager --add-repo {{ item.value.repo }}"
+  # DNF cli output is not idempotent, hence this command cannot be idempotent
+  changed_when: false
+
+- name: Update dnf repo cache
+  become: true
+  ansible.builtin.dnf:
+    update_cache: true
+
+- name: Replace "=" with "-" in "packages" to accommodate DNF's version spec peculiarities
+  ansible.builtin.set_fact:
+    dnf_packages: "{{ packages | map('regex_replace', '=', '-') | list }}"
+
+- name: "Install packages: {{ dnf_packages | join(', ') }}"
+  become: true
+  ansible.builtin.dnf:
+    name: "{{ dnf_packages }}"

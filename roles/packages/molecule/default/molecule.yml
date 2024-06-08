@@ -13,6 +13,10 @@ platforms:
     image: docker.io/olge404/molecule:alpine-3.20-20240602100802
     pre_build_image: true
 
+  - name: almalinux-9.4
+    image: docker.io/olge404/molecule:almalinux-9.4-20240608104813
+    pre_build_image: true
+
 provisioner:
   name: ansible
   inventory:
@@ -44,6 +48,21 @@ provisioner:
             repo: deb [arch=amd64 signed-by=/etc/apt/keyrings/github.gpg] https://cli.github.com/packages stable main
             key_url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
             key_dearmor: false
+
+      almalinux-9.4:
+        packages_base:
+          terraform: ""
+          gh: "2.50.0-1"
+          git: "2.43.0-1.el9"
+
+        packages_repos:
+          # See https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+          hashicorp:
+            repo: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+
+          # See https://github.com/cli/cli/blob/trunk/docs/install_linux.md#fedora-centos-red-hat-enterprise-linux-dnf
+          github:
+            repo: https://cli.github.com/packages/rpm/gh-cli.repo
 
       alpine-3.20:
         packages_base:
