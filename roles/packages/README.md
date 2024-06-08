@@ -14,9 +14,9 @@ Role Variables
 
 | Name(type)           | Description                                                                                                                                            |
 |----------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------:|
-| packages(dict)  | Key/value pairs of base packages and their versions to install.                                                                                        |
-| packages_extra(dict) | Key/value pairs of extra packages and their versions to install. Key/value pairs of "packages_extra" take precedence over "packages" entries, if both contain the same key. |
-| packages_repos(dict) | Repos to add before attempting to install packages.                                                                                                    |
+| packages_base(dict)  | Key/value pairs of base packages_base and their versions to install.                                                                                        |
+| packages_extra(dict) | Key/value pairs of extra packages and their versions to install. Key/value pairs of "packages_extra" take precedence over "packages_base" entries, if both contain the same key. |
+| packages_repos(dict) | Repos to add before installing packages.                                                                            |
 
 Dependencies
 ------------
@@ -31,7 +31,7 @@ Example Playbook
   roles:
     - role: olge404.unix.packages
       vars:
-        packages:
+        packages_base:
           git: ""
           curl: ""
           gh: "2.43.0"
@@ -39,7 +39,7 @@ Example Playbook
         packages_extra:
           terraform: ""
           packer: ""
-          gh: "2.50.0" # takes precedance over 'gh: "2.43.0"' from packages
+          gh: "2.50.0" # takes precedance over 'gh: "2.43.0"' from packages_base
 
         packages_repos:
           hashicorp:
