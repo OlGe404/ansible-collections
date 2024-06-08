@@ -1,0 +1,13 @@
+FROM docker.io/almalinux:9.4
+
+USER 0
+
+RUN dnf update --refresh -y && \
+    dnf install -y sudo python3 ca-certificates && \
+    ln -s /usr/bin/python3 /usr/bin/python && \
+    useradd -m molecule && \
+    groupadd sudo && \
+    usermod -aG sudo molecule && \
+    echo 'molecule ALL=(ALL) NOPASSWD:ALL' | sudo tee /etc/sudoers.d/molecule
+
+USER molecule

@@ -1,0 +1,66 @@
+---
+- name: Ensure gpg and software-properties-common packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - gpg
+      - software-properties-common
+
+- name: Ensure /etc/apt/keyrings dir
+  become: true
+  ansible.builtin.file:
+    state: directory
+    path: /etc/apt/keyrings
+    owner: root
+    mode: "go+r"
+  register: apt_keyrings_dir
+
+- name: "Download apt repo keys (key_dearmor: false)"
+  become: true
+  with_dict: "{{ packages_repos }}"
+  when:
+    - item.value.key_url is defined
+    - not item.value.key_dearmor
+  ansible.builtin.get_url:
+    url: "{{ item.value.key_url }}"
+    dest: "{{ apt_keyrings_dir.path }}/{{ item.key }}.gpg"
+    owner: root
+    mode: "go+r"
+  register: download_apt_key
+  until: download_apt_key is succeeded
+  retries: 3
+  delay: 3
+
+# Use ".asc" instead of ".gpg" as file extension to dearmor the key
+- name: "Download and dearmor apt repo keys (key_dearmor: true)"
+  become: true
+  with_dict: "{{ packages_repos }}"
+  when:
+    - item.value.key_url is defined
+    - item.value.key_dearmor
+  ansible.builtin.get_url:
+    url: "{{ item.value.key_url }}"
+    dest: "{{ apt_keyrings_dir.path }}/{{ item.key }}.asc"
+    owner: root
+    mode: "go+r"
+  register: download_dearmored_apt_key
+  until: download_dearmored_apt_key is succeeded
+  retries: 3
+  delay: 3
+
+- name: Add apt repos
+  become: true
+  with_dict: "{{ packages_repos }}"
+  ansible.builtin.apt_repository:
+    repo: "{{ item.value.repo }}"
+    update_cache: false
+
+- name: Update apt repo cache
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: "Install packages: {{ packages | join(', ') }}"
+  become: true
+  ansible.builtin.apt:
+    name: "{{ packages }}"

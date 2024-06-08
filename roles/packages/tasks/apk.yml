@@ -1,0 +1,23 @@
+---
+- name: Ensure alpine-conf package
+  become: true
+  community.general.apk:
+    name: alpine-conf
+
+- name: Ensure setup-apkrepos
+  become: true
+  ansible.builtin.command: setup-apkrepos -c1
+  register: apk_setup_repos
+  changed_when: '"Updating repository indexes... done." not in apk_setup_repos.stdout'
+
+- name: Add apk repos
+  become: true
+  with_dict: "{{ packages_repos }}"
+  ansible.builtin.lineinfile:
+    path: /etc/apk/repositories
+    line: "@{{ item.key }} {{ item.value.repo }}"
+
+- name: "Install packages: {{ packages | join(', ') }}"
+  become: true
+  community.general.apk:
+    name: "{{ packages }}"

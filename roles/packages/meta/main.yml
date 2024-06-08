@@ -1,0 +1,10 @@
+galaxy_info:
+  author: OlGe404
+  description: DevOps Engineer
+  company: ""
+  issue_tracker_url: https://github.com/OlGe404/olge404.unix/issues
+  license: Apache-2.0
+  min_ansible_version: "2.16.7"
+  galaxy_tags: []
+
+dependencies: []

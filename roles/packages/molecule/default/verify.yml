@@ -1,0 +1,64 @@
+---
+- name: Verify ubuntu
+  hosts: ubuntu
+  gather_facts: false
+  tasks:
+    - name: Run test commands to verify packages are installed
+      tags: skip_ansible_lint
+      loop:
+        - git -h
+        - terraform -help
+        - gh -help
+      ansible.builtin.command: "{{ item }}"
+
+    - name: Get git version
+      tags: skip_ansible_lint
+      ansible.builtin.command: git --version
+      register: git_version
+
+    - name: Assert that git version from packages_extra took precedence
+      ansible.builtin.assert:
+        that:
+          - '"git version 2.45.2" in git_version.stdout'
+
+    - name: Get gh version
+      tags: skip_ansible_lint
+      ansible.builtin.command: gh --version
+      register: gh_version
+
+    - name: Assert that gh version
+      ansible.builtin.assert:
+        that:
+          - '"gh version 2.50.0" in gh_version.stdout'
+
+- name: Verify alpine
+  hosts: alpine-3.20
+  gather_facts: false
+  tasks:
+    - name: Run test commands to verify packages are installed
+      tags: skip_ansible_lint
+      loop:
+        - git -h
+        - gh -help
+        - curl -h
+      ansible.builtin.command: "{{ item }}"
+
+    - name: Get git version
+      tags: skip_ansible_lint
+      ansible.builtin.command: git --version
+      register: git_version
+
+    - name: Assert that git version from packages_extra took precedence
+      ansible.builtin.assert:
+        that:
+          - '"git version 2.45.2" in git_version.stdout'
+
+    - name: Get gh version
+      tags: skip_ansible_lint
+      ansible.builtin.command: gh --version
+      register: gh_version
+
+    - name: Assert that gh version
+      ansible.builtin.assert:
+        that:
+          - '"gh version 2.47.0" in gh_version.stdout'
