@@ -3,7 +3,7 @@ namespace: olge404
 name: unix
 version: 0.1.0
 readme: README.md
-description: Streamline tested package installations for unix based distros.
+description: Streamline package installation and configuration for unix based distros.
 authors:
   - OlGe404
 
