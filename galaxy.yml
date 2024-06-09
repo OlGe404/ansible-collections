@@ -23,6 +23,10 @@ homepage: https://github.com/OlGe404/olge404.unix
 issues: https://github.com/OlGe404/olge404.unix/issues
 build_ignore:
   - to-dos.md
+  - scripts
+  - .molecule
+  - .vscode
+  - requirements.txt
 
 license:
   - Apache-2.0
