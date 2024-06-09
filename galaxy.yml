@@ -23,6 +23,7 @@ homepage: https://github.com/OlGe404/olge404.unix
 issues: https://github.com/OlGe404/olge404.unix/issues
 build_ignore:
   - .molecule
+  - .venv
   - .vscode
   - scripts
   - requirements.txt
