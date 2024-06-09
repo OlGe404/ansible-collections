@@ -3,6 +3,10 @@
 ROOT=$(git rev-parse --show-toplevel)
 ROLES=$(find $ROOT/roles -mindepth 1 -maxdepth 1 -type d)
 
+if [ -d "$ROOT/.venv" ]; then
+    source $ROOT/.venv/bin/activate
+fi
+
 for role in $ROLES; do
     cd $role
     if [ -d "molecule" ]; then
