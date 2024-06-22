@@ -1,0 +1,13 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Run test commands for installed packages
+      tags: skip_ansible_lint
+      loop:
+        - curl -h
+        - git -h
+        - terraform -help
+        - gh -help
+      ansible.builtin.command: "{{ item }}"

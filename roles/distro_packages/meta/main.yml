@@ -2,7 +2,7 @@ galaxy_info:
   author: OlGe404
   company: ""
   description: >-
-    Add package repositories and install packages for various distros in a generic,
+    Install distribution specific repositories and packages in a generic,
     declarative and tested way.
 
   issue_tracker_url: https://github.com/OlGe404/olge404.unix/issues
@@ -11,7 +11,7 @@ galaxy_info:
   galaxy_tags:
     - linux
     - unix
-    - packages
+    - distro_packages
     - ubuntu
     - debian
     - almalinux
@@ -22,11 +22,11 @@ galaxy_info:
     - name: Alpine
       versions:
         - all
-    
+
     - name: EL
       versions:
         - "9"
-    
+
     - name: Ubuntu
       versions:
         - jammy

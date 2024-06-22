@@ -1,0 +1,85 @@
+---
+- name: Ensure architecture and distribution_release facts
+  when:
+    - ansible_facts['architecture'] is undefined
+    - ansible_facts['distribution_release'] is undefined
+  ansible.builtin.setup:
+    gather_subset:
+      - architecture
+      - distribution_release
+
+- name: Debug print architecture and distribution_release
+  ansible.builtin.debug:
+    msg: >-
+      architecture: {{ ansible_facts['architecture'] }},
+      distribution_release: {{ ansible_facts['distribution_release'] }}
+    verbosity: 1
+
+- name: Ensure gpg and software-properties-common packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - gpg
+      - software-properties-common
+
+- name: Ensure /etc/apt/keyrings dir
+  become: true
+  ansible.builtin.file:
+    state: directory
+    path: /etc/apt/keyrings
+    owner: root
+    mode: "go+r"
+  register: apt_keyrings_dir
+
+- name: Download apt repo keys
+  become: true
+  when: item.value.key_url is defined
+  with_dict: "{{ distro_packages_repos }}"
+  loop_control:
+    label: "{{ item.key }}"
+  ansible.builtin.get_url:
+    url: "{{ item.value.key_url }}"
+    # Use ".asc" instead of ".gpg" as file extension to dearmor the key, if dearmor_key=true
+    dest: "{{ apt_keyrings_dir.path }}/{{ item.key }}.{{ 'asc' if item.value.dearmor_key else 'gpg' }}"
+    owner: root
+    mode: "go+r"
+  register: download_apt_key
+  until: download_apt_key is succeeded
+  retries: 3
+  delay: 3
+
+- name: Add PPA apt repos
+  become: true
+  when: item.value.uri is search('ppa:')
+  with_dict: "{{ distro_packages_repos }}"
+  loop_control:
+    label: "{{ item.key }}"
+  ansible.builtin.apt_repository:
+    repo: "{{ item.value.uri }}"
+    update_cache: false
+
+- name: Add apt repos
+  become: true
+  when: item.value.uri is not search('ppa:')
+  with_dict: "{{ distro_packages_repos }}"
+  loop_control:
+    label: "{{ item.key }}"
+  ansible.builtin.apt_repository:
+    repo: >-
+      deb
+      [arch={{ distro_packages_deb_architectures[ansible_facts['architecture']] }}
+      signed-by={{ apt_keyrings_dir.path }}/{{ item.key }}.{{ 'asc' if item.value.dearmor_key else 'gpg' }}]
+      {{ item.value.uri }}
+      {{ ansible_facts['distribution_release'] if item.value.suite == 'auto' else item.value.suite }}
+      {{ item.value.components }}
+    update_cache: false
+
+- name: Update apt repo cache
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: "Install: {{ distro_packages | join(', ') }}"
+  become: true
+  ansible.builtin.apt:
+    name: "{{ distro_packages }}"

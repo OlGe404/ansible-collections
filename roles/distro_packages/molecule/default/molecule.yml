@@ -1,0 +1,56 @@
+---
+driver:
+  name: podman
+
+platforms:
+  - name: debian-12
+    image: docker.io/olge404/molecule:debian-12-20240622100626
+    pre_build_image: true
+    groups:
+      - debian
+
+  - name: ubuntu-22.04
+    image: docker.io/olge404/molecule:ubuntu-22.04-20240602100738
+    pre_build_image: true
+    groups:
+      - debian
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../../../../.molecule/playbooks/converge.yml
+
+  inventory:
+    group_vars:
+      all:
+        distro_packages_base:
+          gh: ""
+          git: ""
+          curl: ""
+          terraform: ""
+
+      debian:
+        # Based on deb822 format. See https://repolib.readthedocs.io/en/latest/deb822-format.html#deb822-style-format
+        distro_packages_repos_base:
+          # See https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+          hashicorp:
+            uri: https://apt.releases.hashicorp.com
+            components: main
+            suite: auto
+            key_url: https://apt.releases.hashicorp.com/gpg
+            dearmor_key: true
+
+          # See https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian-ubuntu-linux-raspberry-pi-os-apt
+          github:
+            uri: https://cli.github.com/packages
+            components: main
+            suite: stable
+            key_url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+            dearmor_key: false
+
+    host_vars:
+      ubuntu-22.04:
+        distro_packages_repos_extra:
+          # See https://www.git-scm.com/download/linux
+          git:
+            uri: ppa:git-core/ppa
