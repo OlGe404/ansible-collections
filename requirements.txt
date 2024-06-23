@@ -1,3 +1,4 @@
-ansible==9.6.0
-molecule==24.2.1
-molecule-plugins[podman]==23.5.3
+ansible==10.1.0
+docker==7.1.0
+molecule==24.6.0
+molecule-plugins==23.5.3
