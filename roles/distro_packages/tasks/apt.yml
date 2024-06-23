@@ -58,6 +58,17 @@
     repo: "{{ item.value.uri }}"
     update_cache: false
 
+- name: Validate 'distro_packages_repos' against apt JSON schema
+  when: item.value.uri is not search('ppa:')
+  with_dict: "{{ distro_packages_repos }}"
+  loop_control:
+    label: "{{ item.key }}"
+  ansible.utils.validate:
+    data: "{{ item.value }}"
+    engine: ansible.utils.jsonschema
+    criteria:
+      - "{{ lookup('file', '{{ role_path }}/files/apt_repos.json') }}"
+
 - name: Add apt repos
   become: true
   when: item.value.uri is not search('ppa:')
@@ -65,21 +76,21 @@
   loop_control:
     label: "{{ item.key }}"
   ansible.builtin.apt_repository:
+    update_cache: false
     repo: >-
       deb
-      [arch={{ distro_packages_deb_architectures[ansible_facts['architecture']] }}
+      [arch={{ distro_packages_deb_architectures[ansible_facts['architecture']] if item.value.architecture == 'auto' else item.value.architecture }}
       signed-by={{ apt_keyrings_dir.path }}/{{ item.key }}.{{ 'asc' if item.value.dearmor_key else 'gpg' }}]
       {{ item.value.uri }}
       {{ ansible_facts['distribution_release'] if item.value.suite == 'auto' else item.value.suite }}
       {{ item.value.components }}
-    update_cache: false
 
 - name: Update apt repo cache
   become: true
   ansible.builtin.apt:
     update_cache: true
 
-- name: "Install: {{ distro_packages | join(', ') }}"
+- name: "Install {{ distro_packages | join(', ') }}"
   become: true
   ansible.builtin.apt:
     name: "{{ distro_packages }}"

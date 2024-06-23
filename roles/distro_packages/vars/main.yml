@@ -1,4 +1,6 @@
 ---
+# Used to map ansible_facts['architecture'] values to valid DEB 822 architecture values
+# when adding apt repos
 distro_packages_deb_architectures:
   armv6l: armhf
   armv7l: armhf

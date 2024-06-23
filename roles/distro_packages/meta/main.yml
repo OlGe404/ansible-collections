@@ -2,7 +2,7 @@ galaxy_info:
   author: OlGe404
   company: ""
   description: >-
-    Install distribution specific repositories and packages in a generic,
+    Install distribution specific repos and packages in a generic,
     declarative and tested way.
 
   issue_tracker_url: https://github.com/OlGe404/olge404.unix/issues

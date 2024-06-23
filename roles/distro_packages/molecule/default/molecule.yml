@@ -15,6 +15,14 @@ platforms:
     groups:
       - debian
 
+  - name: alpine-3.20
+    image: docker.io/olge404/molecule:alpine-3.20-20240602100802
+    pre_build_image: true
+
+  - name: almalinux-9.4
+    image: docker.io/olge404/molecule:almalinux-9.4-20240622222853
+    pre_build_image: true
+
 provisioner:
   name: ansible
   playbooks:
@@ -27,9 +35,11 @@ provisioner:
           gh: ""
           git: ""
           curl: ""
-          terraform: ""
 
       debian:
+        distro_packages_extra:
+          terraform: ""
+
         # Based on deb822 format. See https://repolib.readthedocs.io/en/latest/deb822-format.html#deb822-style-format
         distro_packages_repos_base:
           # See https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
@@ -37,6 +47,7 @@ provisioner:
             uri: https://apt.releases.hashicorp.com
             components: main
             suite: auto
+            architecture: auto
             key_url: https://apt.releases.hashicorp.com/gpg
             dearmor_key: true
 
@@ -45,6 +56,7 @@ provisioner:
             uri: https://cli.github.com/packages
             components: main
             suite: stable
+            architecture: amd64
             key_url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
             dearmor_key: false
 
@@ -54,3 +66,24 @@ provisioner:
           # See https://www.git-scm.com/download/linux
           git:
             uri: ppa:git-core/ppa
+
+      alpine-3.20:
+        distro_packages_base:
+          github-cli@community: "2.47.0-r3"
+          git: ""
+          curl: ""
+
+        distro_packages_repos_base:
+          # See https://github.com/cli/cli/blob/trunk/docs/install_linux.md#alpine-linux
+          community:
+            url: http://dl-cdn.alpinelinux.org/alpine/edge/community
+
+      almalinux-9.4:
+        distro_packages_repos_base:
+          # See https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+          hashicorp:
+            url: https://rpm.releases.hashicorp.com/RHEL/hashicorp.repo
+
+          # See https://github.com/cli/cli/blob/trunk/docs/install_linux.md#fedora-centos-red-hat-enterprise-linux-dnf
+          github:
+            url: https://cli.github.com/packages/rpm/gh-cli.repo

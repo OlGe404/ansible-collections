@@ -7,8 +7,9 @@
       - distro_packages_repos_base is mapping
       - distro_packages_repos_extra is mapping
     fail_msg: >-
-      The vars 'distro_packages_base', 'distro_packages_extra' and 'distro_packages_repos'
-      have to be of type 'dict'.
+      The vars 'distro_packages_base', 'distro_packages_extra',
+      'distro_packages_repos_base' and 'distro_packages_repos_extra'
+      need to be of type 'dict'.
 
 - name: Ensure os_family fact
   when: ansible_facts['os_family'] is undefined
