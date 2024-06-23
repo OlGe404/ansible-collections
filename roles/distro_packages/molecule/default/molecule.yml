@@ -1,6 +1,6 @@
 ---
 driver:
-  name: podman
+  name: docker
 
 platforms:
   - name: debian-12
