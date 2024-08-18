@@ -1,0 +1,66 @@
+---
+- name: Ensure architecture, distribution and distribution_release facts
+  when:
+    - ansible_facts['architecture'] is undefined
+    - ansible_facts['distribution'] is undefined
+    - ansible_facts['distribution_release'] is undefined
+  ansible.builtin.setup:
+    gather_subset:
+      - architecture
+      - distribution
+      - distribution_release
+
+- name: Debug print architecture, distribution and distribution_release
+  ansible.builtin.debug:
+    msg: >-
+      architecture: {{ ansible_facts['architecture'] }},
+      distribution: {{ ansible_facts['distribution'] }},
+      distribution_release: {{ ansible_facts['distribution_release'] }}
+    verbosity: 1
+
+- name: Ensure gpg and software-properties-common packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - gpg
+      - software-properties-common
+
+- name: Ensure /etc/apt/keyrings dir
+  become: true
+  ansible.builtin.file:
+    state: directory
+    path: /etc/apt/keyrings
+    owner: root
+    mode: "go+r"
+  register: apt_keyrings_dir
+
+- name: Download apt repo key
+  become: true
+  ansible.builtin.get_url:
+    url: "https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }}/gpg"
+    dest: "{{ apt_keyrings_dir.path }}/docker.asc"
+    owner: root
+    mode: "go+r"
+  register: download_debian_apt_key
+  until: download_debian_apt_key is succeeded
+  retries: 3
+  delay: 3
+
+- name: Add docker apt repo
+  become: true
+  ansible.builtin.apt_repository:
+    update_cache: true
+    repo: >-
+      deb
+      [arch={{ install_docker_deb_architectures[ansible_facts['architecture']] }} signed-by={{ apt_keyrings_dir.path }}/docker.asc]
+      https://download.docker.com/linux/{{ ansible_facts['distribution'] | lower }} {{ ansible_facts['distribution_release'] }} stable
+
+- name: Install docker packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin

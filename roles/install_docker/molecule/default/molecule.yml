@@ -1,0 +1,27 @@
+---
+driver:
+  name: docker
+
+platforms:
+  - name: debian-12
+    image: docker.io/olge404/molecule:debian-12-20240630160542
+    pre_build_image: true
+    # Run init system, mount cgroups and allow elevated privileges
+    # for systemd usage inside containers
+    # command: /sbin/init
+    # privileged: True
+    # volumes:
+    #   - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+  # - name: ubuntu-22.04
+  #   image: docker.io/olge404/molecule:ubuntu-22.04-20240602100738
+  #   pre_build_image: true
+
+  # - name: almalinux-9.4
+  #   image: docker.io/olge404/molecule:almalinux-9.4-20240622222853
+  #   pre_build_image: true
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../../../../.molecule/playbooks/converge.yml

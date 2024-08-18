@@ -3,7 +3,7 @@ FROM docker.io/debian:bookworm-slim
 USER 0
 
 RUN apt update && \
-    apt install -y sudo python3 ca-certificates && \
+    apt install -y sudo python3 ca-certificates init systemd && \
     ln -s /usr/bin/python3 python && \
     useradd molecule -m && \
     usermod -aG sudo molecule && \
