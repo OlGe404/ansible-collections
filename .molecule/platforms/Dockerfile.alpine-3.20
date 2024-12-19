@@ -1,5 +1,7 @@
 FROM docker.io/alpine:3.20
 
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+
 USER 0
 
 RUN apk add --no-cache bash sudo python3 ca-certificates && \

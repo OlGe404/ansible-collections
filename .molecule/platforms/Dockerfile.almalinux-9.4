@@ -1,5 +1,7 @@
 FROM docker.io/almalinux:9.4
 
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+
 USER 0
 
 RUN dnf update --refresh -y && \
