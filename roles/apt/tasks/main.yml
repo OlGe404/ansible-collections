@@ -1,0 +1,24 @@
+---
+- name: Ensure facts are gathered
+  when:
+    - ansible_facts['architecture'] is undefined
+    - ansible_facts['distribution_release'] is undefined
+  ansible.builtin.setup:
+    gather_subset:
+      - architecture
+      - distribution_release
+
+- name: Ensure necessary packages are installed
+  become: true
+  ansible.builtin.apt:
+    name:
+      - gpg
+      - software-properties-common
+
+- name: Include repos.yml
+  ansible.builtin.include_tasks:
+    file: repos.yml
+
+- name: Include packages.yml
+  ansible.builtin.include_tasks:
+    file: packages.yml

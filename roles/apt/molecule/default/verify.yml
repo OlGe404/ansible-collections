@@ -1,0 +1,29 @@
+---
+- name: Verify all
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Run test commands
+      tags: skip_ansible_lint
+      loop:
+        - curl --version
+        - jq --version
+        - terraform -help
+        - gh -help
+      ansible.builtin.command: "{{ item }}"
+
+- name: Verify debian
+  hosts: debian
+  gather_facts: false
+  tasks:
+    - name: Ensure cowsay works
+      tags: skip_ansible_lint
+      ansible.builtin.command: cowsay moo
+
+- name: Verify ubuntu
+  hosts: ubuntu
+  gather_facts: false
+  tasks:
+    - name: Ensure tree works
+      tags: skip_ansible_lint
+      ansible.builtin.shell: tree ~

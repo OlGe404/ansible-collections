@@ -1,0 +1,55 @@
+---
+driver:
+  name: docker
+
+platforms:
+  - name: debian-12
+    image: docker.io/olge404/molecule:debian-12-20241219162345
+    pre_build_image: true
+    groups:
+      - debian
+
+  - name: ubuntu-22.04
+    image: docker.io/olge404/molecule:ubuntu-22.04-20241219162424
+    pre_build_image: true
+    groups:
+      - ubuntu
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../../../../.molecule/playbooks/converge.yml
+
+  inventory:
+    group_vars:
+      all:
+        apt_packages:
+          curl: ""
+          jq: ""
+          gh: ""
+          terraform: ""
+
+        apt_repos:
+          github:
+            uri: https://cli.github.com/packages
+            components: main
+            suite: stable
+            architecture: amd64
+            key_url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+            dearmor_key: false
+
+          hashicorp:
+            uri: https://apt.releases.hashicorp.com
+            components: main
+            suite: auto
+            architecture: auto
+            key_url: https://apt.releases.hashicorp.com/gpg
+            dearmor_key: true
+
+      debian:
+        apt_packages_overwrite:
+          cowsay: ""
+
+      ubuntu:
+        apt_packages_overwrite:
+          tree: ""
