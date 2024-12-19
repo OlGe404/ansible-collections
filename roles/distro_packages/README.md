@@ -12,8 +12,8 @@ None.
 Role Variables
 --------------
 
-| Name(type)           | Description                                                                                                                                            |
-|----------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------:|
+| Name(type)             | Description                                                                                                                                            |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | distro_packages_base(dict)  | Key/value pairs of base distro_packages_base and their versions to install.                                                                                        |
 | distro_packages_extra(dict) | Key/value pairs of extra distro_packages and their versions to install. Key/value pairs of "distro_packages_extra" take precedence over "distro_packages_base" entries, if both contain the same key. |
 | distro_packages_repos(dict) | Repos to add before installing distro_packages.                                                                            |
