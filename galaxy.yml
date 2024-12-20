@@ -26,6 +26,7 @@ build_ignore:
   - .venv
   - .vscode
   - scripts
+  - .gitignore
   - requirements.txt
   - to-dos.md
 
