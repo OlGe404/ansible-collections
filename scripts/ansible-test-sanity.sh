@@ -9,7 +9,7 @@ Usage: ./$(basename "$0")
 Prerequisites: ansible-test and ansible-galaxy have to be installed.
 
 Description:
-  Installs the "olge404.unix" ansible collection at "$TMP", runs "ansible-test" for it and removes it afterwards.
+  Installs the "olge404.unix" ansible collection at "$TMP" and runs "ansible-test sanity" for it.
   If a virtualenv for python3 exists at "$ROOT/.venv/bin/activate", it is used.
 
 Options:

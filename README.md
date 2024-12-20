@@ -15,7 +15,7 @@ Run `scripts/python3-venv.sh` and `scripts/docker-install.sh` to bootstrap the v
 Next, run `source .venv/bin/activate` to activate the python virtualenv in your shell and
 `ansible-galaxy collection install -r requirements.yaml` to install all necessary ansible collections.
 
-To test that all prerequisites are fullfilled, run `scripts/ansible-test.sh` and `scripts/molecule-tests.sh apt`.
+To test that all prerequisites are fullfilled, run `scripts/ansible-test-sanity.sh` and `scripts/molecule-tests.sh apt`.
 This will run tests for the ansible collection and for the `apt` role. If those can be performed, you are good to go.
 
 # Add more roles
