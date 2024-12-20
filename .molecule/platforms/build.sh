@@ -2,7 +2,7 @@
 
 help() {
     cat <<EOF
-Usage: ./$(basename $0) <DOCKERFILE>
+Usage: ./$(basename "$0") <DOCKERFILE>
 Prerequisites: The docker daemon has to be installed and running.
 
 Description:
@@ -21,7 +21,7 @@ Options:
   -h, --help    Show this help message and exit.
 
 Example:
-    ./$(basename $0) Dockerfile.alpine-3.20
+    ./$(basename "$0") Dockerfile.alpine-3.20
 
 EOF
 }
@@ -37,7 +37,7 @@ if [ "$#" -ne 1 ]; then
     exit 1
 fi
 
-if !docker ps > /dev/null 2>&1; then
+if ! docker ps > /dev/null 2>&1; then
   echo -e "🚨 ERROR: Cannot perform "docker ps". Is the docker daemon installed and running? \n"
   help
   exit 1
@@ -45,8 +45,8 @@ fi
 
 DOCKERFILE=$1
 TIMESTAMP=$(date +%Y%m%d%H%M%S)
-IMAGE_TAG="$(basename $DOCKERFILE | cut -d . -f2-)-$TIMESTAMP"
+IMAGE_TAG="$(basename "$DOCKERFILE" | cut -d . -f2-)-$TIMESTAMP"
 
-docker build --file $DOCKERFILE --tag docker.io/olge404/molecule:$IMAGE_TAG .
-docker push docker.io/olge404/molecule:$IMAGE_TAG
+docker build --file "$DOCKERFILE" --tag "docker.io/olge404/molecule:$IMAGE_TAG" .
+docker push "docker.io/olge404/molecule:$IMAGE_TAG"
 echo -e "✅ Successfully pushed docker.io/olge404/molecule:$IMAGE_TAG to dockerhub \n"
