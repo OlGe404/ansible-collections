@@ -2,8 +2,7 @@
 This ansible collection is useful to streamline and ease the automated installation and configuration
 of various software packages on unix-like operating systems (e.g. ubuntu, debian, alpine, RHEL and macOS).
 
-The CI runs on Github actions and various shell scripts are used for this. Each script provides a help that describes
-how it can be used, which arguments can be provided etc. The "help" function can be accessed by providing either the `-h` or `--help` argument when calling a script. For example:
+The CI runs on Github actions and various shell scripts are used to perform installation, configuration and tests during a pipeline run. Each shell script provides a help that describes how it can be used locally, which arguments can be provided etc. The "help" function can be accessed for any shell script by providing either the `-h` or `--help` argument when calling a script. For example:
 
 ```bash
 scripts/python3-venv.sh --help
