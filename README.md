@@ -2,20 +2,18 @@
 This ansible collection is useful to streamline and ease the automated installation and configuration
 of various software packages on unix-like operating systems (e.g. ubuntu, debian, alpine, RHEL and macOS).
 
-The CI runs on Github actions and various shell scripts are used to perform installation, configuration and tests during a pipeline run. Each shell script provides a help that describes how it can be used locally, which arguments can be provided etc. The "help" function can be accessed for any shell script by providing either the `-h` or `--help` argument when calling a script. For example:
+The CI runs on Github actions and various shell scripts are used to perform installation, configuration and tests during a pipeline run. Each shell script provides a help function that describes how it can be used locally, which arguments can be provided etc. The help function can be accessed for any shell script by providing either the `-h` or `--help` argument when calling a script. For example:
 
 ```bash
 scripts/python3-venv.sh --help
-scripts/ansible-test.sh -h
-.molecule/platforms/build.sh --help
+.molecule/platforms/build.sh -h
 ```
 
 # Prerequisites
-Run the [python3-venv.sh](scripts/python3-venv.sh) and [docker-install.sh](scripts/docker-install.sh) scripts to bootstrap
-the virtuelenv for python and to install docker (on ubuntu).
+Run `scripts/python3-venv.sh` and `scripts/docker-install.sh` to bootstrap the virtuelenv for python and to install docker (on ubuntu).
 
 Next, run `source .venv/bin/activate` to activate the python virtualenv in your shell and
-`ansible-galaxy collection install -r requirements.yaml` to install the necessary collections.
+`ansible-galaxy collection install -r requirements.yaml` to install all necessary ansible collections.
 
 To test that all prerequisites are fullfilled, run `scripts/ansible-test.sh` and `scripts/molecule-tests.sh apt`.
 This will run tests for the ansible collection and for the `apt` role. If those can be performed, you are good to go.
