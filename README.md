@@ -3,7 +3,7 @@ This ansible collection is useful to streamline and ease the automated setup and
 of various software packages on unix-like operating systems (e.g. ubuntu, debian, alpine, RHEL and macOS).
 
 # Prerequisites
-Run the [python-venv.sh](scripts/python-venv.sh) and [docker-install.sh](scripts/docker-install.sh) scripts to bootstrap
+Run the [python3-venv.sh](scripts/python3-venv.sh) and [docker-install.sh](scripts/docker-install.sh) scripts to bootstrap
 the virtuelenv for python and to install docker (on ubuntu).
 
 Next, run `source .venv/bin/activate` to activate the python virtualenv in your shell and
