@@ -1,6 +1,0 @@
----
-distro_packages_base: {}
-distro_packages_extra: {}
-
-distro_packages_repos_base: {}
-distro_packages_repos_extra: {}

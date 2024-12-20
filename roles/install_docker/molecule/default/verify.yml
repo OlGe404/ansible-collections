@@ -1,7 +1,0 @@
----
-- name: Verify
-  hosts: all
-  gather_facts: false
-  tasks:
-    - name: Run docker hello-world
-      ansible.builtin.command: docker run hello-world
