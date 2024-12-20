@@ -38,7 +38,7 @@ See `molecule --help` and https://ansible.readthedocs.io/projects/molecule/ for 
 
 ## Scope
 Each role should serve one purpose like "install a package on a machine with a debian-like distro".
-The goal is to keep each role simple and concise as possible to ensure it can be tested properly and that it does what you would expect from it by reading its `README` file.
+The goal is to keep each role as simple and concise as possible to ensure it can be tested properly and that it does what you would expect from it by reading its `README` file.
 
 Good examples are roles like `apt`, `dnf` or `apk`. They are used for basic tasks and you might think "do I even need a role for that?" and the
 answer is: YES! Using tested, reliable building blocks that adhere to best practices is a key element to build any reliable automation and that is what this collection was made for.
@@ -50,8 +50,8 @@ Because we are using docker, we need a container image for each platform we want
 
 All test platforms need to be prepared to work with ansible and molecule. This includes:
 
-* Installing python3, sudo and ca-certificates
+* Installing the python3, sudo and ca-certificates packages
 * Creating a non-root user to perform tests with
 * Enable passwordless sudo for the non-root user
 
-See the [Dockerfile for Ubuntu 22.04](.molecule/platforms/Dockerfile.ubuntu-22.04) as an example.
+See the [Dockerfile for Ubuntu 22.04](.molecule/platforms/Dockerfile.ubuntu-22.04) as an example onw how to prepare a test platform for testing with ansible and molecule.
