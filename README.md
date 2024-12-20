@@ -1,6 +1,15 @@
 # olge404.unix
-This ansible collection is useful to streamline and ease the automated setup and configuration
+This ansible collection is useful to streamline and ease the automated installation and configuration
 of various software packages on unix-like operating systems (e.g. ubuntu, debian, alpine, RHEL and macOS).
+
+The CI runs on Github actions and various shell scripts are used for this. Each script provides a help that describes
+how it can be used, which arguments can be provided etc. The "help" function can be accessed by providing either the `-h` or `--help` argument when calling a script. For example:
+
+```bash
+scripts/python3-venv.sh --help
+scripts/ansible-test.sh -h
+.molecule/platforms/build.sh --help
+```
 
 # Prerequisites
 Run the [python3-venv.sh](scripts/python3-venv.sh) and [docker-install.sh](scripts/docker-install.sh) scripts to bootstrap
@@ -9,7 +18,7 @@ the virtuelenv for python and to install docker (on ubuntu).
 Next, run `source .venv/bin/activate` to activate the python virtualenv in your shell and
 `ansible-galaxy collection install -r requirements.yaml` to install the necessary collections.
 
-To test that all prerequisites are fullfilled, run `scripts/ansible-test.sh` and `scripts/moluecule-tests.sh apt`.
+To test that all prerequisites are fullfilled, run `scripts/ansible-test.sh` and `scripts/molecule-tests.sh apt`.
 This will run tests for the ansible collection and for the `apt` role. If those can be performed, you are good to go.
 
 # Add more roles
@@ -27,10 +36,10 @@ molecule init scenario --driver-name docker
 molecule test
 ```
 
-This creates the default layout for a new role (following ansible best practices) and ensures that the molecule test setup works.
+This creates the default layout for a new role (following ansible best practices) and ensures that the `molecule test` setup works.
 
 ## Scope
-Each role should serve one purpose like "install a package on a machine that is running a debian-like distro".
+Each role should serve one purpose like "install a package on a machine with a debian-like distro".
 The goal is to keep each role simple and testable to ensure it does what you would expect from it by reading its `README` file.
 
 Good examples are roles like `apt`, `dnf` or `apk`. They are used for basic tasks and you might think "do I even need a role for that?" and the
@@ -39,11 +48,11 @@ answer is: YES! Using tested, reliable building blocks that adhere to best pract
 ## Test platforms
 Roles in this collection are tested on various unix-like operating systems (test platforms). Testing is done by leveraging molecule as test framework and docker as driver to launch these test platforms locally. This ensures repeatable test results by creating necessary test infrastructure on-demand in a simple way.
 
-Because we are using docker, we need a container image for each platform we want to run our tests on. The Dockerfiles for these container images can be found in the [.molecule/platforms dir](.molecule/platforms/). The [build.sh](.molecule/platforms/build.sh) and [build-all.sh](.molecule/platforms/build-all.sh) scripts should be used to build, tag and push container image(s) to dockerhub. The container images are referenced in the [molecule.yml file](roles/apt/molecule/default/molecule.yml) for a role.
+Because we are using docker, we need a container image for each platform we want to run our tests on. The Dockerfiles for these container images can be found in the [.molecule/platforms dir](.molecule/platforms/). The [build.sh](.molecule/platforms/build.sh) and [build-all.sh](.molecule/platforms/build-all.sh) scripts should be used to build, tag and push container images to dockerhub. The container images are referenced in the [molecule.yml file](roles/apt/molecule/default/molecule.yml) for a role to be used during tests.
 
 All test platforms need to be prepared to work with ansible and molecule. This includes:
 
-* Installing python3
+* Installing python3, sudo and ca-certificates
 * Creating a non-root user to perform tests with
 * Enable passwordless sudo for the non-root user
 
