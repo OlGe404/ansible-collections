@@ -1,6 +1,38 @@
 #!/bin/bash
 
-# See https://docs.docker.com/engine/install/ubuntu/
+help() {
+    cat <<EOF
+Usage: ./$(basename "$0")
+
+Description:
+  Installs the docker daemon and its utilities on ubuntu-based systems as described at "https://docs.docker.com/engine/install/ubuntu/", if it's not already installed.
+  It also performs the post-installation steps for linux as described at "https://docs.docker.com/engine/install/linux-postinstall/".
+  
+  If you want to install docker on a machine that is not ubuntu-based, see "https://docs.docker.com/engine/install/".
+
+Options:
+  -h, --help    Show this help message and exit.
+
+EOF
+}
+
+if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
+    help
+    exit 0
+fi
+
+if ! grep -i -q "ubuntu" /etc/os-release; then
+    echo -e "🚨 ERROR: This is not an ubuntu-based machine. This script won't work here. \n"
+    help
+    exit 1
+fi
+
+if docker ps > /dev/null; then
+  echo -e "🚨 ERROR: Docker is already installed. \n"
+  help
+  exit 1
+fi
+
 sudo apt update
 sudo apt install -y ca-certificates curl
 sudo install -m 0755 -d /etc/apt/keyrings
@@ -21,13 +53,12 @@ sudo apt install -y \
     docker-buildx-plugin \
     docker-compose-plugin
 
-# See https://docs.docker.com/engine/install/linux-postinstall/
 sudo groupadd docker
-sudo usermod -aG docker $USER
+sudo usermod -aG docker "$USER"
 newgrp docker
 docker run hello-world
 
-sudo chown "$USER":"$USER" /home/"$USER"/.docker -R
+sudo chown "$USER:$USER" "/home/$USER/.docker" -R
 sudo chmod g+rwx "$HOME/.docker" -R
 
 sudo systemctl enable docker.service
