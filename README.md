@@ -31,16 +31,16 @@ This creates a default layout for a new role (following ansible best practices) 
 
 
 ## Scope
-Each role should do one thing and one thing only. The goal is to keep each role very simple and testable to ensure
-it does what you would expect from it by reading its `README`.
+Each role should serve one purpose, like "install a package on a machine that is running a debian-like distro".
+The goal is to keep each role simple and testable to ensure it does what you would expect from it by reading its `README`.
 
-Good examples are roles like `apt`, `dnf` or `apk`. They are so simple that you might think "do I even need a dedicated role for that?" and the
-answer is: YES! Using tested, simple building blocks is a key element to build any reliable automation and that is the purpose of this collection.
+Good examples are roles like `apt`, `dnf` or `apk`. They serve basic tasks and you might think "do I even need a dedicated role for that?" and the
+answer is: YES! Using tested, reliable building blocks that adhere to best practices is a key element for any reliable automation and that is the purpose of this collection.
 
 ## Test platforms
-Roles in this collection are tested on various unix-like operating systems (test platforms). Testing is done by leveraging molecule as test framework and docker as driver to launch the test platforms locally. This ensures repeatable test results by creating test infrastructure on-demand in a simple way.
+Roles in this collection are tested on various unix-like operating systems (test platforms). Testing is done by leveraging molecule as test framework and docker as driver to launch these test platforms locally. This ensures repeatable test results by creating test infrastructure on-demand in a simple way.
 
-Because we are using docker, we need a container image for each platform we want to run our tests on. The Dockerfiles for these container images can be found in the [.molecule/platforms dir](.molecule/platforms/). The [build.sh](.molecule/platforms/build.sh) script should be used to build, tag and push the container images to dockerhub. The container images are referenced in the [molecule.yml file](roles/apt/molecule/default/molecule.yml) for a role.
+Because we are using docker, we need a container image for each platform we want to run our tests on. The Dockerfiles for these container images can be found in the [.molecule/platforms dir](.molecule/platforms/). The [build.sh](.molecule/platforms/build.sh) and [build-all.sh](.molecule/platforms/build-all.sh) scripts should be used to build, tag and push container image(s) to dockerhub. The container images are referenced in the [molecule.yml file](roles/apt/molecule/default/molecule.yml) for a role.
 
 All test platforms need to be prepared to work with ansible and molecule. This includes:
 
