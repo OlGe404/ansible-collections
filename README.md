@@ -34,10 +34,11 @@ molecule test
 ```
 
 This creates the default layout for a new role (following ansible best practices) and ensures that the `molecule test` setup works.
+See `molecule --help` and https://ansible.readthedocs.io/projects/molecule/ for more information about testing ansible roles with molecule.
 
 ## Scope
 Each role should serve one purpose like "install a package on a machine with a debian-like distro".
-The goal is to keep each role simple and testable to ensure it does what you would expect from it by reading its `README` file.
+The goal is to keep each role simple and concise as possible to ensure it can be tested properly and that it does what you would expect from it by reading its `README` file.
 
 Good examples are roles like `apt`, `dnf` or `apk`. They are used for basic tasks and you might think "do I even need a role for that?" and the
 answer is: YES! Using tested, reliable building blocks that adhere to best practices is a key element to build any reliable automation and that is what this collection was made for.
