@@ -1,9 +1,9 @@
 ---
 name: Build and push container images for molecule
 on:
-  # Build once per month to keep dependencies from parent images up to date
+  # Run every monday at midnight (UTC) to keep dependencies from parent images up to date
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 0 * * 1"
 
   push:
     paths: ".molecule/platforms/Dockerfile.*"
