@@ -21,6 +21,8 @@ jobs:
         with:
           # Necessary to extract the CHANGESET in the next step
           fetch-depth: 0
+      
+      - run: scripts/python3-venv.sh
 
       - run: |
           echo "CHANGESET=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'roles/')" >> $GITHUB_ENV
