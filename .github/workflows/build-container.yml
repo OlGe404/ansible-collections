@@ -5,29 +5,34 @@ on:
     paths: ".molecule/platforms/Dockerfile.*"
 
 jobs:
-  build:
+  checkout:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Log in to dockerhub
-        uses: docker/login-action@v2
+      - uses: actions/checkout@v3
+  
+  docker-login:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: docker/login-action@v2
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Get list of changed dockerfiles
-        run: |
+  get-changeset:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
           git fetch --unshallow
-          echo "CHANGED_DOCKERFILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '.molecule/platforms/Dockerfile')" >> $GITHUB_ENV
-    
-      - name: Build and push container image for changed dockerfiles
-        run: |
-          if [ -n "$CHANGED_DOCKERFILES" ]; then
-            for dockerfile in $CHANGED_DOCKERFILES; do
+          echo "CHANGESET=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '.molecule/platforms/Dockerfile')" >> $GITHUB_ENV
+  
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          if [ -n "$CHANGESET" ]; then
+            for dockerfile in $CHANGESET; do
               scripts/build-container.sh $dockerfile
             done
           else
-            echo "No relevant Dockerfile changes detected."
+            echo "No changes for '.molecule/platforms/Dockerfile.*' detected."
           fi
