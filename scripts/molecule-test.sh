@@ -12,7 +12,7 @@ Description:
   If a virtualenv for python3 exists at "$ROOT/.venv/bin/activate", it is used.
 
 Arguments:
-  ROLE_NAME       Name of the role to run "molecule test" for (optional).
+  ROLE_NAME    Name of the role to run "molecule test" for (optional).
 
 Options:
   -h, --help    Show this help message and exit.
@@ -52,7 +52,6 @@ if ! docker ps > /dev/null 2>&1; then
   help
   exit 1
 fi
-
 
 if [ -z "$1" ]; then
     ROLES_TO_TEST=$(find "$ROOT/roles" -mindepth 1 -maxdepth 1 -type d)

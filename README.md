@@ -2,7 +2,7 @@
 This ansible collection is useful to streamline and ease the automated installation and configuration
 of various software packages on unix-like operating systems (e.g. ubuntu, debian, alpine, RHEL and macOS).
 
-The CI runs on Github actions and uses [various shell scripts](scripts/) to perform installation, configuration and tests during a pipeline run. Each shell script provides a help function that describes how it can be used locally, which arguments can be provided etc. The help function can be accessed for any shell script by providing either the `-h` or `--help` argument when calling a script. For example:
+The CI runs on Github actions and uses [various shell scripts](scripts/) to perform installation, configuration and tests during a pipeline run. Each shell script provides a help function that describes how the script can be used locally. The help function can be called for any shell script by providing either the `-h` or `--help` argument when running a script. For example:
 
 ```bash
 scripts/python3-venv.sh --help
@@ -10,12 +10,12 @@ scripts/build-container.sh -h
 ```
 
 # Prerequisites
-Run `scripts/python3-venv.sh` and `scripts/docker-install.sh` to bootstrap the virtuelenv for python and to install docker (on ubuntu).
+Run `scripts/python3-venv.sh` and `scripts/docker-install.sh` to bootstrap the virtuelenv for python and to install docker locally (on ubuntu).
 
 Next, run `source .venv/bin/activate` to activate the python virtualenv in your shell and
-`ansible-galaxy collection install -r requirements.yaml` to install all necessary ansible collections.
+`scripts/ansible-galaxy-requirements.sh` to install all necessary ansible collections.
 
-To test that all prerequisites are fullfilled, run `scripts/ansible-test-sanity.sh` and `scripts/molecule-tests.sh apt`.
+To test that all prerequisites are fullfilled, run `scripts/ansible-test-sanity.sh` and `scripts/molecule-test.sh apt`.
 This will run tests for the ansible collection and for the `apt` role. If those can be performed, you are good to go.
 
 # Add more roles
