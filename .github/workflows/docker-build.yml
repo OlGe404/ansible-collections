@@ -13,9 +13,11 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
+        with:
+          # Necessary to extract the CHANGESET in the next step
+          fetch-depth: 0
 
       - run: |
-          git fetch --unshallow
           echo "CHANGESET=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '.molecule/platforms/Dockerfile')" >> $GITHUB_ENV
 
       - uses: docker/login-action@v2
