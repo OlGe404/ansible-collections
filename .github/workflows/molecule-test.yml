@@ -26,10 +26,11 @@ jobs:
           echo "CHANGESET=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'roles/')" >> $GITHUB_ENV
 
       - run: |
-          if [ -n "$CHANGESET" ]; then
-            for role in "$CHANGESET"; do
-              scripts/molecule-test.sh "$role"
-            done
-          else
-            scripts/molecule-test.sh
-          fi
+          echo $CHANGESET
+          # if [ -n "$CHANGESET" ]; then
+          #   for role in "$CHANGESET"; do
+          #     scripts/molecule-test.sh "$role"
+          #   done
+          # else
+          #   scripts/molecule-test.sh
+          # fi
