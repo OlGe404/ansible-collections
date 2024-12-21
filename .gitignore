@@ -2,3 +2,4 @@ to-dos.md
 .venv
 .parked
 _old
+*.tar.gz
