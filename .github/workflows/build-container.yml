@@ -22,7 +22,8 @@ jobs:
 
       - name: Get list of changed dockerfiles
         run: |
-          echo "CHANGED_DOCKERFILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '.molecule/platforms/Dockerfile.')" >> $GITHUB_ENV
+          git fetch --unshallow
+          echo "CHANGED_DOCKERFILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '.molecule/platforms/Dockerfile')" >> $GITHUB_ENV
     
       - name: Build and push container image for changed dockerfiles
         run: |
