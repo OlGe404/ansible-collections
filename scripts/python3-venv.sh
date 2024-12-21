@@ -29,5 +29,5 @@ if !python3 -m venv --help > /dev/null 2>&1; then
 fi
 
 python3 -m venv $ROOT/.venv && source $ROOT/.venv/bin/activate
-pip install --upgrade pip setuptools wheel
-pip install --upgrade --requirement "$ROOT/requirements.txt"
+pip install --upgrade --quiet pip setuptools wheel
+pip install --upgrade --quiet --requirement "$ROOT/requirements.txt"
