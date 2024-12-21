@@ -2,6 +2,8 @@
 This ansible collection is useful to streamline and ease the automated installation and configuration
 of various software packages on unix-like operating systems (e.g. ubuntu, debian, alpine, RHEL and macOS).
 
+# Usage and docs
+
 # Development
 The code and CI is [hosted on Github](https://github.com/OlGe404/olge404.unix) and uses [various shell scripts](scripts/) to perform installation, configuration and tests during a pipeline run. Each shell script provides a help function that describes how the script can be used locally. The help function can be called for any shell script by providing either the `-h` or `--help` argument when running a script. For example:
 
@@ -56,3 +58,18 @@ All test platforms need to be prepared to work with ansible and molecule. This i
 * Enable passwordless sudo for the non-root user
 
 See the [Dockerfile for Ubuntu 22.04](.molecule/platforms/Dockerfile.ubuntu-22.04) as an example on how to prepare a test platform for testing with ansible and molecule.
+
+# Release a new version
+
+```bash
+# List all tags
+git tag
+
+# Delete tag locally and remote
+git tag -d release-0.1.0
+git push origin --delete release-0.1.0
+
+# Create and push a new tag
+git tag -a release-0.1.0 -m "Release version 0.1.0"
+git push origin release-0.1.0
+```
