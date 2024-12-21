@@ -12,7 +12,7 @@ Description:
   If a virtualenv for python3 exists at "$ROOT/.venv/bin/activate", it is used.
 
 Arguments:
-    ROLE_NAME       Name of the role to run "molecule test" for (optional).
+  ROLE_NAME       Name of the role to run "molecule test" for (optional).
 
 Options:
   -h, --help    Show this help message and exit.
