@@ -1,7 +1,7 @@
 ---
 name: Run molecule tests
 on:
-  # Run every tuesday at midnight (UTC) to check if dependencies from parent images break tests
+  # Run every tuesday at midnight (UTC) to check if dependencies from parent images break molecule tests
   schedule:
     - cron: "0 0 * * 2"
 
@@ -19,11 +19,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          # Necessary to extract the CHANGESET in the next step
+          # Necessary to extract the CHANGESET
           fetch-depth: 0
       
       - run: scripts/python3-venv.sh
-
+      - run: scripts/ansible-galaxy-requirements.sh
       - run: echo "CHANGESET=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'roles/')" >> $GITHUB_ENV
 
       - run: |
