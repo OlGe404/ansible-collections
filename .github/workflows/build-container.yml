@@ -2,7 +2,7 @@
 name: Build and push a specific container image
 on:
   push:
-    paths: ".molecule/platforms/Dockerfile.+"
+    paths: ".molecule/platforms/Dockerfile.*"
 
 jobs:
   build:
