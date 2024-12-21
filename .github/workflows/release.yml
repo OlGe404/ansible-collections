@@ -1,0 +1,17 @@
+---
+name: Release olge404.unix collection to ansible-galaxy hub
+on:
+  push:
+    tags:
+      - "release-*"
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v3
+      - run: scripts/python3-venv.sh
+      - run: scripts/ansible-galaxy-requirements.sh
+      - run: scripts/ansible-test-sanity.sh
+      - run: scripts/molecule-test.sh
+      - run: scripts/ansible-galaxy-publish.sh ${{ secrets.ANSIBLE_GALAXY_TOKEN }}
