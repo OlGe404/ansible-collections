@@ -10,7 +10,7 @@ scripts/build-container.sh -h
 ```
 
 # Prerequisites
-Run `scripts/python3-venv.sh` and `scripts/docker-install.sh` to bootstrap the virtuelenv for python and to install docker locally (on ubuntu).
+Run `scripts/yq-install.sh`, `scripts/python3-venv.sh` and `scripts/docker-install.sh` to install yq, bootstrap the virtuelenv for python and to install docker.
 
 Next, run `source .venv/bin/activate` to activate the python virtualenv in your shell and
 `scripts/ansible-galaxy-requirements.sh` to install all necessary ansible collections.
