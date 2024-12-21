@@ -1,13 +1,8 @@
 ---
-name: Build and push container images for molecule test platforms
+name: Build and push a specific container image
 on:
-  # Build once per month to keep dependencies from parent images up to date
-  schedule:
-    - cron: "0 0 * * 1"
-
   push:
-    paths: 
-      - ".molecule/platforms/Dockerfile.*"
+    paths: ".molecule/platforms/Dockerfile.+"
 
 jobs:
   build:
@@ -25,5 +20,16 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push container images
-        run: scripts/build-container.sh
+      - name: Get changed files
+        run: |
+          echo "CHANGED_DOCKERFILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep '.molecule/platforms/Dockerfile.')" >> $GITHUB_ENV
+    
+      - name: Build and push container image
+        run: |
+          if [ -n "$CHANGED_DOCKERFILES" ]; then
+            for dockerfile in $CHANGED_DOCKERFILES; do
+              scripts/build-container.sh $dockerfile
+            done
+          else
+            echo "No relevant Dockerfile changes detected."
+          fi
