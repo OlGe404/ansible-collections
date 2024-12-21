@@ -1,6 +1,10 @@
 ---
-name: Build and push a specific container image
+name: Build and push container images for molecule
 on:
+  # Build once per month to keep dependencies from parent images up to date
+  schedule:
+    - cron: "*/5 * * * *"
+
   push:
     paths: ".molecule/platforms/Dockerfile.*"
 
@@ -21,9 +25,9 @@ jobs:
 
       - run: |
           if [ -n "$CHANGESET" ]; then
-            for dockerfile in $CHANGESET; do
-              scripts/build-container.sh $dockerfile
+            for dockerfile in "$CHANGESET"; do
+              scripts/docker-build.sh "$dockerfile"
             done
           else
-            echo "No changes for '.molecule/platforms/Dockerfile.*' detected."
+            scripts/docker-build.sh
           fi

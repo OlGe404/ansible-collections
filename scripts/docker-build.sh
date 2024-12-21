@@ -56,7 +56,7 @@ for dockerfile in $DOCKERFILES; do
     TIMESTAMP=$(date +%Y%m%d%H%M%S)
     IMAGE_TAG="$(basename "$dockerfile" | cut -d . -f2-)-$TIMESTAMP"
 
-    docker buildx build --file "$dockerfile" --tag "docker.io/olge404/molecule:$IMAGE_TAG" "$ROOT/.molecule/platforms"
+    docker buildx build --quiet --file "$dockerfile" --tag "docker.io/olge404/molecule:$IMAGE_TAG" "$ROOT/.molecule/platforms"
     docker push "docker.io/olge404/molecule:$IMAGE_TAG"
 
     echo -e "✅ Successfully pushed 'docker.io/olge404/molecule:$IMAGE_TAG' to dockerhub \n"

@@ -2,7 +2,7 @@
 This ansible collection is useful to streamline and ease the automated installation and configuration
 of various software packages on unix-like operating systems (e.g. ubuntu, debian, alpine, RHEL and macOS).
 
-The CI runs on Github actions and [various shell scripts](scripts/) are used to perform installation, configuration and tests during a pipeline run. Each shell script provides a help function that describes how it can be used locally, which arguments can be provided etc. The help function can be accessed for any shell script by providing either the `-h` or `--help` argument when calling a script. For example:
+The CI runs on Github actions and uses [various shell scripts](scripts/) to perform installation, configuration and tests during a pipeline run. Each shell script provides a help function that describes how it can be used locally, which arguments can be provided etc. The help function can be accessed for any shell script by providing either the `-h` or `--help` argument when calling a script. For example:
 
 ```bash
 scripts/python3-venv.sh --help
@@ -46,7 +46,7 @@ answer is: YES! Using tested, reliable building blocks that adhere to best pract
 ## Test platforms
 Roles in this collection are tested on various unix-like operating systems (test platforms). Testing is done by leveraging molecule as test framework and docker as driver to launch these test platforms locally. This ensures predictable test results by creating the test infrastructure on-demand in a simple and repeatable manner.
 
-Because we are using docker, we need a container image for each platform we want to run our tests on. The Dockerfiles for these container images can be found in the [.molecule/platforms dir](.molecule/platforms/). The [build-container.sh](scripts/build-container.sh) script should be used to build, tag and push container images to dockerhub, if you need to build them manually. The CI will build and push all container images at least once per month, or if any Dockerfile has changed in the ".molecule/platforms" dir. The container images for the test platforms are referenced in the [molecule.yml file](roles/apt/molecule/default/molecule.yml) of a role to be used during tests.
+Because we are using docker, we need a container image for each platform we want to run our tests on. The Dockerfiles for these container images can be found in the [.molecule/platforms dir](.molecule/platforms/). The [docker-build.sh](scripts/docker-build.sh) script should be used to build, tag and push container images to dockerhub (if you need to build them manually). The CI will build and push all container images at least once per month, or if any Dockerfile has changed in the ".molecule/platforms" dir. The container images for the test platforms are referenced in the [molecule.yml file](roles/apt/molecule/default/molecule.yml) of a role to be used during tests.
 
 All test platforms need to be prepared to work with ansible and molecule. This includes:
 
