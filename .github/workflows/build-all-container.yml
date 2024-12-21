@@ -3,8 +3,7 @@ name: Build and push all container images
 on:
   # Build once per month to keep dependencies from parent images up to date
   schedule:
-    # - cron: "0 0 * * 1"
-    - cron: '*/5 * * * *'  # This triggers the workflow every 5 minutes
+    - cron: "0 0 * * 1"
 
 jobs:
   build-and-push:
