@@ -48,7 +48,7 @@ fi
 
 DEPENDENCIES=$(yq eval '.dependencies | keys | .[]' "$ROOT/galaxy.yml")
 for dep in $DEPENDENCIES; do
-  # Extract the version of the dependency using ["key"] syntax
+  # Extract the version of the dependency using ["key"] syntax, because collection names contain "."
   version=$(yq eval ".dependencies[\"${dep}\"]" "$ROOT/galaxy.yml")
   
   echo "Installing collection: $dep==$version"
