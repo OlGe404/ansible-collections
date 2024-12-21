@@ -46,4 +46,4 @@ if ! docker ps > /dev/null 2>&1; then
 fi
 
 ansible-galaxy collection install --force "$ROOT" -p "$TMP"
-cd "$TMP/olge404/unix" && ansible-test sanity --docker default && rm -rf "$TMP"
+cd "$TMP/olge404/unix" && ansible-test sanity && rm -rf "$TMP"
