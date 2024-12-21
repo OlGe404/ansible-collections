@@ -24,6 +24,10 @@ if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     exit 0
 fi
 
+if [ -d "$ROOT/.venv" ]; then
+    source "$ROOT/.venv/bin/activate"
+fi
+
 if ! yq --version > /dev/null; then
   echo -e "🚨 ERROR: Cannot perform "yq --version". Is yq installed? \n"
   help
@@ -40,10 +44,6 @@ if ! ansible-galaxy --version > /dev/null 2>&1; then
   echo -e "🚨 ERROR: Cannot perform "ansible-galaxy --version". Is ansible-galaxy installed? \n"
   help
   exit 1
-fi
-
-if [ -d "$ROOT/.venv" ]; then
-    source "$ROOT/.venv/bin/activate"
 fi
 
 DEPENDENCIES=$(yq eval '.dependencies | keys | .[]' "$ROOT/galaxy.yml")

@@ -29,6 +29,10 @@ if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     exit 0
 fi
 
+if [ -d "$ROOT/.venv" ]; then
+    source $ROOT/.venv/bin/activate
+fi
+
 if ! ansible --version > /dev/null 2>&1; then
   echo -e "🚨 ERROR: Cannot perform "ansible --version". Is ansible installed? \n"
   help
@@ -57,10 +61,6 @@ if [ -z "$1" ]; then
     ROLES_TO_TEST=$(find "$ROOT/roles" -mindepth 1 -maxdepth 1 -type d)
 else
     ROLES_TO_TEST="$ROOT/roles/$1"
-fi
-
-if [ -d "$ROOT/.venv" ]; then
-    source $ROOT/.venv/bin/activate
 fi
 
 for role in $ROLES_TO_TEST; do

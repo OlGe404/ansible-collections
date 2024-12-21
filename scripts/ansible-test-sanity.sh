@@ -23,6 +23,10 @@ if [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     exit 0
 fi
 
+if [ -d "$ROOT/.venv" ]; then
+    source "$ROOT/.venv/bin/activate"
+fi
+
 if ! ansible-test --version > /dev/null 2>&1; then
   echo -e "🚨 ERROR: Cannot perform "ansible-test --version". Is ansible-test installed? \n"
   help
@@ -39,10 +43,6 @@ if ! docker ps > /dev/null 2>&1; then
   echo -e "🚨 ERROR: Cannot perform "docker ps". Is the docker daemon installed and running? \n"
   help
   exit 1
-fi
-
-if [ -d "$ROOT/.venv" ]; then
-    source "$ROOT/.venv/bin/activate"
 fi
 
 ansible-galaxy collection install --force "$ROOT" -p "$TMP"

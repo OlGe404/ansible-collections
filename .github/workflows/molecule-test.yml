@@ -27,8 +27,6 @@ jobs:
       - run: echo "CHANGESET=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'roles/')" >> $GITHUB_ENV
 
       - run: |
-          ls -la
-
           if [ -n "$CHANGESET" ]; then
             for filepath in "$CHANGESET"; do
               ROLE_NAME=$(echo $filepath | cut -d '/' -f2)
