@@ -60,7 +60,7 @@ Example Playbook
 
         # Dict of apt repos to add. Sources will be added and refreshed before package installations. Order of the keys don't matter.
         apt_repos:
-          # The github key/values are extracted from the following one-line string of the github docs:
+          # The github key/values are extracted from the following one-line string and the github docs:
           # echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main"
           #
           # See https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian-ubuntu-linux-raspberry-pi-os-apt for more.
@@ -72,7 +72,7 @@ Example Playbook
             components: main
             dearmor_key: false
 
-          # The hashicorp key/values are extracted from the following one-line string of the hashicorp docs:
+          # The hashicorp key/values are extracted from the following one-line string and the hashicorp docs:
           # echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
           #
           # See https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli for more.
