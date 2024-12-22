@@ -44,7 +44,7 @@
     data: "{{ item.value }}"
     engine: ansible.utils.jsonschema
     criteria:
-      - "{{ lookup('file', '{{ role_path }}/files/apt_repo_schema.json') }}"
+      - "{{ lookup('file', '{{ role_path }}/files/schema.json') }}"
 
 - name: Add apt repos
   become: true

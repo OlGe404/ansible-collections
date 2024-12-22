@@ -7,17 +7,19 @@ Requirements
 ------------
 
 On the control node:
+
 * python3
 * ansible
 
 On the target node:
+
 * python3
 * sudo privileges
 
 Role Variables
 --------------
 
-All vars for this role have default values set. If you don't provide any values, the role won't change anything on your system.
+All vars for this role have default values set, so they are all optional. If you don't provide any values yourself, the steps using those vars will be skipped.
 
 > **NOTE**: See [Example Playbook](#example-playbook) section for more.
 
@@ -34,6 +36,7 @@ N/A
 
 Example Playbook
 ----------------
+
 ```yaml
 - name: Install apt packages
   hosts: all
@@ -51,8 +54,8 @@ Example Playbook
 
         # Dict of packages to overwrite the content of "apt_packages" with.
         # In this example, version "2.50.0" of the "gh" package will be installed instead of version "2.43.0".
-        # This is useful if you are layering vars with group_vars and host_vars and need to overwrite specific
-        # package versions for specific hosts. If you don't want to do that, you don't have to use "apt_packages_overwrite".
+        # This is useful if you are layering configuration using group_vars and host_vars and want to overwrite specific
+        # package versions on specific hosts.
         apt_packages_overwrite:
           gh: "2.50.0"
 
@@ -90,4 +93,4 @@ Apache License 2.0 (https://apache.org/licenses/LICENSE-2.0#apache-license-versi
 Author Information
 ------------------
 
-Written and maintained by OlGe404 (https://github.com/OlGe404).
+Written and maintained by [OlGe404](https://github.com/OlGe404).
