@@ -8,26 +8,25 @@ Requirements
 
 On the control node:
 
-* python3
-* ansible
+* [Requirements for the ansible.builtin.apt module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html#requirements)
+
 
 On the target node:
 
-* python3
 * sudo privileges
 
 Role Variables
 --------------
 
-All vars for this role have default values set, so they are all optional. If you don't provide any values yourself, the steps using those vars will be skipped.
+All vars for this role have empty default values set. If you don't provide your own values for them, the steps using those vars will be skipped.
 
 > **NOTE**: See [Example Playbook](#example-playbook) section for more.
 
-| Name                   | Type | Description                                                                                 |
-| ---------------------- | ---- | ------------------------------------------------------------------------------------------- |
-| apt_packages           | dict | Key/value pairs of apt packages to install.          |
-| apt_packages_overwrite | dict | Key/value pairs of apt packages used to overwrite `apt_packages` var content, e.g. to specify a different version. |
-| apt_repos              | dict | Key/value pairs of apt repos to add. The key/values to set follow the [deb822 specification](https://repolib.readthedocs.io/en/latest/deb822-format.html). |
+| Name                   | Type | Default | Description                                                                                |
+| ---------------------- | ---- | ------- | ------------------------------------------------------------------------------------------ |
+| apt_packages           | dict | {}      | Key/value pairs of apt packages to install in the format of `packageName: packageVersion`. See the [Example Playbook](#example-playbook) section for more. |
+| apt_packages_overwrite | dict | {}      | Key/value pairs of packages to overwrite `apt_packages`, e.g. to specify a different version. See the [Example Playbook](#example-playbook) section for more. |
+| apt_repos              | dict | {}      | Key/value pairs of apt repos to add. The keys follow the [deb822 specification](https://repolib.readthedocs.io/en/latest/deb822-format.html) for apt sources managed in `/etc/apt/sources.list.d`. See the [Example Playbook](#example-playbook) section for more. |
 
 Dependencies
 ------------
@@ -43,8 +42,8 @@ Example Playbook
   roles:
     - role: olge404.unix.apt
       vars:
-        # Dict of apt packages to install in the format of "<packageName>: <version>".
-        # If <version> = "", the latest available version will be used.
+        # Dict of apt packages to install in the format of "<packageName>: <packageVersion>".
+        # If <packageVersion> = "", the latest available version will be used.
         apt_packages:
           git: ""
           curl: ""
@@ -59,26 +58,32 @@ Example Playbook
         apt_packages_overwrite:
           gh: "2.50.0"
 
-        # Dict of apt repos to add. Repos will be added an refreshed before package installation is attempted.
+        # Dict of apt repos to add. Sources will be added and refreshed before package installations. Order of the keys don't matter.
         apt_repos:
-          # See https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian-ubuntu-linux-raspberry-pi-os-apt
+          # The github key/values are extracted from the following one-line string of the github docs:
+          # echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main"
+          #
+          # See https://github.com/cli/cli/blob/trunk/docs/install_linux.md#debian-ubuntu-linux-raspberry-pi-os-apt for more.
           github:
-            uri: https://cli.github.com/packages
-            components: main
-            suite: stable
             architecture: amd64
             key_url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+            uri: https://cli.github.com/packages
+            suite: stable
+            components: main
             dearmor_key: false
 
-          # See https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli
+          # The hashicorp key/values are extracted from the following one-line string of the hashicorp docs:
+          # echo "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+          #
+          # See https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli for more.
           hashicorp:
             uri: https://apt.releases.hashicorp.com
-            components: main
-            # If "suite" is set to "auto", the value of "ansible_facts['distribution_release']" is used
-            suite: auto
-            # If "architecture" is set to "auto", the value of "ansible_facts['architecture']" is used
+            # If "architecture" is set to "auto", the value of the "ansible_facts['architecture']" mapping is used
             architecture: auto
             key_url: https://apt.releases.hashicorp.com/gpg
+            # If "suite" is set to "auto", the value of "ansible_facts['distribution_release']" is used
+            suite: auto
+            components: main
             # You need to dearmor a GPG key for an APT repository if the key is provided in ASCII-armored format
             # (a text format typically beginning with "-----BEGIN PGP PUBLIC KEY BLOCK-----").
             # If you are unsure whether to dearmor the key or not, try setting this to 'false' first (or download the key and take a look at it yourself).
