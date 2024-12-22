@@ -36,4 +36,4 @@ license:
   - Apache-2.0
 
 dependencies:
-  community.general: 9.0.1
+  community.general: 10.1.0
