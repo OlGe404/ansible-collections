@@ -25,7 +25,10 @@ jobs:
       - run: scripts/python3-venv.sh
       - run: scripts/ansible-galaxy-requirements.sh
       - run: scripts/ansible-test-sanity.sh
-      - run: echo "CHANGESET=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'roles/')" >> $GITHUB_ENV
+      - run: |
+          CHANGESET=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'roles/' | paste -sd " " -)
+          echo "$CHANGESET" >> $GITHUB_ENV
+
       - run: |
           if [ -n "$CHANGESET" ]; then
             for filepath in "$CHANGESET"; do
