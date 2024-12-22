@@ -27,9 +27,7 @@ jobs:
       - run: scripts/ansible-test-sanity.sh
       - run: |
           CHANGESET=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'roles/' | paste -sd " " -)
-          echo "$CHANGESET" >> $GITHUB_ENV
 
-      - run: |
           if [ -n "$CHANGESET" ]; then
             for filepath in "$CHANGESET"; do
               ROLE_NAME=$(echo $filepath | cut -d '/' -f2)
