@@ -9,8 +9,8 @@ platforms:
     groups:
       - debian
 
-  - name: ubuntu-22.04
-    image: docker.io/olge404/molecule:ubuntu-22.04-20241219162424
+  - name: ubuntu-24.04
+    image: docker.io/olge404/molecule:ubuntu-24.04-20241222185324
     pre_build_image: true
     groups:
       - ubuntu
@@ -24,27 +24,24 @@ provisioner:
     group_vars:
       all:
         apt_packages:
-          curl: ""
-          jq: ""
           gh: ""
           terraform: ""
+          git: ""
 
         apt_repos:
           github:
-            uri: https://cli.github.com/packages
-            components: main
-            suite: stable
-            architecture: amd64
-            key_url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
-            dearmor_key: false
+            source: "deb [arch=amd64 signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main"
+            key:
+              download_url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+              save_to: /etc/apt/keyrings/githubcli-archive-keyring.gpg
+              dearmor: false
 
           hashicorp:
-            uri: https://apt.releases.hashicorp.com
-            components: main
-            suite: auto
-            architecture: auto
-            key_url: https://apt.releases.hashicorp.com/gpg
-            dearmor_key: true
+            source: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+            key:
+              download_url: https://apt.releases.hashicorp.com/gpg
+              save_to: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+              dearmor: true
 
       debian:
         apt_packages_overwrite:
@@ -53,3 +50,7 @@ provisioner:
       ubuntu:
         apt_packages_overwrite:
           tree: ""
+
+        apt_repos_overwrite:
+          git:
+            source: ppa:git-core/ppa

@@ -6,10 +6,9 @@
     - name: Run test commands
       tags: skip_ansible_lint
       loop:
-        - curl --version
-        - jq --version
         - terraform -help
         - gh -help
+        - git -h
       ansible.builtin.command: "{{ item }}"
 
 - name: Verify debian
