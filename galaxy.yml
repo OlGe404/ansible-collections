@@ -1,7 +1,7 @@
 ---
 namespace: olge404
 name: unix
-version: 0.1.1
+version: 0.1.0
 readme: README.md
 description: Streamline package installation and configuration for unix based distros.
 authors:
@@ -35,5 +35,5 @@ build_ignore:
 license:
   - Apache-2.0
 
-dependencies:
-  community.general: 10.1.0
+dependencies: {}
+  # community.general: 10.1.0
