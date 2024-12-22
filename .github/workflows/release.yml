@@ -1,5 +1,5 @@
 ---
-name: Release collection to ansible-galaxy hub
+name: Release collection
 on:
   push:
     tags:
