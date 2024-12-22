@@ -31,3 +31,4 @@ fi
 python3 -m venv $ROOT/.venv && source $ROOT/.venv/bin/activate
 pip install --upgrade --quiet pip setuptools wheel
 pip install --upgrade --quiet --requirement "$ROOT/requirements.txt"
+echo -e "✅ Successfully installed pip packages:\n$(pip freeze)"
