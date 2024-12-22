@@ -3,6 +3,13 @@ This ansible collection is useful to streamline and ease the automated installat
 of various software packages on unix-like operating systems (e.g. ubuntu, debian, alpine, RHEL and macOS).
 
 # Usage and docs
+To install this collection, run:
+
+```bash
+ansible-galaxy collection install olge404.unix
+```
+
+Documentation for this collection and each role can be found on [GitHub](https://github.com/OlGe404/olge404.unix/blob/main/README.md) or on [ansible-galaxy hub](https://galaxy.ansible.com/ui/repo/published/olge404/unix/docs/).
 
 # Development
 The code is [hosted on Github](https://github.com/OlGe404/olge404.unix) and CI is done on [GitHub actions](https://github.com/OlGe404/olge404.unix/actions). The CI uses [various shell scripts](scripts/) to perform installation, configuration and tests during a pipeline run. Each shell script provides a help function that describes how the script can be used. The help function can be called by providing either the `-h` or `--help` argument when running a script. For example:
@@ -74,7 +81,7 @@ All test platforms need to be prepared to work with ansible and molecule. This i
 * Creating a non-root user to perform tests with
 * Enable passwordless sudo for the non-root user
 
-See the [Dockerfile for Ubuntu 22.04](.molecule/platforms/Dockerfile.ubuntu-22.04) as an example on how to prepare a test platform for testing with ansible and molecule.
+See the [Dockerfile for Ubuntu 24.04](.molecule/platforms/Dockerfile.ubuntu-24.04) as an example on how to prepare a test platform for testing with ansible and molecule.
 
 # Changelog
 All notable changes to this collection have to be listed in the [changelog.md file](changelog.md) and have to follow [semantic versioning](https://semver.org/).
@@ -109,9 +116,9 @@ Keep an Unreleased section at the top to track upcoming changes. This serves two
 # Release a new version
 The [release.yml pipeline](.github/workflows/release.yml) is used to test, build and publish a new version of this collection to ansible-galaxy hub if a release-tag is pushed. All notable changes can be a reason to release a new version of this collection, as long as they fit the semver specification.
 
-Before attempting to release a new version, update the `version` field in the [galaxy.yml file](galaxy.yml). The release pipeline will check if the version of the pushed release-tag matches the `version` field in the galaxy.yml file and will fail, if it doesn't match. It will also fail if the version you are trying to release already exists on ansible-galaxy hub.
+Before attempting to release a new version, update the `version` field in the [galaxy.yml file](galaxy.yml). The release pipeline will check if the version of the pushed release-tag matches the `version` field in the galaxy.yml file and will fail, if it doesn't match. It will also fail if the version you are trying to release already exists on ansible-galaxy hub for this collection.
 
-If you forgot to update the `version` field in the galaxy.yml file and the release pipeline fails, you have to:
+If you forgot to update the `version` field in the galaxy.yml file, but already pushed a release-tag and the release pipeline fails, you have to:
 * Update the version in the galaxy.yml file and push it
 * Delete the failed release-tag locally and remote
 * Create and push a new annotated release-tag to retry the release
