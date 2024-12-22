@@ -1,5 +1,5 @@
 ---
-name: Build and push container images for molecule
+name: Build and push container images
 on:
   # Run every monday at midnight (UTC) to keep dependencies from parent images up to date
   schedule:

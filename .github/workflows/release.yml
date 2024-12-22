@@ -1,9 +1,9 @@
 ---
-name: Release olge404.unix collection to ansible-galaxy hub
+name: Release collection to ansible-galaxy hub
 on:
   push:
     tags:
-      - "release-*"
+      - "release-*.*.*"
 
 jobs:
   release:

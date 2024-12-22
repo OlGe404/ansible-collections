@@ -1,5 +1,5 @@
 ---
-name: Run ansible collection and molecule tests
+name: Run collection and molecule tests
 on:
   # Run every tuesday at midnight (UTC) to check if dependencies from parent images break molecule tests
   schedule:
