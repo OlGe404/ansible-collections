@@ -112,7 +112,7 @@ The [release.yml pipeline](.github/workflows/release.yml) is used to test, build
 Before attempting to release a new version, update the `version` field in the [galaxy.yml file](galaxy.yml). The release pipeline will check if the version of the pushed release-tag matches the `version` field in the galaxy.yml file and will fail, if it doesn't match. It will also fail if the version you are trying to release already exists on ansible-galaxy hub.
 
 If you forgot to update the `version` field in the galaxy.yml file and the release pipeline fails, you have to:
-* Update the version in the galaxy.yml file
+* Update the version in the galaxy.yml file and push it
 * Delete the failed release-tag locally and remote
 * Create and push a new annotated release-tag to retry the release
 
