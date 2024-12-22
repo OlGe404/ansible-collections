@@ -64,7 +64,7 @@ if [ "$GALAXY_HUB_RESPONSE" -eq 404 ]; then
   ansible-galaxy collection publish --token "$1" "$COLLECTION_TAR_GZ" && rm "$COLLECTION_TAR_GZ"
 
 elif [ "$GALAXY_HUB_RESPONSE" -eq 200 ]; then
-  echo -e "🚨 ERROR: Version $GALAXY_FILE_VERSION of oge404.unix already exists on ansible-galaxy hub. \n"
+  echo -e "🚨 ERROR: Version $GALAXY_FILE_VERSION of olge404.unix already exists on ansible-galaxy hub. \n"
   help
   exit 1
 fi
