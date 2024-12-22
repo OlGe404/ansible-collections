@@ -10,6 +10,15 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v3
+      - run: |
+          GIT_TAG_VERSION="${GITHUB_REF_NAME#release-}"
+          GALAXY_FILE_VERSION=$(yq '.version' galaxy.yml)
+
+          if [ "$GIT_TAG_VERSION" != "$GALAXY_FILE_VERSION" ]; then
+            echo -e "🚨 ERROR: GIT_TAG_VERSION does not match GALAXY_FILE_VERSION. \n"
+            exit 1
+          fi
+
       - run: scripts/python3-venv.sh
       - run: scripts/ansible-galaxy-requirements.sh
       - run: scripts/ansible-test-sanity.sh
