@@ -12,7 +12,7 @@ ansible-galaxy collection install olge404.unix
 Documentation for this collection and each role can be found on [GitHub](https://github.com/OlGe404/olge404.unix/blob/main/README.md) or on [ansible-galaxy hub](https://galaxy.ansible.com/ui/repo/published/olge404/unix/docs/).
 
 # Development
-The code is [hosted on Github](https://github.com/OlGe404/olge404.unix) and CI is done on [GitHub actions](https://github.com/OlGe404/olge404.unix/actions). The CI uses [various shell scripts](scripts/) to perform installation, configuration and tests during a pipeline run. Each shell script provides a help function that describes how the script can be used. The help function can be called by providing either the `-h` or `--help` argument when running a script. For example:
+The code is [hosted on Github](https://github.com/OlGe404/olge404.unix) and CI is done on [GitHub actions](https://github.com/OlGe404/olge404.unix/actions). The CI uses [various shell scripts](https://github.com/OlGe404/olge404.unix/tree/main/scripts) to perform installation, configuration and tests during a pipeline run. Each shell script provides a help function that describes how the script can be used. The help function can be called by providing either the `-h` or `--help` argument when running a script. For example:
 
 ```bash
 scripts/python3-venv.sh --help
@@ -28,7 +28,7 @@ scripts/python3-venv.sh
 scripts/docker-install.sh
 ```
 
-To activate the python virtualenv in your shell and to install nnecessary ansible collections, run:
+To activate the python virtualenv in your shell and to install required ansible collections, run:
 
 ```bash
 source .venv/bin/activate
@@ -73,7 +73,7 @@ answer is: YES! Using tested, reliable building blocks that adhere to best pract
 ### Test platforms
 Roles in this collection are tested on various unix-like operating systems (test platforms). Testing is done by leveraging molecule as test framework and docker as driver to launch these test platforms locally. This ensures predictable test results by creating the test infrastructure on-demand in a simple and repeatable manner.
 
-Because we are using docker, we need a container image for each platform we want to run our tests on. The Dockerfiles for these container images can be found in the [.molecule/platforms dir](.molecule/platforms/). The [docker-build.sh](scripts/docker-build.sh) script should be used to build, tag and push container images to dockerhub (if you need to build them manually). The CI will build and push all container images at least once per week, or if any Dockerfile has changed in the ".molecule/platforms" dir. The container images are referenced in the [molecule.yml file](roles/apt/molecule/default/molecule.yml) of a role to be used during molecule tests.
+Because we are using docker, we need a container image for each platform we want to run our tests on. The Dockerfiles for these container images can be found in the [.molecule/platforms dir](https://github.com/OlGe404/olge404.unix/tree/main/.molecule/platforms/). The [docker-build.sh](https://github.com/OlGe404/olge404.unix/tree/main/scripts/docker-build.sh) script should be used to build, tag and push container images to dockerhub (if you need to build them manually). The CI will build and push all container images at least once per week, or if any Dockerfile has changed in the ".molecule/platforms" dir. The container images are referenced in the [molecule.yml file](https://github.com/OlGe404/olge404.unix/tree/main/roles/apt/molecule/default/molecule.yml) of a role to be used during molecule tests.
 
 All test platforms need to be prepared to work with ansible and molecule. This includes:
 
@@ -81,14 +81,14 @@ All test platforms need to be prepared to work with ansible and molecule. This i
 * Creating a non-root user to perform tests with
 * Enable passwordless sudo for the non-root user
 
-See the [Dockerfile for Ubuntu 24.04](.molecule/platforms/Dockerfile.ubuntu-24.04) as an example on how to prepare a test platform for testing with ansible and molecule.
+See the [Dockerfile for Ubuntu 24.04](https://github.com/OlGe404/olge404.unix/tree/main/.molecule/platforms/Dockerfile.ubuntu-24.04) as an example on how to prepare a test platform for molecule.
 
 # Changelog
-All notable changes to this collection have to be listed in the [changelog.md file](changelog.md) and have to follow [semantic versioning](https://semver.org/).
+All notable changes to this collection have to be listed in the [changelog.md file](https://github.com/OlGe404/olge404.unix/tree/main/changelog.md) and have to follow [semantic versioning](https://semver.org/).
 
 The changelog.md file adheres to the conventions listed on [keepachangelog.com](https://keepachangelog.com/en/1.1.0/).
 
-Here is a quick overview on how to keep a changelog:
+Here is a quick overview:
 
 ```
 Guiding Principles
@@ -108,17 +108,18 @@ Types of changes
     [Fixed] for any bug fixes.
     [Security] in case of vulnerabilities.
 
-Keep an Unreleased section at the top to track upcoming changes. This serves two purposes:
+Keep an [UNRELEASED] section at the top to track upcoming changes. This serves two purposes:
     People can see what changes they might expect in upcoming releases
-    At release time, you can move the Unreleased section changes into a new release version section.
+    At release time, you can move the [UNRELEASED] section changes into a new release version section.
 ```
 
 # Release a new version
-The [release.yml pipeline](.github/workflows/release.yml) is used to test, build and publish a new version of this collection to ansible-galaxy hub if a release-tag is pushed. All notable changes can be a reason to release a new version of this collection, as long as they fit the semver specification.
+The [release.yml pipeline](https://github.com/OlGe404/olge404.unix/tree/main/.github/workflows/release.yml) is used to test, build and publish a new version of this collection to ansible-galaxy hub if a release-tag is pushed.
 
-Before attempting to release a new version, update the `version` field in the [galaxy.yml file](galaxy.yml). The release pipeline will check if the version of the pushed release-tag matches the `version` field in the galaxy.yml file and will fail, if it doesn't match. It will also fail if the version you are trying to release already exists on ansible-galaxy hub for this collection.
+Before attempting to release a new version, update the `version` field in the [galaxy.yml file](https://github.com/OlGe404/olge404.unix/tree/main/galaxy.yml). The release pipeline will check if the version of the release-tag matches the `version` field in the galaxy.yml file and will fail, if it doesn't match. It will also fail if the version you are trying to release already exists on ansible-galaxy hub.
 
 If you forgot to update the `version` field in the galaxy.yml file, but already pushed a release-tag and the release pipeline fails, you have to:
+
 * Update the version in the galaxy.yml file and push it
 * Delete the failed release-tag locally and remote
 * Create and push a new annotated release-tag to retry the release
