@@ -25,8 +25,9 @@ provisioner:
       all:
         apt_packages:
           gh: ""
-          terraform: ""
           git: ""
+          terraform: ""
+          postgresql-16: ""
 
         apt_repos:
           github:
@@ -42,6 +43,13 @@ provisioner:
               download_url: https://apt.releases.hashicorp.com/gpg
               save_to: /usr/share/keyrings/hashicorp-archive-keyring.gpg
               dearmor: true
+          
+          postgresql:
+            source: "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main"
+            key:
+              download_url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+              save_to: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
+              dearmor: false
 
       debian:
         apt_packages_overwrite:

@@ -6,10 +6,11 @@
     - name: Run test commands
       tags: skip_ansible_lint
       loop:
-        - terraform -help
         - gh -help
-        - git -h
-      ansible.builtin.command: "{{ item }}"
+        - git --help
+        - terraform -help
+        - apt list --installed | grep postgresql-16
+      ansible.builtin.shell: "{{ item }}"
 
 - name: Verify debian
   hosts: debian
