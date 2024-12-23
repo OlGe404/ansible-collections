@@ -1,10 +1,10 @@
 ---
 - name: Merge apt_packages and apt_packages_overwrite
   ansible.builtin.set_fact:
-    merged_packages: "{{ apt_packages | combine(apt_packages_overwrite) }}"
+    merged_apt_packages: "{{ apt_packages | combine(apt_packages_overwrite) }}"
 
 - name: Create list of packages to install
-  loop: "{{ merged_packages | dict2items }}"
+  loop: "{{ merged_apt_packages | dict2items }}"
   loop_control:
     label: "{{ item.key }}"
   ansible.builtin.set_fact:
