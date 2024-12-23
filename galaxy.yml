@@ -1,7 +1,7 @@
 ---
 namespace: olge404
 name: unix
-version: 0.1.0
+version: 0.1.1
 readme: README.md
 description: Streamline package installation and configuration for unix based distros.
 authors:
@@ -29,6 +29,7 @@ build_ignore:
   - .venv
   - .vscode
   - scripts
+  - .gitignore
   - requirements.txt
   - to-dos.md
 
@@ -36,4 +37,3 @@ license:
   - Apache-2.0
 
 dependencies: {}
-  # community.general: 10.1.0
