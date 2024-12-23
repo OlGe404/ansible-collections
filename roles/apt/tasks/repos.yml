@@ -1,14 +1,14 @@
 ---
 - name: Merge apt_repos and apt_repos_overwrite
   ansible.builtin.set_fact:
-    merged_repos: "{{ apt_repos | combine(apt_repos_overwrite) }}"
+    merged_apt_repos: "{{ apt_repos | combine(apt_repos_overwrite) }}"
 
-- name: Ensure parent dirs for APT keys
+- name: Ensure parent dirs for APT keys exist
   become: true
   when:
     - item.value.key.save_to is defined
     - item.value.key.save_to | length > 0
-  with_dict: "{{ merged_repos }}"
+  with_dict: "{{ merged_apt_repos }}"
   loop_control:
     label: "{{ item.key }}"
   ansible.builtin.file:
@@ -24,12 +24,12 @@
     - item.value.key.download_url | length > 0
     - item.value.key.dearmor is defined
     - item.value.key.dearmor is boolean
-  with_dict: "{{ merged_repos }}"
+  with_dict: "{{ merged_apt_repos }}"
   loop_control:
     label: "{{ item.key }}"
   ansible.builtin.get_url:
     url: "{{ item.value.key.download_url }}"
-    # Append '.raw' extension to identify keys that need to be dearmored in the next task
+    # Append '.raw' extension to keys that need to be dearmored
     dest: "{{ item.value.key.save_to }}{{ '.raw' if item.value.key.dearmor }}"
     owner: root
     mode: "go+r"
@@ -43,7 +43,7 @@
   when:
     - item.value.key.dearmor is defined
     - item.value.key.dearmor is boolean
-  with_dict: "{{ merged_repos }}"
+  with_dict: "{{ merged_apt_repos }}"
   loop_control:
     label: "{{ item.key }}"
   ansible.builtin.command: gpg --dearmor --output "{{ item.value.key.save_to }}" "{{ item.value.key.save_to }}.raw"
@@ -52,7 +52,7 @@
 
 - name: Add APT sources
   become: true
-  with_dict: "{{ merged_repos }}"
+  with_dict: "{{ merged_apt_repos }}"
   loop_control:
     label: "{{ item.key }}"
   ansible.builtin.apt_repository:

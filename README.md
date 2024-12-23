@@ -1,6 +1,6 @@
 # olge404.unix
 This ansible collection is useful to streamline and ease the automated installation and configuration
-of various software packages on unix-like operating systems (e.g. ubuntu, debian, alpine, RHEL and macOS).
+of various software packages on unix-like operating systems (e.g. ubuntu, debian, linuxmint, alpine, almalinux, RHEL and macOS).
 
 # Usage and docs
 To install this collection, run:
