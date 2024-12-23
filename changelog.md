@@ -5,18 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.2.0] - 2024-12-22
-
-### Dependencies
-
-- Bump comunity.general from 9.0.1 to 10.1.0
-
-## [0.1.1] - 2024-12-22
-
-### Added
-
-- Asserts for vars in apt role
+## [0.1.1] - 2024-12-23
 
 ### Fixed
 
-- Formatting of README.md in apt role to be displayed correctly on ansible-galaxy hub
+- File refs in README.md for scripts, changelog.md etc. so refs work when docs are viewed on galaxy hub
+- Formatting in README.md of lists
+
+
+## [0.1.0] - 2024-12-23
+
+### Added
+
+- Initial release
