@@ -106,6 +106,11 @@ Example Playbook
               download_url: https://pkgs.k8s.io/core:/stable:/v1.32/deb/Release.key
               save_to: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
               dearmor: true
+          
+          # You can add sources without having to specify the "key" section, if no key is required,
+          # as in this PPA example (it works with "deb" sources like the above, too).
+          git:
+            source: ppa:git-core/ppa
 ```
 
 License

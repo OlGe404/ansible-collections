@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [UNRELEASED]
 
+### Added
+
+- `ppa:git-core/ppa` to apt_repos examples in README.md of apt role
+
 ### Removed
 
 - Dockerfile, refs etc. for 'alpine' support. When you think about it: ansible would be a poor choice
