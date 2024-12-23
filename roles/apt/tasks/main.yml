@@ -1,15 +1,4 @@
 ---
-# - name: Assert vars have the correct type
-#   ansible.builtin.assert:
-#     quiet: true
-#     that:
-#       - apt_packages is mapping
-#       - apt_packages_overwrite is mapping
-#       - apt_repos is mapping
-
-#     fail_msg: >-
-#       The vars 'apt_packages', 'apt_packages_overwrite' and 'apt_repos' need to be of type 'dict'.
-
 - name: Ensure facts are gathered
   when:
     - ansible_facts['architecture'] is undefined
