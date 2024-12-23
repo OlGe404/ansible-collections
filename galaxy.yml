@@ -15,7 +15,6 @@ tags:
   - debian
   - rhel
   - almalinux
-  - alpine
   - linuxmint
 
 repository: https://github.com/OlGe404/olge404.unix
