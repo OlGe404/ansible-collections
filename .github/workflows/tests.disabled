@@ -4,7 +4,8 @@
   # executed when pushing a release tag
 
 # and therefore this pipeline isn't really used that much but can take a long time to run
-# and burn through free build hours.
+# and burn through free build hours. We check that tests were passed before releasing, so
+# we don't need this at the moment.
 
 # ---
 # name: Run tests
