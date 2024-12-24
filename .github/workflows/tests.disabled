@@ -1,0 +1,52 @@
+# NOTE: This pipeline is disabled because tests are either
+  # executed locally because a role is in development
+  # OR
+  # executed when pushing a release tag
+
+# and therefore this pipeline isn't really used that much but can take a long time to run
+# and burn through free build hours.
+
+# ---
+# name: Run tests
+# on:
+#   # Run every tuesday at midnight (UTC) to check if dependencies from parent images break molecule tests
+#   schedule:
+#     - cron: "0 0 * * 2"
+
+#   push:
+#     branches:
+#       - "*"
+
+#     paths:
+#       - 'roles/**/defaults/**'
+#       - 'roles/**/files/**'
+#       - 'roles/**/molecule/**'
+#       - 'roles/**/tasks/**'
+#       - 'roles/**/vars/**'
+
+#     tags-ignore:
+#       - "*"
+
+# jobs:
+#   tests:
+#     runs-on: ubuntu-24.04
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           # Necessary to extract the CHANGESET
+#           fetch-depth: 0
+      
+#       - run: scripts/python3-venv.sh
+#       - run: scripts/ansible-galaxy-requirements.sh
+#       - run: scripts/ansible-test-sanity.sh
+#       - run: |
+#           CHANGESET=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'roles/' | paste -sd " " -)
+
+#           if [ -n "$CHANGESET" ]; then
+#             for filepath in "$CHANGESET"; do
+#               ROLE_NAME=$(echo $filepath | cut -d '/' -f2)
+#               scripts/molecule-test.sh $ROLE_NAME
+#             done
+#           else
+#             scripts/molecule-test.sh
+#           fi
