@@ -6,7 +6,11 @@ on:
     - cron: "0 0 * * 1"
 
   push:
-    paths: ".molecule/platforms/Dockerfile.*"
+    tags-ignore:
+      - "*"
+
+    paths:
+      - ".molecule/platforms/Dockerfile.*"
 
 jobs:
   build-and-push:

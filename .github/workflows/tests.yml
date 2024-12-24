@@ -6,6 +6,9 @@ on:
     - cron: "0 0 * * 2"
 
   push:
+    tags-ignore:
+      - "*"
+
     paths:
       - 'roles/**/defaults/**'
       - 'roles/**/files/**'
