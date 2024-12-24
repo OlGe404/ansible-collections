@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `vscode_extensions` role
+- Link to tuxedo-tomte docs in `tuxedo_tomte` role
 
 ## [0.2.0] - 2024-12-24
 
