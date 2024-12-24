@@ -8,9 +8,12 @@
   loop_control:
     label: "{{ item.key }}"
   ansible.builtin.set_fact:
-    packages: "{{ packages |  default([]) + [ item.key ~ ('=' ~ item.value if item.value else '') ] }}"
+    packages: "{{ packages | default([]) + [ item.key ~ ('=' ~ item.value if item.value else '') ] }}"
 
 - name: "Install apt packages: {{ packages | join(', ') }}"
+  when:
+    - packages is defined
+    - packages | length > 0
   become: true
   ansible.builtin.apt:
     name: "{{ packages }}"

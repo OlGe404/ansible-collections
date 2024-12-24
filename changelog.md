@@ -5,11 +5,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [UNRELEASED]
+## [0.3.1] - 2024-12-24
+
+### Fixed
+
+- execution failure when `packages` fact is not/cannot be defined in `apt` role
 
 ### Added
 
-- vscode marketplace example website in README of `vscode_extensions` role
+- vscode marketplace example in README of `vscode_extensions` role
 
 ### Fixed
 
@@ -42,7 +46,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - File refs in README.md for scripts, changelog.md etc. so refs work when docs are viewed on galaxy hub
 - Formatting in README.md of lists
-
 
 ## [0.1.0] - 2024-12-23
 
