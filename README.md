@@ -1,6 +1,6 @@
 # olge404.unix
 This ansible collection is useful to streamline and ease the automated installation and configuration
-of various software packages on unix-like operating systems (e.g. ubuntu, debian, linuxmint, almalinux, RHEL and macOS).
+of various software packages on unix-like operating systems (e.g. ubuntu, debian, linuxmint, etc.).
 
 # Usage and docs
 To install this collection, run:
@@ -67,7 +67,7 @@ See `molecule --help` and https://ansible.readthedocs.io/projects/molecule/ for 
 Each role should serve one purpose like "install a package on a debian-like distro".
 The goal is to keep each role as simple and concise as possible to ensure it can be tested properly and that it does what you would expect from it by reading its `README` file.
 
-Good examples are roles like `apt` or `dnf`. They are used for basic tasks and you might think "do I even need a role for that?" and the
+Good examples are roles like `apt` or `vscode_extensions`. They are used for basic tasks and you might think "do I even need a role for that?" and the
 answer is: YES! Using tested, reliable building blocks that adhere to best practices is a key element to build any reliable automation and that is what this collection was made for.
 
 ### Test platforms

@@ -13,8 +13,6 @@ tags:
   - packages
   - ubuntu
   - debian
-  - rhel
-  - almalinux
   - linuxmint
 
 repository: https://github.com/OlGe404/olge404.unix
