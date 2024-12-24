@@ -26,4 +26,3 @@ provisioner:
         vscode_extensions:
           - github.vscode-github-actions
           - hashicorp.hcl@0.5.0
-
