@@ -1,7 +1,7 @@
 ---
 namespace: olge404
 name: unix
-version: 0.3.0
+version: 0.3.1
 readme: README.md
 description: Streamline package installation and configuration for unix based distros.
 authors:
