@@ -1,7 +1,7 @@
 ---
 name: Container images
 on:
-  # Run every monday at midnight (UTC) to keep dependencies from parent images up to date
+  # Run every monday at midnight (UTC) to keep dependencies in test platform images up to date
   schedule:
     - cron: "0 0 * * 1"
 
