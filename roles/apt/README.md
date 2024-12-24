@@ -1,4 +1,4 @@
-Apt
+apt
 =========
 
 Install apt packages on debian-like linux distros (ubuntu, linuxmint, pop!_os, etc.) from built-in or external apt sources.

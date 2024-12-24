@@ -1,0 +1,29 @@
+---
+- name: Verify on not-ubuntu
+  hosts: not-ubuntu
+  gather_facts: false
+  tasks:
+    - name: Ensure tomte isn't installed here
+      tags: skip_ansible_lint
+      ansible.builtin.command: tomte versions
+      register: tomte
+      failed_when: tomte.rc == 0
+
+- name: Verify on ubuntu
+  hosts: ubuntu
+  gather_facts: false
+  pre_tasks:
+    - name: Include default vars
+      ansible.builtin.include_vars:
+        file: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/defaults/main.yml"
+
+  tasks:
+    - name: Ensure tomte works
+      tags: skip_ansible_lint
+      ansible.builtin.command: tomte versions
+      register: tomte_version
+    
+    - name: Assert that configured version == installed version
+      ansible.builtin.assert:
+        that:
+          - tuxedo_tomte_version in tomte_version.stdout

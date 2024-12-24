@@ -1,0 +1,16 @@
+---
+galaxy_info:
+  author: OlGe404
+  company: ""
+  description: >-
+    Install tuxedo-tomte to automatically manage drivers and settings for tuxedocomputers laptops.
+    Supported on TUXEDO OS, Ubuntu 20.04, 22.04, and 24.04 (including directly based distributions such as Linux Mint, Kubuntu, Xubuntu, and Ubuntu MATE).
+  issue_tracker_url: https://github.com/OlGe404/olge404.unix/issues
+  license: Apache-2.0
+  min_ansible_version: "2.16.7"
+  galaxy_tags:
+    - linux
+    - unix
+    - packages
+    - ubuntu
+    - tuxedo

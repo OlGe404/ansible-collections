@@ -1,0 +1,12 @@
+---
+- name: Ensure facts are gathered
+  when: ansible_facts['distribution'] is undefined
+  ansible.builtin.setup:
+    gather_subset:
+      - distribution
+
+- name: Install tuxedo-tomte {{ tuxedo_tomte_version }}
+  become: true
+  when: ansible_facts['distribution'] in ['Ubuntu', 'Kubuntu', 'Xubuntu', 'Ubuntu MATE', "Linux Mint"]
+  ansible.builtin.apt:
+    deb: https://deb.tuxedocomputers.com/ubuntu/pool/main/t/tuxedo-tomte/tuxedo-tomte_{{ tuxedo_tomte_version }}_all.deb
