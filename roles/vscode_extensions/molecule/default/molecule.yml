@@ -1,0 +1,29 @@
+---
+driver:
+  name: docker
+
+platforms:
+  - name: ubuntu-24.04
+    image: docker.io/olge404/molecule:ubuntu-24.04-20241222185324
+    pre_build_image: true
+    groups:
+      - code-installed
+
+  - name: debian-12
+    image: docker.io/olge404/molecule:debian-12-20241219162345
+    pre_build_image: true
+    groups:
+      - not-installed
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../../../../.molecule/playbooks/converge.yml
+
+  inventory:
+    group_vars:
+      all:
+        vscode_extensions:
+          - github.vscode-github-actions
+          - hashicorp.hcl@0.5.0
+
