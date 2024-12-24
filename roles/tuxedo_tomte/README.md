@@ -3,7 +3,7 @@ tuxedo_tomte
 
 Install tuxedo-tomte on supported platforms (TUXEDO OS, Ubuntu 20.04, 22.04, and 24.04 - including directly based distributions such as Linux Mint, Kubuntu, Xubuntu, and Ubuntu MATE).
 
-See https://www.tuxedocomputers.com/en/Infos/Help-Support/Frequently-asked-questions/What-is-TUXEDO-Tomte-.tuxedo for more.
+Check the [tuxedo website](https://www.tuxedocomputers.com/en/Infos/Help-Support/Frequently-asked-questions/What-is-TUXEDO-Tomte-.tuxedo) for more.
 
 Requirements
 ------------
@@ -21,7 +21,7 @@ Role Variables
 
 | Name                   | Type   | Default | Description                                                                                |
 | ---------------------- | ------ | ------- | ------------------------------------------------------------------------------------------ |
-| tuxedo_tomte_version   | string | 2.40.2  | Version of tuxedo-tomte to install. See https://deb.tuxedocomputers.com/ubuntu/pool/main/t/tuxedo-tomte/ for a list of available versions. |
+| tuxedo_tomte_version   | string | 2.40.2  | Version of tuxedo-tomte to install. See "https://deb.tuxedocomputers.com/ubuntu/pool/main/t/tuxedo-tomte/" for a list of available versions. |
 
 Dependencies
 ------------

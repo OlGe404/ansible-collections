@@ -24,7 +24,7 @@ Role Variables
 
 | Name              | Type | Default | Description                                                                                         |
 | ----------------- | ---- | ------- | --------------------------------------------------------------------------------------------------- |
-| vscode_extensions | list | []      | List VS Code extensions to install. See the [Example Playbook](#example-playbook) section for more. |
+| vscode_extensions | list | []      | VS Code extensions to install. See the [Example Playbook](#example-playbook) section for more. |
 
 Dependencies
 ------------
@@ -45,7 +45,9 @@ Example Playbook
         # If an extension is already installed in the specified version, nothing happens.
         # If no version is specified, but a newer version is available, it will be updated. 
         #
-        # You can find the ID of an extension in the settings of its marketplace website.
+        # You can find the ID of an extension in the settings of its marketplace website, e.g.
+        # https://marketplace.visualstudio.com/items?itemName=redhat.ansible.
+        # 
         # You can list all installed extensions with "code --list-extensions --show-versions".
         # 
         # See https://code.visualstudio.com/docs/editor/extension-marketplace#_command-line-extension-management for more.
