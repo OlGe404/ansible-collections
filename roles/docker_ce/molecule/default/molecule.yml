@@ -7,7 +7,7 @@ driver:
 platforms:
   - name: debian-12
     box: bento/debian-12
-    memory: 4096
+    memory: 2048
     config_options:
       vm.boot_timeout: 300
     groups:
@@ -15,7 +15,7 @@ platforms:
 
   - name: ubuntu-24.04
     box: bento/ubuntu-24.04
-    memory: 4096
+    memory: 2048
     config_options:
       vm.boot_timeout: 300
     groups:
