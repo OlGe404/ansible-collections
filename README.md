@@ -23,14 +23,13 @@ scripts/build-container.sh -h
 To develop roles for this collection, some tools are necessary. Those are:
 
 * ansible
-* molecule
-* molecule drivers for docker and vagrant
+* molecule (+ drivers for docker and vagrant)
 * docker
 * vagrant
 * virtualbox
 * yq
 
-To setup the virtual environment for python and install ansible, molecule and the molecule drivers in it, run:
+To setup the virtual environment for python and install ansible, molecule and the required drivers in it, run:
 
 ```bash
 scripts/python3-venv.sh
@@ -43,7 +42,7 @@ source .venv/bin/activate
 ansible-galaxy collection install --force olge404.unix
 ```
 
-Now run the prerequisites playbook to install docker, vagrant, virtualbox and yq (depending on your machine):
+Now run the prerequisites playbook (depending on your machine) to install docker, vagrant, virtualbox and yq:
 
 ```bash
 # For Linux Mint 22
