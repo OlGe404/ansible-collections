@@ -1,0 +1,43 @@
+---
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+
+platforms:
+  - name: debian-12
+    box: bento/debian-12
+    memory: 4096
+    config_options:
+      vm.boot_timeout: 300
+    groups:
+      - debian
+
+  - name: ubuntu-24.04
+    box: bento/ubuntu-24.04
+    memory: 4096
+    config_options:
+      vm.boot_timeout: 300
+    groups:
+      - ubuntu
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../../../../.molecule/playbooks/converge.yml
+  
+  config_options:
+    defaults:
+      remote_user: vagrant
+
+  inventory:
+    group_vars:
+      ubuntu:
+        docker_ce_daemon_json:
+          {
+            "log-driver": "json-file",
+            "log-opts": {
+              "max-size": "10m",
+              "max-file": "3"
+            }
+          }

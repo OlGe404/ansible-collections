@@ -2,7 +2,7 @@
 galaxy_info:
   author: OlGe404
   company: ""
-  description: Install apt packages from built-in or remote apt sources in a generic, declarative way.
+  description: Install docker-ce on debian, ubuntu and ubuntu-derivates (Kubuntu, Xubuntu, Linux Mint, etc.).
   issue_tracker_url: https://github.com/OlGe404/olge404.unix/issues
   license: Apache-2.0
   min_ansible_version: "2.16.7"
@@ -13,3 +13,4 @@ galaxy_info:
     - debian
     - linuxmint
     - apt
+    - docker

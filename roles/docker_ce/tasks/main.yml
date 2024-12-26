@@ -1,0 +1,97 @@
+---
+- name: Ensure facts are gathered
+  when: ansible_facts['distribution'] is undefined
+  ansible.builtin.setup:
+    gather_subset:
+      - distribution
+
+- name: Ensure necessary packages are installed
+  become: true
+  ansible.builtin.apt:
+    name:
+      - ca-certificates
+      - curl
+
+- name: Ensure /etc/apt/keyrings dir
+  become: true
+  ansible.builtin.file:
+    state: directory
+    path: /etc/apt/keyrings
+    owner: root
+    group: root
+    mode: "0755"
+
+- name: Include debian tasks
+  when: ansible_facts['distribution'] in ['Debian']
+  ansible.builtin.include_tasks:
+    file: debian.yml
+
+- name: Include ubuntu tasks
+  when: ansible_facts['distribution'] in ['Ubuntu', 'Kubuntu', 'Xubuntu', 'Ubuntu MATE', "Linux Mint"]
+  ansible.builtin.include_tasks:
+    file: ubuntu.yml
+
+- name: Update APT repository
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+
+- name: Install APT packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+      - docker-buildx-plugin
+      - docker-compose-plugin
+
+- name: Create docker group
+  become: true
+  ansible.builtin.group:
+    name: docker
+
+- name: Add current user to docker group
+  become: true
+  ansible.builtin.user:
+    name: "{{ ansible_user }}"
+    groups: docker
+    append: true
+
+- name: Add docker_ce_users to docker group
+  become: true
+  loop: "{{ docker_ce_user }}"
+  ansible.builtin.user:
+    name: "{{ item }}"
+    groups: docker
+    append: true
+
+- name: Ensure autostart on (re-)boot
+  become: true
+  loop:
+    - docker.service
+    - containerd.service
+  ansible.builtin.systemd_service:
+    name: "{{ item }}"
+    enabled: true
+
+- name: Create /etc/docker/daemon.json
+  when: docker_ce_daemon_json | length > 0
+  become: true
+  ansible.builtin.copy:
+    content: "{{ docker_ce_daemon_json | to_json }}"
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Restart docker daemon
+
+- name: Remove /etc/docker/daemon.json
+  when: docker_ce_daemon_json | length == 0
+  become: true
+  ansible.builtin.file:
+    state: absent
+    path: /etc/docker/daemon.json
+  notify:
+    - Restart docker daemon
