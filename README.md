@@ -20,48 +20,50 @@ scripts/build-container.sh -h
 ```
 
 ## Prerequisites
-To install yq, bootstrap the virtuelenv for python and to install docker, run:
+To develop roles for this collection, some tools are necessary. Those are:
+
+* ansible
+* molecule
+* molecule drivers for docker and vagrant
+* docker
+* vagrant
+* virtualbox
+* yq
+
+To setup the virtual environment for python and install ansible, molecule and the molecule drivers in it, run:
 
 ```bash
-scripts/yq-install.sh
 scripts/python3-venv.sh
-scripts/docker-install.sh
 ```
 
-To activate the python virtualenv in your shell and to install required ansible collections, run:
+Next, activate the python virtualenv in your shell and install this collection:
 
 ```bash
 source .venv/bin/activate
-scripts/ansible-galaxy-requirements.sh
+ansible-galaxy collection install --force olge404.unix
 ```
 
-To test that all prerequisites are fullfilled, and tests for the collection and roles can be performed, run:
+Now run the prerequisites playbook to install docker, vagrant, virtualbox and yq (depending on your machine):
 
 ```bash
+# For Linux Mint 22
+ansible-playbook linux-mint-22.yml
+```
+
+To test that all prerequisites are fullfilled, run:
+
+```bash
+# Run sanity tests for the collection
 scripts/ansible-test-sanity.sh
+
+# Run tests using the docker driver for molecule
 scripts/molecule-test.sh apt
+
+# Run tests using the vagrant driver for molecule
+scripts/molecule-test.sh docker_ce
 ```
 
 If those commands work, you are good to go.
-
-## Add more roles
-Read and follow the next sections to understand what a new role should look like, how you can get a headstart and what this fuzz is all about.
-
-### Bootstrapping
-Run the following commands to bootstrap the skeleton for a new role:
-
-```bash
-export ROLE_NAME="<ROLE_NAME>"
-cd roles
-ansible-galaxy role init $ROLE_NAME
-cd $ROLE_NAME
-molecule init scenario --driver-name docker
-molecule test
-```
-
-This creates the default layout for a new role (following ansible best practices) and ensures that the `molecule test` setup works.
-
-See `molecule --help` and https://ansible.readthedocs.io/projects/molecule/ for more information about testing ansible roles using molecule.
 
 ### Scope
 Each role should serve one purpose like "install a package on a debian-like distro".
@@ -70,10 +72,11 @@ The goal is to keep each role as simple and concise as possible to ensure it can
 Good examples are roles like `apt` or `vscode_extensions`. They are used for basic tasks and you might think "do I even need a role for that?" and the
 answer is: YES! Using tested, reliable building blocks that adhere to best practices is a key element to build any reliable automation and that is what this collection was made for.
 
-### Test platforms
-Roles in this collection are tested on various unix-like operating systems (test platforms). Testing is done by leveraging molecule as test framework and docker as driver to launch these test platforms locally. This ensures predictable test results by creating the test infrastructure on-demand in a simple and repeatable manner.
+### Tests platforms
+Roles in this collection are tested on various unix-like operating systems (test platforms). Testing is done by leveraging molecule as test framework and docker or vagrant as driver to launch these test platforms. This ensures predictable test results by creating test infrastructure on-demand in a simple and repeatable manner.
 
-Because we are using docker, we need a container image for each platform we want to run our tests on. The Dockerfiles for these container images can be found in the [.molecule/platforms dir](https://github.com/OlGe404/olge404.unix/tree/main/.molecule/platforms/). The [docker-build.sh](https://github.com/OlGe404/olge404.unix/tree/main/scripts/docker-build.sh) script should be used to build, tag and push container images to dockerhub (if you need to build them manually). The CI will build and push all container images at least once per week, or if any Dockerfile has changed in the ".molecule/platforms" dir. The container images are referenced in the [molecule.yml file](https://github.com/OlGe404/olge404.unix/tree/main/roles/apt/molecule/default/molecule.yml) of a role to be used during molecule tests.
+#### Testing with docker
+Because we are using docker for some tests, we need a container image for each platform we want to run our tests on. The Dockerfiles for these container images can be found in the [.molecule/platforms dir](https://github.com/OlGe404/olge404.unix/tree/main/.molecule/platforms/). The [docker-build.sh](https://github.com/OlGe404/olge404.unix/tree/main/scripts/docker-build.sh) script should be used to build, tag and push container images to dockerhub (if you need to build them manually). The CI will build and push all container images at least once per week (at midnight every Monday). The container images are referenced in the [molecule.yml file](https://github.com/OlGe404/olge404.unix/tree/main/roles/apt/molecule/default/molecule.yml) of a role to be used during molecule tests.
 
 All test platforms need to be prepared to work with ansible and molecule. This includes:
 
@@ -82,6 +85,16 @@ All test platforms need to be prepared to work with ansible and molecule. This i
 * Enable passwordless sudo for the non-root user
 
 See the [Dockerfile for Ubuntu 24.04](https://github.com/OlGe404/olge404.unix/tree/main/.molecule/platforms/Dockerfile.ubuntu-24.04) as an example on how to prepare a test platform for molecule.
+
+#### Testing with vagrant
+Sometimes you need a full fledged virtual machine (VM) to test roles properly (e.g. because they rely on software that containers are finicky with or are not ideal for). In those cases, vagrant and virtualbox should be used to spin up VMs on-demand to use as test platforms for molecule.
+
+VMs that are launched with vagrant are called "boxes" and we don't build custom boxes for this repository (at the moment). We use pre-build [bento boxes](https://github.com/chef/bento) that are ready to be used as test platforms for molecule with vagrant.
+
+Checkout the [molecule + vagrant setup to test the docker_ce role](https://github.com/OlGe404/olge404.unix/tree/main/roles/docker_ce/molecule/default/molecule.yml) to see how this works.
+
+> NOTE: Docker should be used to launch test platforms wherever possible, 
+> because container images are faster and easier to work with than VMs.
 
 # Changelog
 All notable changes to this collection have to be listed in the [changelog.md file](https://github.com/OlGe404/olge404.unix/tree/main/changelog.md) and have to follow [semantic versioning](https://semver.org/).
