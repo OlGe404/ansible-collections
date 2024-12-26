@@ -10,7 +10,7 @@
   ansible.builtin.set_fact:
     packages: "{{ packages | default([]) + [ item.key ~ ('=' ~ item.value if item.value else '') ] }}"
 
-- name: "Install apt packages: {{ packages | join(', ') }}"
+- name: Install apt packages
   when:
     - packages is defined
     - packages | length > 0

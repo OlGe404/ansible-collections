@@ -10,7 +10,7 @@
   ansible.builtin.debug:
     msg: "⚠️ DEBUG: Cannot perform 'code --help'. Is the code cli installed and in PATH?"
 
-- name: "Install vscode extensions: {{ vscode_extensions | join(', ') }}"
+- name: Install vscode extensions
   when: code_cli.rc == 0
   loop: "{{ vscode_extensions }}"
   ansible.builtin.command: "code --install-extension {{ item }}"

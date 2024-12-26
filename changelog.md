@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 
 - Dockerfiles/refs/galaxy tags for almalinux/RHEL. It is not supported because I don't have a use case at the moment
+- join() expressions in task names in `apt` and `vscode_extensions` roles
 
 ## [0.3.1] - 2024-12-24
 
