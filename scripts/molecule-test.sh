@@ -20,6 +20,7 @@ Options:
 Examples:
     ./$(basename "$0")
     ./$(basename "$0") apt
+    ./$(basename "$0") docker_ce
 
 EOF
 }
@@ -66,7 +67,7 @@ fi
 for role in $ROLES_TO_TEST; do
     cd $role
     if [ -d "molecule" ]; then
-        printf "ℹ️  Starting molecule tests for '$(basename $role)' role \n\n" && molecule test;
+        printf "ℹ️  Starting molecule tests for '$(basename $role)' role \n\n" && molecule test --all;
     else
         printf "⚠️  Cannot find molecule tests for '$(basename $role)' role \n\n" && exit 1
     fi
