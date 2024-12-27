@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - `docker_ce` role
 - docs in `README.md` on how to use vagrant as test platform driver, when containers are not sufficient
+- add molecule test scenarios for debian-11, ubuntu-22.04, linux-mint 22 and linux-mint 21.3 to all roles (when applicable)
 
 ### Removed
 
