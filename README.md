@@ -1,15 +1,31 @@
 # olge404.unix
 This ansible collection is useful to streamline and ease the automated installation and configuration
-of various software packages on unix-like operating systems (e.g. ubuntu, debian, linuxmint, etc.).
+of various software packages on unix-like operating systems (popular linux distros and macOS).
+
+Most roles are tested on these linux distros (when applicable):
+
+* Ubuntu: 24.04 (noble numbat), 22.04 (jammy jellyfish)
+* Debian: 12 (bookworm), 11 (bullseye)
+* Linux Mint: 22 (wilma), 21.3 (virginia)
+
+and some roles are tested on:
+
+* macOS 15 (Sequoia)
+
+> Note: You can always check on what platforms a role was tested on by checking its [molecule setup on github](https://github.com/OlGe404/olge404.unix/blob/main/roles/apt/molecule).
 
 # Usage and docs
 To install this collection, run:
 
 ```bash
+# Latest
 ansible-galaxy collection install olge404.unix
+
+# Specific version
+ansible-galaxy collection install olge404.unix:x.y.z
 ```
 
-Documentation for this collection and each role can be found on [GitHub](https://github.com/OlGe404/olge404.unix/blob/main/README.md) or on [ansible-galaxy hub](https://galaxy.ansible.com/ui/repo/published/olge404/unix/docs/).
+Available versions and documentation for this collection can be found on [GitHub](https://github.com/OlGe404/olge404.unix/blob/main/README.md) and on [ansible-galaxy hub](https://galaxy.ansible.com/ui/repo/published/olge404/unix/docs/).
 
 # Development
 The code is [hosted on Github](https://github.com/OlGe404/olge404.unix) and CI is done on [GitHub actions](https://github.com/OlGe404/olge404.unix/actions). The CI uses [various shell scripts](https://github.com/OlGe404/olge404.unix/tree/main/scripts) to perform installation, configuration and tests during a pipeline run. Each shell script provides a help function that describes how the script can be used. The help function can be called by providing either the `-h` or `--help` argument when running a script. For example:
@@ -19,16 +35,23 @@ scripts/python3-venv.sh --help
 scripts/build-container.sh -h
 ```
 
+The CI pipelines can be found in the [.github/workflows dir](https://github.com/OlGe404/olge404.unix/tree/main/.github/workflows).
+
 ## Prerequisites
-To develop roles for this collection, some tools are necessary. Those are:
+To develop roles for this collection, some tools are necessary. These are:
 
-* ansible
-* molecule (+ drivers for docker and vagrant)
-* docker
-* vagrant
-* virtualbox
-* yq
+| Name                                        | Docs          |
+|---------------------------------------------|---------------|
+| ansible                                     | https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pip  |
+| molecule (+ drivers for docker and vagrant) | https://ansible.readthedocs.io/projects/molecule/installation/ |
+| docker                                      | https://docs.docker.com/engine/install/  |
+| vagrant                                     | https://developer.hashicorp.com/vagrant/docs/installation |
+| virtualbox                                  | https://www.virtualbox.org/wiki/Downloads |
+| yq                                          | https://mikefarah.gitbook.io/yq#install |
 
+You can use the following scripts and playbooks to automate the installation on your machine.
+
+### Setup dev environment
 To setup the virtual environment for python and install ansible, molecule and the required drivers in it, run:
 
 ```bash
@@ -39,17 +62,16 @@ Next, activate the python virtualenv in your shell and install this collection:
 
 ```bash
 source .venv/bin/activate
-ansible-galaxy collection install --force olge404.unix
+ansible-galaxy collection install olge404.unix
 ```
 
-Now run the prerequisites playbook (depending on your machine) to install docker, vagrant, virtualbox and yq:
+To install docker, yq, vagrant and virtualbox, use the dev-setup playbook. The dev-setup playbook is supported on Ubuntu 24.04 + 22.04, Debian 12 + 11 and Linux Mint 22 + 21.3. If you are not developing of one of those distros, refer to the docs listed above to install the prerequisites by yourself.
 
 ```bash
-# For Linux Mint 22
-ansible-playbook linux-mint-22.yml
+ansible-playbook playbooks/dev-setup.yml
 ```
 
-To test that all prerequisites are fullfilled, run:
+To test that everything works, run:
 
 ```bash
 # Run sanity tests for the collection
@@ -61,8 +83,6 @@ scripts/molecule-test.sh apt
 # Run tests using the vagrant driver for molecule
 scripts/molecule-test.sh docker_ce
 ```
-
-If those commands work, you are good to go.
 
 ### Scope
 Each role should serve one purpose like "install a package on a debian-like distro".
@@ -86,9 +106,9 @@ All test platforms need to be prepared to work with ansible and molecule. This i
 See the [Dockerfile for Ubuntu 24.04](https://github.com/OlGe404/olge404.unix/tree/main/.molecule/platforms/Dockerfile.ubuntu-24.04) as an example on how to prepare a test platform for molecule.
 
 #### Testing with vagrant
-Sometimes you need a full fledged virtual machine (VM) to test roles properly (e.g. because they rely on software that containers are finicky with or are not ideal for). In those cases, vagrant and virtualbox should be used to spin up VMs on-demand to use as test platforms for molecule.
+Sometimes you need a full fledged virtual machine (VM) to test roles properly (e.g. because they rely on software that containers are finicky with or are not ideal for). In those cases, vagrant and virtualbox are used to spin up VMs on-demand to use as test platforms for molecule.
 
-VMs that are launched with vagrant are called "boxes" and we don't build custom boxes for this repository (at the moment). We use pre-build [bento boxes](https://github.com/chef/bento) that are ready to be used as test platforms for molecule with vagrant.
+VMs that are managed with vagrant are called "boxes" and we don't build custom boxes for this repository (yet). We use pre-build [bento boxes](https://github.com/chef/bento) that are ready to be used as test platforms for molecule with vagrant.
 
 Checkout the [molecule + vagrant setup to test the docker_ce role](https://github.com/OlGe404/olge404.unix/tree/main/roles/docker_ce/molecule/default/molecule.yml) to see how this works.
 
