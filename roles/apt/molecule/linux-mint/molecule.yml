@@ -1,0 +1,68 @@
+---
+driver:
+  name: docker
+
+platforms:
+  - name: virginia
+    image: docker.io/olge404/molecule:linux-mint-21.3-20241227080438
+    pre_build_image: true
+
+  - name: wilma
+    image: docker.io/olge404/molecule:linux-mint-22-20241227081132
+    pre_build_image: true
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../../../../.molecule/playbooks/converge.yml
+    verify: ../shared/verify.yml
+
+  inventory:
+    group_vars:
+      all:
+        apt_packages:
+          gh: ""
+          git: ""
+          terraform: ""
+          postgresql-16: ""
+
+        apt_repos:
+          github:
+            source: "deb [arch=amd64 signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main"
+            key:
+              download_url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+              save_to: /etc/apt/keyrings/githubcli-archive-keyring.gpg
+              dearmor: false
+
+    host_vars:
+      virginia:
+        apt_repos_overwrite:
+          hashicorp:
+            source: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com jammy main"
+            key:
+              download_url: https://apt.releases.hashicorp.com/gpg
+              save_to: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+              dearmor: true
+
+          postgresql:
+            source: "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt jammy-pgdg main"
+            key:
+              download_url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+              save_to: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
+              dearmor: false
+        
+      wilma:
+        apt_repos_overwrite:
+          hashicorp:
+            source: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com noble main"
+            key:
+              download_url: https://apt.releases.hashicorp.com/gpg
+              save_to: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+              dearmor: true
+
+          postgresql:
+            source: "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt noble-pgdg main"
+            key:
+              download_url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+              save_to: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
+              dearmor: false

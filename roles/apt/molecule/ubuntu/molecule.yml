@@ -1,0 +1,49 @@
+---
+driver:
+  name: docker
+
+platforms:
+  - name: jammy
+    image: docker.io/olge404/molecule:ubuntu-22.04-20241227081034
+    pre_build_image: true
+
+  - name: noble
+    image: docker.io/olge404/molecule:ubuntu-24.04-20241227081038
+    pre_build_image: true
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../../../../.molecule/playbooks/converge.yml
+    verify: ../shared/verify.yml
+
+  inventory:
+    group_vars:
+      all:
+        apt_packages:
+          gh: ""
+          git: ""
+          terraform: ""
+          postgresql-16: ""
+
+        apt_repos:
+          github:
+            source: "deb [arch=amd64 signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main"
+            key:
+              download_url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+              save_to: /etc/apt/keyrings/githubcli-archive-keyring.gpg
+              dearmor: false
+
+          hashicorp:
+            source: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com {{ ansible_distribution_release }} main"
+            key:
+              download_url: https://apt.releases.hashicorp.com/gpg
+              save_to: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+              dearmor: true
+          
+          postgresql:
+            source: "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main"
+            key:
+              download_url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
+              save_to: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
+              dearmor: false

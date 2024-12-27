@@ -1,0 +1,13 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Run test commands
+      tags: skip_ansible_lint
+      loop:
+        - gh -help
+        - git --help
+        - terraform -help
+        - apt list --installed | grep postgresql-16
+      ansible.builtin.shell: "{{ item }}"

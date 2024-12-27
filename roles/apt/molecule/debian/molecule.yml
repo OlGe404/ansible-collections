@@ -3,22 +3,19 @@ driver:
   name: docker
 
 platforms:
-  - name: debian-12
-    image: docker.io/olge404/molecule:debian-12-20241219162345
+  - name: bullseye
+    image: docker.io/olge404/molecule:debian-11-20241227081041
     pre_build_image: true
-    groups:
-      - debian
 
-  - name: ubuntu-24.04
-    image: docker.io/olge404/molecule:ubuntu-24.04-20241222185324
+  - name: bookworm
+    image: docker.io/olge404/molecule:debian-12-20241227081030
     pre_build_image: true
-    groups:
-      - ubuntu
 
 provisioner:
   name: ansible
   playbooks:
     converge: ../../../../.molecule/playbooks/converge.yml
+    verify: ../shared/verify.yml
 
   inventory:
     group_vars:
@@ -50,15 +47,3 @@ provisioner:
               download_url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
               save_to: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
               dearmor: false
-
-      debian:
-        apt_packages_overwrite:
-          cowsay: ""
-
-      ubuntu:
-        apt_packages_overwrite:
-          tree: ""
-
-        apt_repos_overwrite:
-          git:
-            source: ppa:git-core/ppa

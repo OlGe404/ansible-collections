@@ -1,7 +1,7 @@
 apt
 =========
 
-Install apt packages on debian-like linux distros (ubuntu, linuxmint, pop!_os, etc.) from built-in or external apt sources.
+Install apt packages on debian-like linux distros (ubuntu, linux-mint, etc.) from built-in or external apt sources.
 
 Requirements
 ------------
@@ -91,7 +91,8 @@ Example Playbook
               dearmor: true
           
           postgresql:
-            source: "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt {{ ansible_distribution_release }}-pgdg main"
+            # In this example, "$(lsb_release -cs)" was replaced with the plaintext value, which is necessary on some distros like linux-mint.
+            source: "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt noble-pgdg main"
             key:
               download_url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
               # Armored keys that use a ".asc" extension are dearmored automatically, so "dearmor: false" has to be set.
