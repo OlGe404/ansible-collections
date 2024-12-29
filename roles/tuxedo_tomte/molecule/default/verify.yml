@@ -22,7 +22,7 @@
       tags: skip_ansible_lint
       ansible.builtin.command: tomte versions
       register: tomte_version
-    
+
     - name: Assert that configured version == installed version
       ansible.builtin.assert:
         that:
