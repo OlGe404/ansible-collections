@@ -12,7 +12,7 @@ and some roles are tested on:
 
 * macOS 15 (Sequoia)
 
-> Note: You can always check on what platforms a role was tested on by checking its [molecule setup on github](https://github.com/OlGe404/olge404.unix/blob/main/roles/apt/molecule/default/molecule.yml).
+> Note: You can always check on what platforms a role was tested on by checking its [molecule setup](https://github.com/OlGe404/olge404.unix/blob/main/roles/apt/molecule/default/molecule.yml) on github.
 
 # Usage and docs
 To install this collection, run:
