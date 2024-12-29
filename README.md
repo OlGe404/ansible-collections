@@ -12,7 +12,7 @@ and some roles are tested on:
 
 * macOS 15 (Sequoia)
 
-> Note: You can always check on what platforms a role was tested on by checking its [molecule setup on github](https://github.com/OlGe404/olge404.unix/blob/main/roles/apt/molecule).
+> Note: You can always check on what platforms a role was tested on by checking its [molecule setup on github](https://github.com/OlGe404/olge404.unix/blob/main/roles/apt/molecule/default/molecule.yml).
 
 # Usage and docs
 To install this collection, run:
@@ -35,14 +35,14 @@ scripts/python3-venv.sh --help
 scripts/build-container.sh -h
 ```
 
-The CI pipelines can be found in the [.github/workflows dir](https://github.com/OlGe404/olge404.unix/tree/main/.github/workflows).
+The CI pipelines can be found in the [.github/workflows](https://github.com/OlGe404/olge404.unix/tree/main/.github/workflows) dir.
 
 ## Prerequisites
 To develop roles for this collection, some tools are necessary. These are:
 
 | Name                                        | Docs          |
 |---------------------------------------------|---------------|
-| ansible                                     | https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#installing-and-upgrading-ansible-with-pip  |
+| ansible                                     | https://docs.ansible.com/ansible/latest/installation_guide/ |
 | molecule (+ drivers for docker and vagrant) | https://ansible.readthedocs.io/projects/molecule/installation/ |
 | docker                                      | https://docs.docker.com/engine/install/  |
 | vagrant                                     | https://developer.hashicorp.com/vagrant/docs/installation |
@@ -95,9 +95,14 @@ answer is: YES! Using tested, reliable building blocks that adhere to best pract
 Roles in this collection are tested on various unix-like operating systems (test platforms). Testing is done by leveraging molecule as test framework and docker or vagrant as driver to launch these test platforms. This ensures predictable test results by creating test infrastructure on-demand in a simple and repeatable manner.
 
 #### Testing with docker
-Because we are using docker for some tests, a container image is needed for each platform we want to run our tests on. The Dockerfiles for these container images can be found in the [.molecule/platforms dir](https://github.com/OlGe404/olge404.unix/tree/main/.molecule/platforms/). The [docker-build.sh](https://github.com/OlGe404/olge404.unix/tree/main/scripts/docker-build.sh) script should be used to build, tag and push container images to dockerhub (if you need to build them manually). The CI will build and push all container images at least once per week automatically (at midnight every Monday). The container images are referenced in the [molecule.yml file](https://github.com/OlGe404/olge404.unix/tree/main/roles/apt/molecule/default/molecule.yml) of a role to be used during molecule tests.
+Because we are using docker for some tests, a container image is needed for each platform we want to run our tests on. The Dockerfiles can be found in the [.molecule/platforms dir](https://github.com/OlGe404/olge404.unix/tree/main/.molecule/platforms/).
 
-All container images need to be prepared to work with ansible and molecule. This includes:
+The [docker-build.sh](https://github.com/OlGe404/olge404.unix/tree/main/scripts/docker-build.sh) script should be used to build, tag and push container images to dockerhub (if you need to build them manually). The CI will build and push all container images at least once per week automatically (at midnight every Monday).
+
+To use these container images for testing, reference them in the [molecule.yml file](https://github.com/OlGe404/olge404.unix/tree/main/roles/apt/molecule/default/molecule.yml) of a role. You can find current tags on [dockerhub](https://hub.docker.com/repository/docker/olge404/molecule/general).
+
+##### Adding more test platforms for docker
+All container images need to be prepared to work with ansible and molecule when using the docker driver. This includes:
 
 * Installing the python3, sudo and ca-certificates packages
 * Creating a non-root user to perform tests with
@@ -108,12 +113,12 @@ See the [Dockerfile for Ubuntu 24.04](https://github.com/OlGe404/olge404.unix/tr
 #### Testing with vagrant
 Sometimes you need a full fledged virtual machine (VM) to test roles properly (e.g. because they rely on software that containers are finicky with or are not ideal for). In those cases, vagrant and virtualbox are used to spin up VMs on-demand to use as test platforms for molecule.
 
-VMs that are managed with vagrant are called "boxes" and we don't build custom boxes for this repository (yet). We use pre-build [bento boxes](https://github.com/chef/bento) that are ready to go as test platforms for molecule with vagrant.
+VMs that are managed with vagrant are called "boxes" and we don't build custom boxes for this repository (yet). We use pre-build [bento boxes](https://github.com/chef/bento) that are ready to be used as test platforms with molecule and vagrant.
 
-Checkout the [molecule + vagrant setup for the docker_ce role](https://github.com/OlGe404/olge404.unix/tree/main/roles/docker_ce/molecule/default/molecule.yml) as example.
+Checkout the [molecule + vagrant setup](https://github.com/OlGe404/olge404.unix/tree/main/roles/docker_ce/molecule/default/molecule.yml) for the `docker_ce` role as example.
 
-> NOTE: Docker should be used to launch test platforms wherever possible, 
-> because container images are smaller and easier to work with than VMs.
+> NOTE: Docker should be used to launch test platforms wherever possible,
+> because container images are smaller, faster and easier to work with than VMs.
 
 # Changelog
 All notable changes to this collection have to be listed in the [changelog.md file](https://github.com/OlGe404/olge404.unix/tree/main/changelog.md) and have to follow [semantic versioning](https://semver.org/).
