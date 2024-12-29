@@ -95,11 +95,11 @@ answer is: YES! Using tested, reliable building blocks that adhere to best pract
 Roles in this collection are tested on various unix-like operating systems (test platforms). Testing is done by leveraging molecule as test framework and docker or vagrant as driver to launch these test platforms. This ensures predictable test results by creating test infrastructure on-demand in a simple and repeatable manner.
 
 #### Testing with docker
-Because we are using docker for some tests, a container image is needed for each platform we want to run our tests on. The Dockerfiles can be found in the [.molecule/platforms dir](https://github.com/OlGe404/olge404.unix/tree/main/.molecule/platforms/).
+Because we are using docker for some test scenarios, a container image for each platform we want to run our tests on is needed. The Dockerfiles can be found in the [.molecule/platforms](https://github.com/OlGe404/olge404.unix/tree/main/.molecule/platforms/) dir.
 
-The [docker-build.sh](https://github.com/OlGe404/olge404.unix/tree/main/scripts/docker-build.sh) script should be used to build, tag and push container images to dockerhub (if you need to build them manually). The CI will build and push all container images at least once per week automatically (at midnight every Monday).
+The [docker-build.sh](https://github.com/OlGe404/olge404.unix/tree/main/scripts/docker-build.sh) script should be used to build, tag and push container images to dockerhub (if you need to build them manually). The CI will build and push all container images at least once per week automatically (at midnight every monday) to keep dependencies up to date.
 
-To use these container images for testing, reference them in the [molecule.yml file](https://github.com/OlGe404/olge404.unix/tree/main/roles/apt/molecule/default/molecule.yml) of a role. You can find current tags on [dockerhub](https://hub.docker.com/repository/docker/olge404/molecule/general).
+To use these container images for testing, reference them in the [molecule.yml file](https://github.com/OlGe404/olge404.unix/tree/main/roles/apt/molecule/default/molecule.yml) of a role. You can find all supported platforms and their current tags on [dockerhub](https://hub.docker.com/repository/docker/olge404/molecule/general).
 
 ##### Adding more test platforms for docker
 All container images need to be prepared to work with ansible and molecule when using the docker driver. This includes:
