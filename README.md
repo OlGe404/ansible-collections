@@ -4,9 +4,9 @@ of various software packages on unix-like operating systems (popular linux distr
 
 Most roles are tested on these linux distros (when applicable):
 
-* Ubuntu: 24.04 (noble numbat), 22.04 (jammy jellyfish)
-* Debian: 12 (bookworm), 11 (bullseye)
-* Linux Mint: 22 (wilma), 21.3 (virginia)
+* Ubuntu: 24.04 (noble numbat)
+* Debian: 12 (bookworm)
+* Linux Mint: 22 (wilma)
 
 and some roles are tested on:
 
@@ -65,7 +65,7 @@ source .venv/bin/activate
 ansible-galaxy collection install olge404.unix
 ```
 
-To install docker, yq, vagrant and virtualbox, use the dev-setup playbook. The dev-setup playbook is supported on Ubuntu 24.04 + 22.04, Debian 12 + 11 and Linux Mint 22 + 21.3. If you are not developing of one of those distros, refer to the docs listed above to install the prerequisites by yourself.
+To install docker, yq, vagrant and virtualbox, use the dev-setup playbook. The dev-setup playbook is supported on Ubuntu 24.04, Debian 12 and Linux Mint 22. If you are not developing of one of those distros, refer to the docs listed above to install the prerequisites by yourself.
 
 ```bash
 ansible-playbook playbooks/dev-setup.yml
