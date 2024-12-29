@@ -19,8 +19,8 @@
       tags: skip_ansible_lint
       ansible.builtin.shell: docker run hello-world
 
-- name: Verify debian
-  hosts: debian
+- name: Verify no_daemon_conf
+  hosts: no_daemon_conf
   gather_facts: false
   tasks:
     - name: Get status of /etc/docker/daemon.json
@@ -34,8 +34,8 @@
         that:
           - file_stat.stat.exists == false
 
-- name: Verify ubuntu
-  hosts: ubuntu
+- name: Verify custom_daemon_conf
+  hosts: ccustom_daemon_conf
   gather_facts: false
   tasks:
     - name: Get status of /etc/docker/daemon.json

@@ -54,13 +54,13 @@
 - name: Add current user to docker group
   become: true
   ansible.builtin.user:
-    name: "{{ ansible_user }}"
+    name: "{{ ansible_user | default(lookup('env', 'USER')) }}"
     groups: docker
     append: true
 
 - name: Add docker_ce_users to docker group
   become: true
-  loop: "{{ docker_ce_user }}"
+  loop: "{{ docker_ce_users }}"
   ansible.builtin.user:
     name: "{{ item }}"
     groups: docker
@@ -75,7 +75,7 @@
     name: "{{ item }}"
     enabled: true
 
-- name: Create /etc/docker/daemon.json
+- name: Create or update /etc/docker/daemon.json
   when: docker_ce_daemon_json | length > 0
   become: true
   ansible.builtin.copy:
@@ -87,7 +87,7 @@
   notify:
     - Restart docker daemon
 
-- name: Remove /etc/docker/daemon.json
+- name: Remove /etc/docker/daemon.json (when empty)
   when: docker_ce_daemon_json | length == 0
   become: true
   ansible.builtin.file:

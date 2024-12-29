@@ -5,21 +5,23 @@ driver:
     name: virtualbox
 
 platforms:
-  - name: debian-12
+  - name: bookworm
     box: bento/debian-12
-    memory: 2048
+    # Using less than 4096 on any of the vargant instances may lead to crashing tests -
+    # don't change it on any instance!
+    memory: 4096
     config_options:
       vm.boot_timeout: 300
     groups:
-      - debian
+      - custom_daemon_conf
 
-  - name: ubuntu-24.04
+  - name: noble
     box: bento/ubuntu-24.04
-    memory: 2048
+    memory: 4096
     config_options:
       vm.boot_timeout: 300
     groups:
-      - ubuntu
+      - no_daemon_conf
 
 provisioner:
   name: ansible
@@ -32,7 +34,7 @@ provisioner:
 
   inventory:
     group_vars:
-      ubuntu:
+      custom_daemon_conf:
         docker_ce_daemon_json:
           {
             "log-driver": "json-file",
