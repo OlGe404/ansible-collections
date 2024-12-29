@@ -1,0 +1,60 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  pre_tasks:
+    - name: Reboot host(s)
+      become: true
+      ansible.builtin.reboot:
+
+    - name: Wait for reboot and reconnect
+      ansible.builtin.wait_for:
+        host: "{{ inventory_hostname }}"
+        port: 22
+        delay: 10
+        timeout: 120
+
+  tasks:
+    - name: Test docker run
+      tags: skip_ansible_lint
+      ansible.builtin.shell: docker run hello-world
+
+- name: Verify no_daemon_conf
+  hosts: no_daemon_conf
+  gather_facts: false
+  tasks:
+    - name: Get status of /etc/docker/daemon.json
+      become: true
+      ansible.builtin.stat:
+        path: /etc/docker/daemon.json
+      register: file_stat
+
+    - name: Assert that /etc/docker/daemon.json does not exist
+      ansible.builtin.assert:
+        that:
+          - file_stat.stat.exists == false
+
+- name: Verify custom_daemon_conf
+  hosts: ccustom_daemon_conf
+  gather_facts: false
+  tasks:
+    - name: Get status of /etc/docker/daemon.json
+      become: true
+      ansible.builtin.stat:
+        path: /etc/docker/daemon.json
+      register: file_stat
+
+    - name: Assert that /etc/docker/daemon.json exists
+      ansible.builtin.assert:
+        that:
+          - file_stat.stat.exists == true
+
+    - name: Get content of /etc/docker/daemon.json
+      ansible.builtin.slurp:
+        src: /etc/docker/daemon.json
+      register: file_content
+
+    - name: Assert content of /etc/docker/daemon.json
+      ansible.builtin.assert:
+        that:
+          - (file_content.content | b64decode) == (docker_ce_daemon_json | to_json)
