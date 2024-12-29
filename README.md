@@ -97,9 +97,9 @@ Roles in this collection are tested on various unix-like operating systems (test
 #### Testing with docker
 Because we are using docker for some test scenarios, a container image for each platform we want to run our tests on is needed. The Dockerfiles can be found in the [.molecule/platforms](https://github.com/OlGe404/olge404.unix/tree/main/.molecule/platforms/) dir.
 
-The [docker-build.sh](https://github.com/OlGe404/olge404.unix/tree/main/scripts/docker-build.sh) script should be used to build, tag and push container images to dockerhub (if you need to build them manually). The CI will build and push all container images at least once per week automatically (at midnight every monday) to keep dependencies up to date.
+The [docker-build.sh](https://github.com/OlGe404/olge404.unix/tree/main/scripts/docker-build.sh) script should be used to build, tag and push container images to dockerhub (if you need to build them manually). The CI will build and push all container images at least once per week automatically to keep dependencies up to date (at midnight every monday).
 
-To use these container images for testing, reference them in the [molecule.yml file](https://github.com/OlGe404/olge404.unix/tree/main/roles/apt/molecule/default/molecule.yml) of a role. You can find all supported platforms and their current tags on [dockerhub](https://hub.docker.com/repository/docker/olge404/molecule/general).
+To use the container images for testing, reference them in the [molecule.yml](https://github.com/OlGe404/olge404.unix/tree/main/roles/apt/molecule/default/molecule.yml) file of a role. You can find the container images for all supported platforms and their current tags on [dockerhub](https://hub.docker.com/repository/docker/olge404/molecule/general).
 
 ##### Adding more test platforms for docker
 All container images need to be prepared to work with ansible and molecule when using the docker driver. This includes:
@@ -121,7 +121,7 @@ Checkout the [molecule + vagrant setup](https://github.com/OlGe404/olge404.unix/
 > because container images are smaller, faster and easier to work with than VMs.
 
 # Changelog
-All notable changes to this collection have to be listed in the [changelog.md file](https://github.com/OlGe404/olge404.unix/tree/main/changelog.md) and have to follow [semantic versioning](https://semver.org/).
+All notable changes to this collection have to be listed in the [changelog.md](https://github.com/OlGe404/olge404.unix/tree/main/changelog.md) file and have to follow [semantic versioning](https://semver.org/).
 
 The changelog.md file adheres to the conventions listed on [keepachangelog.com](https://keepachangelog.com/en/1.1.0/).
 
@@ -151,9 +151,9 @@ Keep an [UNRELEASED] section at the top to track upcoming changes. This serves t
 ```
 
 # Release a new version
-The [release.yml pipeline](https://github.com/OlGe404/olge404.unix/tree/main/.github/workflows/release.yml) is used to test, build and publish a new version of this collection to ansible-galaxy hub if a release-tag is pushed.
+The [release.yml](https://github.com/OlGe404/olge404.unix/tree/main/.github/workflows/release.yml) pipeline is used to test, build and publish a new version of this collection to ansible-galaxy hub if a release-tag is pushed.
 
-Before attempting to release a new version, update the `version` field in the [galaxy.yml file](https://github.com/OlGe404/olge404.unix/tree/main/galaxy.yml). The release pipeline will check if the version of the release-tag matches the `version` field in the galaxy.yml file and will fail, if it doesn't match. It will also fail if the version you are trying to release already exists on ansible-galaxy hub.
+Before attempting to release a new version, update the `version` field in the [galaxy.yml](https://github.com/OlGe404/olge404.unix/tree/main/galaxy.yml) file. The release pipeline will check if the version of the release-tag matches the `version` field in the galaxy.yml file and will fail, if it doesn't match. It will also fail if the version you are trying to release already exists on ansible-galaxy hub.
 
 If you forgot to update the `version` field in the galaxy.yml file, but already pushed a release-tag and the release pipeline fails, you have to:
 
