@@ -3,10 +3,6 @@ driver:
   name: docker
 
 platforms:
-  - name: virginia
-    image: docker.io/olge404/molecule:linux-mint-21.3-20241227080438
-    pre_build_image: true
-
   - name: wilma
     image: docker.io/olge404/molecule:linux-mint-22-20241227081132
     pre_build_image: true
@@ -34,23 +30,7 @@ provisioner:
               save_to: /etc/apt/keyrings/githubcli-archive-keyring.gpg
               dearmor: false
 
-    host_vars:
-      virginia:
-        apt_repos_overwrite:
-          hashicorp:
-            source: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com jammy main"
-            key:
-              download_url: https://apt.releases.hashicorp.com/gpg
-              save_to: /usr/share/keyrings/hashicorp-archive-keyring.gpg
-              dearmor: true
-
-          postgresql:
-            source: "deb [signed-by=/usr/share/postgresql-common/pgdg/apt.postgresql.org.asc] https://apt.postgresql.org/pub/repos/apt jammy-pgdg main"
-            key:
-              download_url: https://www.postgresql.org/media/keys/ACCC4CF8.asc
-              save_to: /usr/share/postgresql-common/pgdg/apt.postgresql.org.asc
-              dearmor: false
-        
+    host_vars:     
       wilma:
         apt_repos_overwrite:
           hashicorp:

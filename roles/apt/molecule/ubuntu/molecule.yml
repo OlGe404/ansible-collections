@@ -3,10 +3,6 @@ driver:
   name: docker
 
 platforms:
-  - name: jammy
-    image: docker.io/olge404/molecule:ubuntu-22.04-20241227081034
-    pre_build_image: true
-
   - name: noble
     image: docker.io/olge404/molecule:ubuntu-24.04-20241227081038
     pre_build_image: true
