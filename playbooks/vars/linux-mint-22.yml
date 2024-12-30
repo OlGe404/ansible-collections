@@ -17,6 +17,6 @@ apt_repos:
   virtualbox:
     source: deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] https://download.virtualbox.org/virtualbox/debian noble contrib
     key:
-      download_url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+      download_url: https://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc
       save_to: /usr/share/keyrings/oracle-virtualbox-2016.gpg
       dearmor: true
