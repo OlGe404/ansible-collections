@@ -42,6 +42,7 @@ To develop roles for this collection, some tools are necessary. These are:
 
 | Name                                        | Docs          |
 |---------------------------------------------|---------------|
+| git                                         | https://git-scm.com/book/en/v2/Getting-Started-Installing-Git |
 | ansible                                     | https://docs.ansible.com/ansible/latest/installation_guide/ |
 | molecule (+ drivers for docker and vagrant) | https://ansible.readthedocs.io/projects/molecule/installation/ |
 | docker                                      | https://docs.docker.com/engine/install/  |

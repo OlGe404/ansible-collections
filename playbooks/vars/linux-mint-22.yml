@@ -2,6 +2,7 @@
 apt_packages:
   build-essential: ""
   dkms: ""
+  git: ""
   libssl-dev: ""
   vagrant: ""
   virtualbox-7.1: ""
