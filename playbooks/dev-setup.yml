@@ -2,10 +2,7 @@
 - name: Setup local dev-environment
   hosts: localhost
   connection: local
-  gather_subset:
-    - distribution
-    - distribution_release
-
+  gather_facts: true
   pre_tasks:
     - name: Include vars for ubuntu
       when: ansible_facts['distribution'] in ['Ubuntu']
@@ -26,5 +23,7 @@
 
   roles:
     - role: olge404.unix.apt
-    - role: olge404.unix.docker_ce
     - role: olge404.unix.yq
+    - # Only install docker, when not running on GitHub actions
+      when: ansible_env.CI is not defined
+      role: olge404.unix.docker_ce
