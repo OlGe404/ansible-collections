@@ -3,14 +3,20 @@ driver:
   name: docker
 
 platforms:
-  - name: debian-12
-    image: docker.io/olge404/molecule:debian-12-20241219162345
+  - name: bookworm
+    image: docker.io/olge404/molecule:debian-12-20241230112659
     pre_build_image: true
     groups:
       - not-ubuntu
 
-  - name: ubuntu-24.04
-    image: docker.io/olge404/molecule:ubuntu-24.04-20241222185324
+  - name: noble
+    image: docker.io/olge404/molecule:ubuntu-24.04-20241230112704
+    pre_build_image: true
+    groups:
+      - ubuntu
+
+  - name: wilma
+    image: docker.io/olge404/molecule:linux-mint-22-20241230112708
     pre_build_image: true
     groups:
       - ubuntu
