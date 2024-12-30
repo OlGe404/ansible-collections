@@ -17,7 +17,7 @@
         - ansible_facts['distribution'] == 'Linux Mint'
         - ansible_facts['distribution_release'] == 'wilma'
       ansible.builtin.include_vars:
-        file: "{{ playbook_dir }}/vars/linux-mint-22.yml"
+        file: "{{ playbook_dir }}/vars/linuxmint-22.yml"
 
     - name: Include vars for debian
       when: ansible_facts['distribution'] == 'Debian'

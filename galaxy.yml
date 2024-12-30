@@ -13,7 +13,7 @@ tags:
   - packages
   - ubuntu
   - debian
-  - linux-mint
+  - linuxmint
 
 repository: https://github.com/OlGe404/olge404.unix
 documentation: https://github.com/OlGe404/olge404.unix/blob/main/README.md

@@ -12,7 +12,7 @@ platforms:
     pre_build_image: true
 
   - name: wilma
-    image: docker.io/olge404/molecule:linux-mint-22-20241227081132
+    image: docker.io/olge404/molecule:linuxmint-22-20241227081132
     pre_build_image: true
 
 provisioner:

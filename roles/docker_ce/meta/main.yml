@@ -11,6 +11,6 @@ galaxy_info:
     - packages
     - ubuntu
     - debian
-    - linux-mint
+    - linuxmint
     - apt
     - docker
