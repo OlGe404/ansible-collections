@@ -1,7 +1,7 @@
 tuxedo_tomte
 =========
 
-Install tuxedo-tomte on supported platforms (TUXEDO OS, Ubuntu 20.04, 22.04, and 24.04 - including directly based distributions such as Linux Mint, Kubuntu, Xubuntu, and Ubuntu MATE).
+Install tuxedo-tomte on ubuntu-based, supported platforms as linux mint, tuxedo OS, etc.
 
 Check the [tuxedo website](https://www.tuxedocomputers.com/en/Infos/Help-Support/Frequently-asked-questions/What-is-TUXEDO-Tomte-.tuxedo) for more.
 

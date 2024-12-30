@@ -1,7 +1,7 @@
 docker_ce
 =========
 
-Install docker-ce on debian, ubuntu and ubuntu-derivatives (Kubuntu, Xubuntu, Linux Mint, etc.).
+Install docker-ce on on debian-based linux distros (ubuntu, linuxmint, etc.).
 
 Requirements
 ------------

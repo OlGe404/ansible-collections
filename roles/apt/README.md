@@ -1,7 +1,7 @@
 apt
 =========
 
-Install apt packages on debian-like linux distros (ubuntu, linuxmint, etc.) from built-in or external apt sources.
+Install apt packages on debian-based linux distros (ubuntu, linuxmint, etc.) from built-in or external apt sources.
 
 Requirements
 ------------

@@ -1,7 +1,7 @@
 vscode_extensions
 =========
 
-Install and update vscode extensions using the "code" cli.
+Install and update extensions for vscode.
 
 > NOTE: The installation of vscode is not managed by this role.
 > Ensure vscode is installed beforehand, e.g. by using the `apt` or `snap` roles from this collection.
@@ -12,7 +12,6 @@ Requirements
 
 On the control node:
 
-* python3
 * ansible
 
 On the target node:
