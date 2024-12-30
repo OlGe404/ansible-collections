@@ -4,13 +4,13 @@ driver:
 
 platforms:
   - name: ubuntu-24.04
-    image: docker.io/olge404/molecule:ubuntu-24.04-20241222185324
+    image: docker.io/olge404/molecule:ubuntu-24.04-20241230112704
     pre_build_image: true
     groups:
       - code-installed
 
   - name: debian-12
-    image: docker.io/olge404/molecule:debian-12-20241219162345
+    image: docker.io/olge404/molecule:debian-12-20241230112659
     pre_build_image: true
     groups:
       - not-installed
