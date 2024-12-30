@@ -20,7 +20,7 @@ jobs:
           fi
 
       - run: scripts/python3-venv.sh
-      - run: scripts/ansible-galaxy-requirements.sh
       - run: scripts/ansible-test-sanity.sh
+      - run: source .venv/bin/activate && ansible-galaxy collectan install . && ansible-playbook playbooks/dev-setup.yml
       - run: scripts/molecule-test.sh
       - run: scripts/ansible-galaxy-publish.sh ${{ secrets.ANSIBLE_GALAXY_TOKEN }}
