@@ -84,6 +84,25 @@ scripts/molecule-test.sh apt
 scripts/molecule-test.sh docker_ce
 ```
 
+## Add more roles
+Read and follow the next sections to understand what a new role should look like, how you can get a headstart and what this fuzz is all about.
+
+### Bootstrapping
+Run the following commands to bootstrap the skeleton for a new role:
+
+```bash
+export ROLE_NAME="<ROLE_NAME>"
+cd roles
+ansible-galaxy role init $ROLE_NAME
+cd $ROLE_NAME
+molecule init scenario --driver-name docker
+molecule test
+```
+
+This creates the default layout for a new role (following ansible best practices) and ensures that the `molecule test` setup works.
+
+See `molecule --help` and https://ansible.readthedocs.io/projects/molecule/ for more information about testing ansible roles using molecule.
+
 ### Scope
 Each role should serve one purpose like "install a package on a debian-like distro".
 The goal is to keep each role as simple and concise as possible to ensure it can be tested properly and that it does what you would expect from it by reading its `README` file.
