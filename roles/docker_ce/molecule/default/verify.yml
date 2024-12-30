@@ -35,7 +35,7 @@
           - file_stat.stat.exists == false
 
 - name: Verify custom_daemon_conf
-  hosts: ccustom_daemon_conf
+  hosts: custom_daemon_conf
   gather_facts: false
   tasks:
     - name: Get status of /etc/docker/daemon.json
