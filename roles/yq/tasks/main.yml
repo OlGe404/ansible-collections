@@ -1,0 +1,27 @@
+---
+- name: Ensure download dir exists
+  become: true
+  ansible.builtin.file:
+    state: directory
+    path: /tmp/yq/{{ yq_version }}
+    owner: root
+    group: root
+    mode: "0755"
+  register: yq_download_dir
+
+- name: Download yq {{ yq_version }}
+  become: true
+  ansible.builtin.unarchive:
+    src: https://github.com/mikefarah/yq/releases/download/{{ yq_version }}/yq_linux_amd64.tar.gz
+    remote_src: true
+    dest: "{{ yq_download_dir.path }}"
+    creates: "{{ yq_download_dir.path }}/yq_linux_amd64"
+    owner: root
+    group: root
+    mode: "0755"
+  register: yq_download
+  until: yq_download is succeeded
+  retries: 3
+  delay: 3
+  notify:
+    - Move yq to /usr/local/bin

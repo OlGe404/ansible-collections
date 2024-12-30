@@ -1,0 +1,19 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  pre_tasks:
+    - name: Include default vars
+      ansible.builtin.include_vars:
+        file: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/defaults/main.yml"
+
+  tasks:
+    - name: Ensure yq works
+      tags: skip_ansible_lint
+      ansible.builtin.command: yq --version
+      register: yq_cmd
+
+    - name: Assert that configured version == installed version
+      ansible.builtin.assert:
+        that:
+          - yq_version in yq_cmd.stdout

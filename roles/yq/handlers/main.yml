@@ -1,0 +1,10 @@
+---
+- name: Move yq to /usr/local/bin
+  become: true
+  ansible.builtin.copy:
+    src: "{{ yq_download_dir.path }}/yq_linux_amd64"
+    remote_src: true
+    dest: /usr/local/bin/yq
+    owner: root
+    group: root
+    mode: "0755"
