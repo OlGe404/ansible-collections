@@ -1,6 +1,6 @@
 ---
 - name: Setup local dev-environment
-  hosts: all
+  hosts: localhost
   connection: local
   gather_subset:
     - distribution
