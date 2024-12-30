@@ -1,9 +1,12 @@
 ---
 - name: Ensure facts are gathered
-  when: ansible_facts['distribution'] is undefined
+  when:
+    - ansible_facts['distribution'] is undefined
+    - ansible_facts['distribution_release'] is undefined
   ansible.builtin.setup:
     gather_subset:
       - distribution
+      - distribution_release
 
 - name: Ensure necessary packages are installed
   become: true

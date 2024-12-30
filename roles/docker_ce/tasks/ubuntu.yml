@@ -12,29 +12,31 @@
   delay: 3
 
 - name: Map Linux Mint codenames to ubuntu codenames
+  when: ansible_facts['distribution'] == "Linux Mint"
   ansible.builtin.set_fact:
     ubuntu_codename: >-
-      {% if ansible_facts['distribution'] == 'LinuxMint' %}
-        {% set mapping = {
+      {%
+        set mapping = {
           'wilma': 'noble',
           'virginia': 'jammy',
           'victoria': 'jammy',
           'vera': 'jammy',
           'vanessa': 'jammy'
-        } %}
-        {{ mapping.get(ansible_facts['distribution_release'], 'unsupported') }}
-      {% else %}
-        {{ ansible_facts['distribution_release'] }}
-      {% endif %}
-  failed_when: ubuntu_codename == "unsupported"
+        }
+      %}
+
+      {{ mapping.get(ansible_facts['distribution_release'], 'unsupported') }}
+  failed_when:
+    - ubuntu_codename | length == 0
+    - ubuntu_codename == "unsupported"
 
 - name: Add APT repository
   become: true
-  ansible.builtin.shell: |
+  ansible.builtin.shell: |-
     set -o pipefail
 
-    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
-    {{ ubuntu_codename }} stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu {{ ubuntu_codename }} stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
   args:
     executable: /bin/bash
     creates: /etc/apt/sources.list.d/docker.list
