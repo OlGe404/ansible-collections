@@ -59,7 +59,7 @@ if ! docker ps > /dev/null 2>&1; then
 fi
 
 if [ -z "$1" ]; then
-    ROLES_TO_TEST=$(find "$ROOT/roles" -mindepth 1 -maxdepth 1 -type d)
+    ROLES_TO_TEST=$(find "$ROOT/roles" -mindepth 1 -maxdepth 1 -type d | sort)
 else
     ROLES_TO_TEST="$ROOT/roles/$1"
 fi
