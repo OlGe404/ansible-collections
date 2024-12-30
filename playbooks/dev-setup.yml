@@ -1,0 +1,30 @@
+---
+- name: Setup local dev-environment
+  hosts: all
+  connection: local
+  gather_subset:
+    - distribution
+    - distribution_release
+
+  pre_tasks:
+    - name: Include vars for ubuntu
+      when: ansible_facts['distribution'] in ['Ubuntu']
+      ansible.builtin.include_vars:
+        file: "{{ playbook_dir }}/vars/ubuntu.yml"
+
+    - name: Include vars for linux mint 22
+      when:
+        - ansible_facts['distribution'] == 'Linux Mint'
+        - ansible_facts['distribution_release'] == 'wilma'
+      ansible.builtin.include_vars:
+        file: "{{ playbook_dir }}/vars/linux-mint-22.yml"
+
+    - name: Include vars for debian
+      when: ansible_facts['distribution'] == 'Debian'
+      ansible.builtin.include_vars:
+        file: "{{ playbook_dir }}/debian.yml"
+
+  roles:
+    - role: olge404.unix.apt
+    - role: olge404.unix.docker_ce
+    - role: olge404.unix.yq

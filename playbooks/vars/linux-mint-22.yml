@@ -1,0 +1,22 @@
+---
+apt_packages:
+  build-essential: ""
+  dkms: ""
+  libssl-dev: ""
+  vagrant: ""
+  virtualbox-7.1: ""
+
+apt_repos:
+  hashicorp:
+    source: "deb [signed-by=/usr/share/keyrings/hashicorp-archive-keyring.gpg] https://apt.releases.hashicorp.com noble main"
+    key:
+      download_url: https://apt.releases.hashicorp.com/gpg
+      save_to: /usr/share/keyrings/hashicorp-archive-keyring.gpg
+      dearmor: true
+
+  virtualbox:
+    source: deb [arch=amd64 signed-by=/usr/share/keyrings/oracle-virtualbox-2016.gpg] https://download.virtualbox.org/virtualbox/debian noble contrib
+    key:
+      download_url: https://www.virtualbox.org/download/oracle_vbox_2016.asc
+      save_to: /usr/share/keyrings/oracle-virtualbox-2016.gpg
+      dearmor: true
