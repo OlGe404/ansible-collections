@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - `docker_ce` role
+- `yq` role
 - docs in `README.md` on how to use vagrant as test platform driver, when containers are not sufficient
 
 ### Removed
