@@ -5,13 +5,12 @@
   changed_when: false
   register: code_cli
 
-- name: Debug print if "code" cli isn't available
+- name: Print error if "code" cli isn't available
   when: code_cli.rc != 0
   ansible.builtin.fail:
     msg: "🚨 ERROR: Cannot perform 'code --help'. Is the code cli installed and in PATH?"
 
 - name: Install vscode extensions
-  when: code_cli.rc == 0
   loop: "{{ vscode_extensions }}"
   ansible.builtin.command: "code --install-extension {{ item }}"
   register: extension
