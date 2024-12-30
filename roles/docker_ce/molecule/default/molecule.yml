@@ -8,6 +8,7 @@ driver:
 platforms:
   - name: bookworm
     box: bento/debian-12
+    cpus: 2
     memory: 4096
     config_options:
       vm.boot_timeout: 300
@@ -16,6 +17,7 @@ platforms:
 
   - name: noble
     box: bento/ubuntu-24.04
+    cpus: 2
     memory: 4096
     config_options:
       vm.boot_timeout: 300

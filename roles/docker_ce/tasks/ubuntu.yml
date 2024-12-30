@@ -11,7 +11,7 @@
   retries: 3
   delay: 3
 
-- name: Map Linux Mint codenames to ubuntu codenames
+- name: Map linux mint codenames to ubuntu codenames
   when: ansible_facts['distribution'] == "Linux Mint"
   ansible.builtin.set_fact:
     ubuntu_codename: >-
