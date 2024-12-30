@@ -1,6 +1,6 @@
 ---
-- name: Verify code-installed
-  hosts: code-installed
+- name: Verify
+  hosts: all
   gather_facts: false
   tasks:
     - name: List code extensions
@@ -13,13 +13,3 @@
         that:
           - "'github.vscode-github-actions' in installed_extensions.stdout"
           - "'hashicorp.hcl@0.5.0' in installed_extensions.stdout"
-
-- name: Verify not-installed
-  hosts: not-installed
-  gather_facts: false
-  tasks:
-    - name: Check that no extensions are installed
-      tags: skip_ansible_lint
-      ansible.builtin.command: code --list-extensions
-      register: not_installed_extensions
-      failed_when: not_installed_extensions.rc == 0

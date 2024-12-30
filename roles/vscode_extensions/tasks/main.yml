@@ -7,8 +7,8 @@
 
 - name: Debug print if "code" cli isn't available
   when: code_cli.rc != 0
-  ansible.builtin.debug:
-    msg: "⚠️ DEBUG: Cannot perform 'code --help'. Is the code cli installed and in PATH?"
+  ansible.builtin.fail:
+    msg: "🚨 ERROR: Cannot perform 'code --help'. Is the code cli installed and in PATH?"
 
 - name: Install vscode extensions
   when: code_cli.rc == 0

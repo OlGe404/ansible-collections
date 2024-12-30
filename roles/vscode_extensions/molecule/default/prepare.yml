@@ -1,6 +1,6 @@
 ---
 - name: Prepare
-  hosts: code-installed
+  hosts: all
   gather_facts: false
   tasks:
     - name: Ensure prerequisites for vscode
