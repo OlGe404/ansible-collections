@@ -4,11 +4,10 @@ driver:
   provider:
     name: virtualbox
 
+# Using less than 4096 memory on any instance leads to crashing tests
 platforms:
   - name: bookworm
     box: bento/debian-12
-    # Using less than 4096 on any of the vargant instances may lead to crashing tests -
-    # don't change it on any instance!
     memory: 4096
     config_options:
       vm.boot_timeout: 300
