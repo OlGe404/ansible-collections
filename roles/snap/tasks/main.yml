@@ -1,0 +1,10 @@
+---
+- name: Install snap packages
+  become: true
+  when: snap_packages | length > 0
+  with_items: "{{ snap_packages }}"
+  community.general.snap:
+    name: "{{ item.name }}"
+    channel: "{{ item.channel | default('latest/stable') }}"
+    classic: "{{ item.classic | default(false) }}"
+    options: "{{ item.options | default([]) }}"

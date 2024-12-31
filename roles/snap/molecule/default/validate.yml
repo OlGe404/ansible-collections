@@ -1,0 +1,11 @@
+---
+- name: Validate
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Run test commands
+      tags: skip_ansible_lint
+      loop:
+        - hello-world
+        - helm version
+      ansible.builtin.command: "{{ item }}"

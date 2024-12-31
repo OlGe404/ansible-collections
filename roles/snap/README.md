@@ -1,0 +1,71 @@
+Role Name
+=========
+
+Install snap packages on linux distros where snap is supported (see https://snapcraft.io/docs/installing-snapd).
+
+Requirements
+------------
+
+On the control node:
+
+* [Requirements for the community.general.snap module](https://docs.ansible.com/ansible/latest/collections/community/general/snap_module.html)
+
+On the target node:
+
+* sudo privileges
+* snapd has to be installed
+
+Role Variables
+--------------
+
+All vars have empty default values set. If you don't provide any values for them, the tasks that use these vars won't have any effect on your system.
+
+| Name          | Type | Default | Description                                                                                                  |
+| ------------- | ---- | ------- | ------------------------------------------------------------------------------------------------------------ |
+| snap_packages | dict | {}      | List of key/value pairs of snaps to install. See the [Example Playbook](#example-playbook) section for more. |
+
+Dependencies
+------------
+
+N/A
+
+Example Playbook
+----------------
+
+```yaml
+- name: Install snap packages
+  hosts: all
+  roles:
+    - role: olge404.unix.snap
+      vars:
+        # The list of snap_packages to install can be defined using key/value pairs:
+        # - name: <snap>
+        #   channel: <channel> (default: latest/stable)
+        #   classic: <classic> (default: false)
+        #   options: <list of options> (default: [])
+        #
+        # The key/value for "name" is mandatory.
+        # The key/values for "channel", "classic" and "options" are optional, because they have default values set.
+        snap_packages:
+          - name: hello-world
+
+          - name: helm
+            channel: latest/candidate
+            classic: true
+          
+          - name: nextcloud
+            channel: 29/stable
+            options:
+              - ports.https!
+              - ports.http=81
+```
+
+License
+-------
+
+BSD
+
+Author Information
+------------------
+
+An optional section for the role authors to include contact information, or a website (HTML is not allowed).

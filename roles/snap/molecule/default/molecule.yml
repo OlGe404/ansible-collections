@@ -1,0 +1,29 @@
+---
+driver:
+  name: vagrant
+  provider:
+    name: virtualbox
+
+platforms:
+  - name: noble
+    box: bento/ubuntu-24.04
+    version: 202404.26.0
+    cpus: 2
+    memory: 2048
+    config_options:
+      vm.boot_timeout: 300
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../../../../.molecule/playbooks/converge.yml
+
+  inventory:
+    group_vars:
+      all:
+        snap_packages:
+          - name: hello-world
+
+          - name: helm
+            channel: latest/candidate
+            classic: true

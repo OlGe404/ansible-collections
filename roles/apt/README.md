@@ -10,7 +10,6 @@ On the control node:
 
 * [Requirements for the ansible.builtin.apt module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html#requirements)
 
-
 On the target node:
 
 * sudo privileges
