@@ -94,8 +94,9 @@ Run the following commands to bootstrap the skeleton for a new role:
 ```bash
 export ROLE_NAME="<ROLE_NAME>"
 cd roles
-ansible-galaxy role init $ROLE_NAME
+ansible-galaxy role init $ROLE_NAME --offline
 cd $ROLE_NAME
+rm -rf tests/
 molecule init scenario --driver-name docker
 molecule test
 ```
