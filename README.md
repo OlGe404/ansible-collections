@@ -32,7 +32,7 @@ The code is [hosted on Github](https://github.com/OlGe404/olge404.unix) and CI i
 
 ```bash
 scripts/python3-venv.sh --help
-scripts/build-container.sh -h
+scripts/docker-build.sh -h
 ```
 
 The CI pipelines can be found in the [.github/workflows](https://github.com/OlGe404/olge404.unix/tree/main/.github/workflows) dir.
