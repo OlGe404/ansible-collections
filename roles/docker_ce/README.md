@@ -8,8 +8,8 @@ Requirements
 
 On the control node:
 
+* ansible
 * [Requirements for the ansible.builtin.apt module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html#requirements)
-
 
 On the target node:
 

@@ -1,15 +1,16 @@
 tuxedo_tomte
 =========
 
-Install tuxedo-tomte on ubuntu-based, supported platforms as linux mint, tuxedo OS, etc.
+Install tuxedo-tomte on supported, ubuntu-based distros like linux mint, tuxedo OS, Xubuntu, Kubuntu etc.
 
-Check the [tuxedo website](https://www.tuxedocomputers.com/en/Infos/Help-Support/Frequently-asked-questions/What-is-TUXEDO-Tomte-.tuxedo) for more.
+Check the [TUXEDO](https://www.tuxedocomputers.com/en/Infos/Help-Support/Frequently-asked-questions/What-is-TUXEDO-Tomte-.tuxedo) website for more.
 
 Requirements
 ------------
 
 On the control node:
 
+* ansible
 * [Requirements for the ansible.builtin.apt module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/apt_module.html#requirements)
 
 On the target node:
