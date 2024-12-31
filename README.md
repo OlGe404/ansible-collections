@@ -40,15 +40,15 @@ The CI pipelines can be found in the [.github/workflows](https://github.com/OlGe
 ## Prerequisites
 To develop roles for this collection, some tools are necessary. These are:
 
-| Name                                        | Docs          |
-|---------------------------------------------|---------------|
-| git                                         | https://git-scm.com/book/en/v2/Getting-Started-Installing-Git |
-| ansible                                     | https://docs.ansible.com/ansible/latest/installation_guide/ |
+| Name                                        | Docs                                                           |
+|---------------------------------------------|--------------------------------------------------------------- |
+| git                                         | https://git-scm.com/book/en/v2/Getting-Started-Installing-Git  |
+| ansible                                     | https://docs.ansible.com/ansible/latest/installation_guide/    |
 | molecule (+ drivers for docker and vagrant) | https://ansible.readthedocs.io/projects/molecule/installation/ |
-| docker                                      | https://docs.docker.com/engine/install/  |
-| vagrant                                     | https://developer.hashicorp.com/vagrant/docs/installation |
-| virtualbox                                  | https://www.virtualbox.org/wiki/Downloads |
-| yq                                          | https://mikefarah.gitbook.io/yq#install |
+| docker                                      | https://docs.docker.com/engine/install/                        |
+| vagrant                                     | https://developer.hashicorp.com/vagrant/docs/installation      |
+| virtualbox                                  | https://www.virtualbox.org/wiki/Downloads                      |
+| yq                                          | https://mikefarah.gitbook.io/yq#install                        |
 
 You can use the following scripts and playbooks to automate the installation on your machine.
 
@@ -66,7 +66,7 @@ source .venv/bin/activate
 ansible-galaxy collection install olge404.unix --force
 ```
 
-To install docker, yq, vagrant and virtualbox, use the dev-setup playbook. The dev-setup playbook is supported on Ubuntu 24.04, Debian 12 and Linux Mint 22. If you are not developing of one of those distros, refer to the docs listed above to install the prerequisites by yourself.
+To install docker, yq, vagrant and virtualbox, use the dev-setup playbook. The dev-setup playbook is supported on Ubuntu 24.04, Debian 12 and Linux Mint 22. If you are not developing on those distros, refer to the docs in the table of prerequisites above to install them by yourself (or add a playbook for it here).
 
 ```bash
 ansible-playbook playbooks/dev-setup.yml
@@ -101,7 +101,20 @@ molecule init scenario --driver-name docker
 molecule test
 ```
 
-This creates the default layout for a new role (following ansible best practices) and ensures that the `molecule test` setup works.
+This creates the default layout for a new role (following ansible best practices) and ensures that the `molecule test` setup works when using the docker driver.
+
+To bootstrap a new role using the vagrant driver, run:
+
+```bash
+export ROLE_NAME="<ROLE_NAME"
+cd roles
+ansible-galaxy role init $ROLE_NAME --offline
+cd $ROLE_NAME
+rm -rf tests/
+molecule init scenario --driver-name vagrant
+rm molecule/default/{create,destroy}.yml
+molecule test
+```
 
 See `molecule --help` and https://ansible.readthedocs.io/projects/molecule/ for more information about testing ansible roles using molecule.
 
@@ -134,7 +147,7 @@ See the [Dockerfile for Ubuntu 24.04](https://github.com/OlGe404/olge404.unix/tr
 #### Testing with vagrant
 Sometimes you need a full fledged virtual machine (VM) to test roles properly (e.g. because they rely on software that containers are finicky with or are not ideal for). In those cases, vagrant and virtualbox are used to spin up VMs on-demand to use as test platforms for molecule.
 
-VMs that are managed with vagrant are called "boxes" and we don't build custom boxes for this repository (yet). We use pre-build [bento boxes](https://github.com/chef/bento) that are ready to be used as test platforms with molecule and vagrant.
+VMs that are managed with vagrant are called "boxes" and we don't build custom boxes for this repository (yet). We use pre-build [bento boxes](https://github.com/chef/bento) that are ready to be used as test platforms with molecule and vagrant. You can find a list of available bento boxes on [portal.cloud.hashicorp.com](https://portal.cloud.hashicorp.com/vagrant/discover/bento).
 
 Checkout the [molecule + vagrant setup](https://github.com/OlGe404/olge404.unix/tree/main/roles/docker_ce/molecule/default/molecule.yml) for the `docker_ce` role as example.
 
