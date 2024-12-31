@@ -59,11 +59,11 @@ To setup the virtual environment for python and install ansible, molecule and th
 scripts/python3-venv.sh
 ```
 
-Next, activate the python virtualenv in your shell and install this collection:
+Next, activate the python virtualenv in your shell and install this collection and its dependencies:
 
 ```bash
 source .venv/bin/activate
-ansible-galaxy collection install olge404.unix
+ansible-galaxy collection install olge404.unix --force
 ```
 
 To install docker, yq, vagrant and virtualbox, use the dev-setup playbook. The dev-setup playbook is supported on Ubuntu 24.04, Debian 12 and Linux Mint 22. If you are not developing of one of those distros, refer to the docs listed above to install the prerequisites by yourself.
