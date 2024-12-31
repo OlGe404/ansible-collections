@@ -20,6 +20,7 @@ jobs:
           fi
 
       - run: scripts/python3-venv.sh
+      - run: source .venv/bin/activate && scripts/validate-galaxy-hub-metadata.py
       - run: scripts/ansible-test-sanity.sh
       - run: source .venv/bin/activate && ansible-galaxy collection install . && ansible-playbook playbooks/dev-setup.yml
       - run: scripts/molecule-test.sh
