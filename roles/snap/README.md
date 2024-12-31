@@ -64,9 +64,9 @@ Example Playbook
 License
 -------
 
-BSD
+Apache License 2.0 (https://apache.org/licenses/LICENSE-2.0#apache-license-version-20)
 
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Written and maintained by [OlGe404](https://github.com/OlGe404).
