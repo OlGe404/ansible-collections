@@ -9,6 +9,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- missing "Role Name" in README of `snap` role
+
+### Changed
+
+- descriptions and examples of dependencies, usage and specs in various roles
+
+## [0.5.0] - 2024-12-31
+
+### Added
+
 - `snap` role
 
 ## [0.4.1] - 2024-12-30
