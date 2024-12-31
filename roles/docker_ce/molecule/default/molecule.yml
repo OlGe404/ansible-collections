@@ -8,6 +8,7 @@ driver:
 platforms:
   - name: bookworm
     box: bento/debian-12
+    version: 202407.22.0
     cpus: 2
     memory: 4096
     config_options:
@@ -17,6 +18,7 @@ platforms:
 
   - name: noble
     box: bento/ubuntu-24.04
+    version: 202404.26.0
     cpus: 2
     memory: 4096
     config_options:
