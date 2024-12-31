@@ -22,7 +22,7 @@ All vars have empty default values set. If you don't provide any values for them
 
 > **NOTE**: You will only need (or want) to use the `apt_packages_overwrite` or `apt_repos_overwrite` vars when using configuration layering with `group_vars` and `host_vars`. If this is not your use-case, you can simply (and safely) ignore them.
 
- See the [Example Playbook](#example-playbook) section for more.
+See the [Example Playbook](#example-playbook) section for more.
 
 | Name                   | Type | Default | Description                                                                                |
 | ---------------------- | ---- | ------- | ------------------------------------------------------------------------------------------ |
