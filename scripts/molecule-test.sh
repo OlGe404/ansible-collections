@@ -67,8 +67,8 @@ fi
 for role in $ROLES_TO_TEST; do
     cd $role
     if [ -d "molecule" ]; then
-        printf "ℹ️  Starting molecule tests for '$(basename $role)' role \n\n" && molecule test --all;
+        printf "ℹ️  Start molecule tests for '$(basename $role)' role \n\n" && molecule test --all;
     else
-        printf "⚠️  Cannot find molecule tests for '$(basename $role)' role \n\n" && exit 1
+        printf "⚠️  Can't find molecule tests for '$(basename $role)' role \n\n" && exit 1
     fi
 done
