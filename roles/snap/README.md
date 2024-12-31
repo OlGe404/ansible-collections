@@ -1,19 +1,19 @@
-Role Name
+snap
 =========
 
-Install snap packages on linux distros where snap is supported (see https://snapcraft.io/docs/installing-snapd).
+Install snap packages on supported linux distros (see https://snapcraft.io/docs/installing-snapd).
 
 Requirements
 ------------
 
 On the control node:
 
-* [Requirements for the community.general.snap module](https://docs.ansible.com/ansible/latest/collections/community/general/snap_module.html)
+* ansible
 
 On the target node:
 
 * sudo privileges
-* snapd has to be installed
+* snapd
 
 Role Variables
 --------------
@@ -38,14 +38,15 @@ Example Playbook
   roles:
     - role: olge404.unix.snap
       vars:
-        # The list of snap_packages to install can be defined using key/value pairs:
-        # - name: <snap>
-        #   channel: <channel> (default: latest/stable)
-        #   classic: <classic> (default: false)
-        #   options: <list of options> (default: [])
+        # The list of snap_packages to install can be defined using these key/value pairs:
+        # snap_packages:
+        #  - name: <snap>
+        #    channel: <channel> (default: latest/stable)
+        #    classic: <classic> (default: false)
+        #    options: <list of options> (default: [])
         #
-        # The key/value for "name" is mandatory.
-        # The key/values for "channel", "classic" and "options" are optional, because they have default values set.
+        # The key/value for "name" is mandatory and "channel", "classic" and "options" are optional,
+        # because they have default values set.
         snap_packages:
           - name: hello-world
 
