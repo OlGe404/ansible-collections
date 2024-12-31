@@ -1,4 +1,4 @@
-tuxedo_tomte
+yq
 =========
 
 Install mikefarah/yq on linux.
