@@ -1,0 +1,12 @@
+---
+- name: Prepare
+  hosts: installed
+  gather_facts: false
+  tasks:
+    - name: Install python3-venv and python3-packaging
+      become: true
+      ansible.builtin.apt:
+        update_cache: true
+        name:
+          - python3-venv
+          - python3-packaging

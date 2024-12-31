@@ -1,0 +1,61 @@
+---
+- name: Verify not_installed
+  hosts: not_installed
+  gather_facts: false
+  pre_tasks:
+    - name: Include default vars
+      ansible.builtin.include_vars:
+        file: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/defaults/main.yml"
+
+  tasks:
+    - name: Collect pip_venv_dir stats
+      ansible.builtin.stat:
+        path: "{{ pip_venv_dir }}"
+      register: pip_venv_dir_stat
+
+    - name: Assert that pip_venv_dir doesn't exist
+      ansible.builtin.assert:
+        that:
+          - pip_venv_dir_stat.stat.exists == false
+
+- name: Verify installed
+  hosts: bookworm
+  gather_facts: false
+  pre_tasks:
+    - name: Include default vars
+      ansible.builtin.include_vars:
+        file: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/defaults/main.yml"
+
+  tasks:
+    - name: Run test commands in venv
+      tags: skip_ansible_lint
+      loop:
+        - ansible --version
+        - molecule --version
+      ansible.builtin.shell: "source {{ pip_venv_dir }}/bin/activate && {{ item }}"
+      args:
+        executable: /bin/bash
+
+- name: Verify noble
+  hosts: noble
+  gather_facts: false
+  pre_tasks:
+    - name: Include default vars
+      ansible.builtin.include_vars:
+        file: "{{ lookup('env', 'MOLECULE_PROJECT_DIRECTORY') }}/defaults/main.yml"
+
+    - name: Include host_vars
+      ansible.builtin.include_vars:
+        dir: "{{ lookup('env', 'MOLECULE_EPHEMERAL_DIRECTORY') }}/inventory/host_vars/"
+        extensions:
+          - ""
+
+  tasks:
+    - name: Run test commands in venv
+      tags: skip_ansible_lint
+      loop:
+        - ansible --version
+        - molecule --version
+      ansible.builtin.shell: "source {{ pip_venv_dir }}/bin/activate && {{ item }}"
+      args:
+        executable: /bin/bash
