@@ -45,8 +45,8 @@ Example Playbook
         #    classic: <classic> (default: false)
         #    options: <list of options> (default: [])
         #
-        # The key/value for "name" is mandatory and "channel", "classic" and "options" are optional,
-        # because they have default values set.
+        # The key/value for "name" is mandatory and "channel", "classic" and "options" are optional
+        # because their default values are used when no value is provided.
         snap_packages:
           - name: hello-world
 
