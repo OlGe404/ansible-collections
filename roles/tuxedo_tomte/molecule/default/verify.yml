@@ -1,16 +1,6 @@
 ---
-- name: Verify on not-ubuntu
-  hosts: not-ubuntu
-  gather_facts: false
-  tasks:
-    - name: Ensure tomte isn't installed here
-      tags: skip_ansible_lint
-      ansible.builtin.command: tomte versions
-      register: tomte
-      failed_when: tomte.rc == 0
-
-- name: Verify on ubuntu
-  hosts: ubuntu
+- name: Verify
+  hosts: all
   gather_facts: false
   pre_tasks:
     - name: Include default vars
