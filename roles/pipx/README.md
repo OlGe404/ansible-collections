@@ -15,7 +15,6 @@ Requirements
 On the control node:
 
 * ansible
-* [Requirements for the ansible.builtin.pip module](https://docs.ansible.com/ansible/latest/collections/ansible/builtin/pip_module.html)
 
 On the target node:
 
@@ -27,8 +26,6 @@ Role Variables
 --------------
 
 The `pipx_packages` var has an empty default value set. If you don't provide a list of `pipx_packages` to install, this role won't have any effect on your system.
-
-See the [Example Playbook](#example-playbook) section for more.
  
 | Name          | Type | Default | Description                                                                                       |
 | ------------- | ---- | ------- | ------------------------------------------------------------------------------------------------- |
@@ -60,11 +57,11 @@ Example Playbook
           - name: pycowsay
 
           - name: black
-            # Install "black" for all users.
+            # Install "black" system-wide.
             global: true
-            # Arguments to add to the pipx install command. Note that the "--global"
-            # arg is automatically appended and installation is performed using sudo
-            # if "global: true" is set. Don't add the "--global" arg to the "args" list.
+            # Arguments to append to the "pipx install" command.
+            # Note that the "--global" arg is automatically appended if "global: true" is set.
+            # Don't add the "--global" arg to the "args" list, but use "global: <true|false>" instead.
             args:
               - --python /usr/bin/python3
 ```
