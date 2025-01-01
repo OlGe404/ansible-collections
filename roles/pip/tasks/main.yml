@@ -1,21 +1,18 @@
 ---
-- name: Change condition
+- name: Check condition
   when: pip_packages | length > 0
   block:
-    - name: Ensure parent dir for venv exists
-      become: true
-      ansible.builtin.file:
-        state: directory
-        path: "{{ pip_venv_dir | dirname }}"
-        group: root
-        mode: "0777"
+    - name: Collect stats if venv exists
+      ansible.builtin.stat:
+        path: "{{ pip_venv_dir }}/bin/activate"
+      register: pip_venv
 
-    - name: Setup venv using python3
-      ansible.builtin.command: "python3 -m venv {{ pip_venv_dir }}"
-      args:
-        creates: "{{ pip_venv_dir }}"
+    - name: Include create_venv.yml
+      when: not pip_venv.stat.exists
+      ansible.builtin.include_tasks:
+        file: create_venv.yml
 
-    - name: Update pip, setuptools and wheel to "latest" in venv
+    - name: Update pip, setuptools and wheel in venv
       tags: skip_ansible_lint
       ansible.builtin.pip:
         virtualenv: "{{ pip_venv_dir }}"

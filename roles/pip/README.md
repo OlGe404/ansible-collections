@@ -1,9 +1,9 @@
 pip
 =========
 
-Install pip packages into an venv for python3 (tested on debian-based distros).
+Install pip packages into an venv for python3. The venv will be created using the python3-venv package (tested on debian-based distros).
 
-> NOTE: The installation of necessary packages like python3, python3-venv and python3-packaging is not managed by this role.
+> NOTE: The installation of required packages like python3, python3-venv and python3-packaging is not managed by this role.
 > You can install those packages beforehand by using the "apt" role from this collection.
 
 Requirements
@@ -18,8 +18,8 @@ On the target node:
 
 * sudo privileges
 * python3 in PATH
-* python3-venv
-* python3-packaging
+* python3-venv (on debian-based distros)
+* python3-packaging (on debian-based distros)
 
 > NOTE: Other packages may be required if executed on a linux distro that is not debian-based (RHEL, CentOS, Fedora, etc.).
 
@@ -30,10 +30,10 @@ The `pip_packages` var has an empty default value set. If you don't provide a li
 
 See the [Example Playbook](#example-playbook) section for more.
  
-| Name            | Type    | Default          | Description                                        |
-| --------------- | ------- | ---------------- | -------------------------------------------------- |
-| pip_packages    | list    | []               | List of pip packages to install.                   |
-| pip_venv_dir    | string  | /opt/python/venv | Path of the virtualenv to install pip packages to. |
+| Name            | Type    | Default          | Description                                                                                |
+| --------------- | ------- | ---------------- | ------------------------------------------------------------------------------------------ |
+| pip_packages    | list    | []               | List of pip packages to install.                                                           |
+| pip_venv_dir    | string  | /opt/python/venv | Path of the venv to install pip packages to. The venv will be created if it doesn't exist. |
 
 Dependencies
 ------------
