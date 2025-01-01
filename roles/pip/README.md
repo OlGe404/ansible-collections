@@ -1,7 +1,8 @@
 pip
 =========
 
-Install pip packages into an venv for python3. The venv will be created using the python3-venv package (tested on debian-based distros).
+Install pip packages into a venv for python3. The venv will be created using the python3-venv package (tested on debian-based distros).
+See https://docs.python.org/3/library/venv.html for more.
 
 > NOTE: The installation of required packages like python3, python3-venv and python3-packaging is not managed by this role.
 > You can install those packages beforehand by using the "apt" role from this collection.

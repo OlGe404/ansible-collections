@@ -7,19 +7,13 @@ platforms:
     image: docker.io/olge404/molecule:debian-12-20241230112659
     pre_build_image: true
     groups:
-      - installed
+      - pip_packages_default
 
   - name: noble
     image: docker.io/olge404/molecule:ubuntu-24.04-20241230112704
     pre_build_image: true
     groups:
-      - installed
-
-  - name: wilma
-    image: docker.io/olge404/molecule:linux-mint-22-20241230112708
-    pre_build_image: true
-    groups:
-      - not_installed
+      - pip_packages_added
 
 provisioner:
   name: ansible
@@ -28,11 +22,7 @@ provisioner:
 
   inventory:
     group_vars:
-      installed:
+      pip_packages_added:
         pip_packages:
           - ansible
           - molecule==24.12.0
-
-    host_vars:
-      noble:
-        pip_venv_dir: /tmp/python/venv
