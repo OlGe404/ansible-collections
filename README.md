@@ -2,7 +2,7 @@
 This ansible collection is useful to streamline and ease the automated installation and configuration
 of various software packages on unix-like operating systems (popular linux distros and macOS).
 
-Most roles are tested on these linux distros (when applicable):
+Roles are tested on these linux distros (when applicable):
 
 * Ubuntu: 24.04 (noble numbat)
 * Debian: 12 (bookworm)
@@ -141,6 +141,8 @@ All container images need to be prepared to work with ansible and molecule when 
 * Installing the python3, sudo and ca-certificates packages
 * Creating a non-root user to perform tests with
 * Enable passwordless sudo for the non-root user
+
+> NOTE: If you need to install larger software packages, that should not be downloaded during each test (e.g. vscode for the [vscode_extensions](https://github.com/OlGe404/olge404.unix/tree/main/roles/vscode_extensions/molecule/default/molecule.yml) role), you should write a dedicated Dockerfile for this to speed up molecule tests.
 
 See the [Dockerfile for Ubuntu 24.04](https://github.com/OlGe404/olge404.unix/tree/main/.molecule/platforms/Dockerfile.ubuntu-24.04) as an example on how to prepare a test platform for molecule.
 
