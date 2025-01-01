@@ -1,0 +1,11 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Run test commands
+      tags: skip_ansible_lint
+      loop:
+        - /home/molecule/.local/bin/pycowsay
+        - black --version
+      ansible.builtin.command: "{{ item }}"

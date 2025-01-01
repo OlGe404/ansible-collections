@@ -1,0 +1,23 @@
+---
+driver:
+  name: docker
+
+platforms:
+  - name: noble
+    image: docker.io/olge404/molecule:ubuntu-24.04-20241230112704
+    pre_build_image: true
+
+provisioner:
+  name: ansible
+  playbooks:
+    converge: ../../../../.molecule/playbooks/converge.yml
+
+  inventory:
+    group_vars:
+      all:
+        pipx_packages:
+          - name: pycowsay
+          - name: black
+            global: true
+            args:
+              - --python /usr/bin/python3

@@ -1,0 +1,21 @@
+---
+# NOTE: We don't use the "community.general.pipx" module on purpose
+# because it didn't work properly when passing --global and other parameters
+# for an installation.
+- name: Install pipx packages
+  when: pipx_packages | length > 0
+  with_items: "{{ pipx_packages }}"
+  ansible.builtin.shell: |
+    GLOBAL="{{ item.global | default(false) }}"
+    ARGS="{{ item.args | join(' ') if item.args is defined else '' }}"
+
+    if [ "$GLOBAL" = "True" ]; then
+      sudo pipx install {{ item.name }} --global $ARGS
+    else
+      pipx install {{ item.name }} $ARGS
+    fi
+
+  register: pipx_cmd
+  changed_when: '"already seems to be installed" not in pipx_cmd.stdout'
+  args:
+    executable: /bin/bash

@@ -1,0 +1,35 @@
+---
+- name: Prepare
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install pipx
+      become: true
+      ansible.builtin.apt:
+        name: pipx
+        update_cache: true
+
+    # From here it's a nasty workaround because pipx is not properly maintained
+    # and outdated on ubuntu 24.04. We need the following lines to install a newer version.
+    # See https://github.com/pypa/pipx/issues/1481.
+    - name: Ensure pipx is in PATH
+      tags: skip_ansible_lint
+      ansible.builtin.command: pipx ensurepath
+
+    - name: Update local pipx using pipx
+      tags: skip_ansible_lint
+      ansible.builtin.command: pipx install pipx
+
+    - name: Make updated pipx globally available
+      become: true
+      tags: skip_ansible_lint
+      ansible.builtin.command: /home/molecule/.local/bin/pipx install pipx --global
+
+    - name: Remove local pipx
+      tags: skip_ansible_lint
+      ansible.builtin.command: pipx uninstall pipx
+
+    - name: Ensure pipx is in PATH globally
+      become: true
+      tags: skip_ansible_lint
+      ansible.builtin.command: pipx ensurepath --global
