@@ -22,7 +22,6 @@ provisioner:
       all:
         snap_packages:
           - name: hello-world
-
           - name: helm
             channel: latest/candidate
             classic: true
