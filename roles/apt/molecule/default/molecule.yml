@@ -25,7 +25,6 @@ provisioner:
       all:
         apt_packages:
           gh: ""
-          git: ""
           terraform: ""
           postgresql-16: ""
 
