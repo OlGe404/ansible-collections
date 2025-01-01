@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.6.1] - 2025-01-01
+
+### Added
+
+- checks if pip_packages values are provided to not alter the system if nothing has been set in `pip` role
+- checks if pip_venv_dir already exists before creating it in `pip` role
+
+### Fixed
+
+- docs for `pip` role about venv handling
+
 ## [0.6.0] - 2024-12-31
 
 ### Added
