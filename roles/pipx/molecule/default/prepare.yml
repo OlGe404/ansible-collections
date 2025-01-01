@@ -16,7 +16,7 @@
       tags: skip_ansible_lint
       ansible.builtin.command: pipx ensurepath
 
-    - name: Update local pipx using pipx
+    - name: Update local pipx
       tags: skip_ansible_lint
       ansible.builtin.command: pipx install pipx
 
