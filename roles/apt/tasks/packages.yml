@@ -17,3 +17,4 @@
   become: true
   ansible.builtin.apt:
     name: "{{ packages }}"
+    update_cache: true
