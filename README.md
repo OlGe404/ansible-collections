@@ -205,10 +205,10 @@ RELEASE_VERSION=$(yq .version galaxy.yml)
 git tag
 
 # Create and push a new tag
-git tag -a release-$RELEASE_VERSION -m "Release version $RELEASE_VERSION"
+git tag -a release-$RELEASE_VERSION -m "Release version $RELEASE_VERSION" && \
 git push origin release-$RELEASE_VERSION
 
 # Delete tag locally and remote (if release pipeline failed)
-git tag -d release-$RELEASE_VERSION
+git tag -d release-$RELEASE_VERSION && \
 git push origin --delete release-$RELEASE_VERSION
 ```
