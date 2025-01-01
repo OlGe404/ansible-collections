@@ -3,8 +3,8 @@ driver:
   name: docker
 
 platforms:
-  - name: ubuntu-24.04
-    image: docker.io/olge404/molecule:ubuntu-24.04-20241230112704
+  - name: noble
+    image: docker.io/olge404/molecule:ubuntu-24.04-vscode-20250101170616
     pre_build_image: true
 
 provisioner:
